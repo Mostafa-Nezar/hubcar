@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credential Verification | IACS – Institute of Applied CX Science</title>
+  <meta name="description" content="Verify a CGVS™ credential issued by the Institute of Applied CX Science. Enter a Credential ID to confirm status.">
+  <link rel="canonical" href="https://appliedcxscience.com/verify">
+  <link rel="stylesheet" href="iacs.css">
+  <style>
+    /* Terminal blink cursor */
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .cursor::after {
+      content: '_';
+      animation: blink 1s step-end infinite;
+      color: var(--gold);
+      margin-left: 2px;
+    }
+    /* Scanline animation on result */
+    .scanline {
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      animation: scanline 1.2s ease-out 1;
+      pointer-events: none;
+    }
+    @keyframes scanline {
+      from { top: 0; opacity: 1; }
+      to   { top: 100%; opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-follower" id="cursor-follower"></div>
+
+    <div class="scanline-overlay"></div>
+    <div class="noise-overlay"></div>
+
+    <div class="scroll-progress-container">
+      <div class="scroll-progress-bar" id="scroll-bar"></div>
+    </div>
+
+    <header id="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="IACS Home">
+          <img src="images/logo.png" alt="IACS Logo" class="logo-img">
+        </a>
+        <nav class="nav-desktop" aria-label="Main navigation">
+          <a href="certification.html" class="nav-link">Certification (The CGVS&#8482;)</a>
+          <a href="board.html" class="nav-link">The Board of Governors</a>
+          <a href="audits.html" class="nav-link">Corporate Audits</a>
+          <a href="library.html" class="nav-link">The Research Library</a>
+          <a href="about.html" class="nav-link">About the Institute</a>
+        </nav>
+        <div class="header-actions">
+          <a href="login.html" class="btn btn--outline" style="padding:0.55em 1.4em; font-size:0.68rem;">Member Login</a>
+          <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+      <a href="certification.html" class="nav-link">Certification (The CGVS&#8482;)</a>
+      <a href="board.html" class="nav-link">The Board of Governors</a>
+      <a href="audits.html" class="nav-link">Corporate Audits</a>
+      <a href="library.html" class="nav-link">The Research Library</a>
+      <a href="about.html" class="nav-link">About the Institute</a>
+      <div class="nav-mobile-sep"></div>
+      <a href="login.html" class="btn btn--outline">Member Login</a>
+    </nav>
+
+<!-- MAIN VERIFY SECTION -->
+<section style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding-top:var(--nav-h); padding-inline:1rem;">
+  <div class="verify-terminal anim-fade-up">
+
+    <!-- Page-title context -->
+    <div class="text-center" style="margin-bottom:2.5rem;">
+      <div class="section-eyebrow" style="justify-content:center; margin-bottom:0.75rem;">
+        <span class="t-label">Credential Registry</span>
+      </div>
+      <h1 class="t-section-title" style="font-size:clamp(1.4rem,3.5vw,2.25rem);">CGVS™ Credential Verification</h1>
+      <p class="t-body" style="margin-top:0.75rem; font-size:0.85rem; max-width:480px; margin-inline:auto;">
+        Enter the Credential ID printed on a CGVS™ certificate to confirm its status with the IACS registry.
+      </p>
+    </div>
+
+    <!-- Terminal chrome -->
+    <div class="terminal-bar">
+      <span class="terminal-dot"></span>
+      <span class="terminal-dot"></span>
+      <span class="terminal-dot" style="background:var(--gold-dim);"></span>
+      <span class="terminal-url">appliedcxscience.com/verify — IACS Credential Registry v2.1</span>
+    </div>
+
+    <!-- Terminal body -->
+    <div class="terminal-body">
+      <div style="font-family:'Courier New', monospace; font-size:0.75rem; color:var(--cream-dim); margin-bottom:1.5rem; border-bottom:1px solid var(--gold-line); padding-bottom:0.75rem;">
+        <span style="color:var(--gold);">IACS&gt;</span> CREDENTIAL VERIFICATION SYSTEM · IACS REGISTRY<br>
+        <span style="color:var(--gold);">IACS&gt;</span> Enter a valid Credential ID below and press VERIFY.<br>
+        <span style="color:var(--gold);">IACS&gt;</span> Demo: try <code style="color:var(--gold);">CGVS-2024-001</code> or <code style="color:var(--gold);">CGVS-2025-042</code>
+      </div>
+
+      <form id="verify-form" autocomplete="off">
+        <div class="verify-input-group">
+          <input
+            type="text"
+            id="credential-input"
+            class="verify-input"
+            placeholder="e.g. CGVS-2024-001"
+            aria-label="Credential ID"
+            spellcheck="false"
+            autofocus
+          >
+          <button type="submit" class="btn btn--primary" style="border-radius:0; padding:0.8em 1.75em; font-size:0.78rem;">
+            Verify
+          </button>
+        </div>
+
+        <div id="verify-result" class="verify-result" style="position:relative;">
+          <div class="scanline" id="verify-scanline" style="display:none;"></div>
+          <p id="verify-status" class="verify-status"></p>
+          <div id="verify-detail" style="font-size:0.8rem; color:var(--cream-dim); margin-top:0.6rem; line-height:1.8; font-family:'Courier New', monospace;"></div>
+        </div>
+      </form>
+
+      <div style="margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--gold-line); display:flex; align-items:center; gap:0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <circle cx="7" cy="7" r="6" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+          <line x1="7" y1="5" x2="7" y2="9.5" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+          <circle cx="7" cy="3.5" r="0.75" fill="rgba(212,175,55,0.5)"/>
+        </svg>
+        <p style="font-size:0.7rem; color:var(--cream-dim); letter-spacing:0.04em;">
+          Credential IDs are formatted as <code style="color:var(--gold); font-size:0.68rem;">CGVS-YYYY-NNN</code>. 
+          For disputes contact <a href="mailto:chairman@appliedcxscience.com" style="color:var(--gold-dim);">chairman@appliedcxscience.com</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Trust signals below terminal -->
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--gold-line); margin-top:2px;">
+      <div style="background:var(--surface-2); padding:1rem; text-align:center;">
+        <div style="font-family:var(--font-serif); font-size:0.7rem; color:var(--gold); letter-spacing:0.1em; text-transform:uppercase;">Registry</div>
+        <div style="font-size:0.68rem; color:var(--cream-dim); margin-top:0.25rem;">IACS Global</div>
+      </div>
+      <div style="background:var(--surface-2); padding:1rem; text-align:center;">
+        <div style="font-family:var(--font-serif); font-size:0.7rem; color:var(--gold); letter-spacing:0.1em; text-transform:uppercase;">Standard</div>
+        <div style="font-size:0.68rem; color:var(--cream-dim); margin-top:0.25rem;">IACS-7 Protocol</div>
+      </div>
+      <div style="background:var(--surface-2); padding:1rem; text-align:center;">
+        <div style="font-family:var(--font-serif); font-size:0.7rem; color:var(--gold); letter-spacing:0.1em; text-transform:uppercase;">Uptime</div>
+        <div style="font-size:0.68rem; color:var(--cream-dim); margin-top:0.25rem;">99.97% SLA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <footer id="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-col-title">HQ &amp; Contact</div>
+            <p class="footer-text">34-35 Hatton Garden<br>London, UK</p>
+            <a href="mailto:chairman@appliedcxscience.com" class="footer-link" style="margin-top:0.75rem; display:block;">chairman@appliedcxscience.com</a>
+          </div>
+          <div>
+            <div class="footer-col-title">Institute Tools</div>
+            <a href="verify.html" class="footer-link">Credential Verification Portal</a>
+            <a href="login.html" class="footer-link">Faculty Login</a>
+          </div>
+          <div>
+            <div class="footer-col-title">Legal</div>
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Audit</a>
+            <a href="#" class="footer-link">Press Enquiries</a>
+          </div>
+        </div>
+        <div class="footer-motto">&ldquo;In God we trust. Everyone else must bring data.&rdquo;</div>
+        <div class="footer-copy">&copy; 2026 The Institute of Applied CX Science. All rights reserved.</div>
+      </div>
+    </footer>
+
+<script src="iacs.js"></script>
+<script>
+  // Scanline enhancement for verify result
+  const origForm = document.getElementById('verify-form');
+  if (origForm) {
+    const scanline = document.getElementById('verify-scanline');
+    origForm.addEventListener('submit', () => {
+      setTimeout(() => {
+        if (scanline) {
+          scanline.style.display = 'block';
+          setTimeout(() => { scanline.style.display = 'none'; }, 1400);
+        }
+      }, 50);
+    });
+  }
+</script>
+</body>
+</html>

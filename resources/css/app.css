@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import "swiper/css/bundle";
+@import "tom-select/dist/css/tom-select.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --color-primary: #c19b76;
+    --color-secondary: #1a1a1a;
+    --font-cairo: "Cairo", sans-serif;
+    --font-sans:
+        "Cairo", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}
+
+[x-cloak] {
+    display: none !important;
+}

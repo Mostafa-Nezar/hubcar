@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Profile | IACS Intelligence Unit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="iacs.css">
+  </head>
+  <body class="noise-bg">
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-follower" id="cursor-follower"></div>
+
+    <div class="scanline-overlay"></div>
+    <div class="noise-overlay"></div>
+
+    <div class="scroll-progress-container">
+      <div class="scroll-progress-bar" id="scroll-bar"></div>
+    </div>
+
+    <header id="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="IACS Home">
+          <img src="images/logo.png" alt="IACS Logo" class="logo-img">
+        </a>
+        <nav class="nav-desktop" aria-label="Main navigation">
+          <a href="certification.html" class="nav-link">Certification (The CGVS&#8482;)</a>
+          <a href="board.html" class="nav-link">The Board of Governors</a>
+          <a href="audits.html" class="nav-link">Corporate Audits</a>
+          <a href="library.html" class="nav-link">The Research Library</a>
+          <a href="about.html" class="nav-link">About the Institute</a>
+        </nav>
+        <div class="header-actions">
+          <a href="login.html" class="btn btn--outline" style="padding:0.55em 1.4em; font-size:0.68rem;">Member Login</a>
+          <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+      <a href="certification.html" class="nav-link">Certification (The CGVS&#8482;)</a>
+      <a href="board.html" class="nav-link">The Board of Governors</a>
+      <a href="audits.html" class="nav-link">Corporate Audits</a>
+      <a href="library.html" class="nav-link">The Research Library</a>
+      <a href="about.html" class="nav-link">About the Institute</a>
+      <div class="nav-mobile-sep"></div>
+      <a href="login.html" class="btn btn--outline">Member Login</a>
+    </nav>
+
+    <main class="profile-section">
+      <div class="container profile-grid">
+        
+        <!-- Left: Main Profile Content -->
+        <div class="profile-main">
+          
+          <!-- Header Card -->
+          <div class="profile-header-card reveal">
+            <div class="profile-cover"></div>
+            <div class="profile-avatar-wrapper">
+              <img src="https://ui-avatars.com/api/?name=Alexander+Hamilton&background=1a1a1a&color=d4af37&size=200" alt="Alexander Hamilton" class="profile-avatar">
+              <div style="margin-bottom: 2rem;">
+                <button class="btn btn--primary" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;">Edit Forensic Profile</button>
+              </div>
+            </div>
+            <div class="profile-info">
+              <h1 class="profile-name">Alexander Hamilton, CGVS™</h1>
+              <p class="profile-headline">Chief Experience Officer at Capital Fiduciary Group | Applied CX Scientist</p>
+              <div class="profile-meta">
+                <span><i class="fas fa-map-marker-alt"></i> New York, Corporate District</span>
+                <span><i class="fas fa-link"></i> 500+ Forensic Connections</span>
+              </div>
+              <p class="t-body" style="font-size: 0.9rem; margin-top: 1rem; line-height: 1.6;">
+                Specializing in the quantification of EBITDA friction and solvency diagnostics. Over 15 years of board-level governance experience in financial services. Lead auditor for the IACS·7 Solvency Framework.
+              </p>
+            </div>
+          </div>
+
+          <!-- Experience Section -->
+          <div class="experience-card reveal">
+            <h2 class="section-title-sm">Professional Trajectory</h2>
+            
+            <div class="experience-item">
+              <div class="exp-logo">CFG</div>
+              <div class="exp-content">
+                <div class="exp-company">Capital Fiduciary Group</div>
+                <h3>Chief Experience Officer (CXO)</h3>
+                <div class="exp-date">Jan 2020 – Present · 4 yrs 3 mos</div>
+                <p class="t-body" style="font-size: 0.85rem;">Leading the fiduciary CX transformation across global wealth management divisions. Reduced operational friction by 22% using IACS models.</p>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="exp-logo">GT</div>
+              <div class="exp-content">
+                <div class="exp-company">Global Trust Bank</div>
+                <h3>Senior Governance Auditor</h3>
+                <div class="exp-date">Jun 2015 – Dec 2019 · 4 yrs 7 mos</div>
+                <p class="t-body" style="font-size: 0.85rem;">Managed internal audits for customer-facing risk protocols. Implemented the first version of the Solvent Loyalty index.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certification Vault (Core Focus) -->
+          <div class="experience-card reveal">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+              <h2 class="section-title-sm" style="margin-bottom: 0;">Verified Credentials Vault</h2>
+              <a href="verify.html" class="t-label" style="font-size: 0.6rem; color: var(--gold);">Public Verification Page <i class="fas fa-external-link-alt"></i></a>
+            </div>
+            
+            <div class="cert-badge-grid">
+              <!-- Badge 1: CGVS -->
+              <div class="cert-badge-card">
+                <div class="cert-status-tag">Level 7 Expert</div>
+                <div class="badge-icon-lg">
+                  <svg viewBox="0 0 100 100" fill="none" style="width: 100%; height: 100%;">
+                    <circle cx="50" cy="50" r="45" stroke="var(--gold)" stroke-width="1" />
+                    <text x="50" y="55" text-anchor="middle" fill="var(--gold)" font-family="serif" font-weight="900" font-size="24">CGVS</text>
+                    <path d="M30 70 L50 85 L70 70" stroke="var(--gold)" stroke-width="2" />
+                  </svg>
+                </div>
+                <h3 style="font-size: 1rem; color: var(--gold);">Certified Governance Value Specialist</h3>
+                <p style="font-size: 0.75rem; color: var(--cream-dim); margin-top: 0.5rem;">Issued: March 2024 · No Expiration</p>
+                <div class="cert-id-code">ID: IACS-742-ALPHA-HAMILTON</div>
+              </div>
+
+              <!-- Badge 2: Solvency Auditor -->
+              <div class="cert-badge-card">
+                <div class="cert-status-tag">Institutional</div>
+                <div class="badge-icon-lg">
+                  <svg viewBox="0 0 100 100" fill="none" style="width: 100%; height: 100%;">
+                    <rect x="25" y="25" width="50" height="50" stroke="var(--gold)" stroke-width="1" transform="rotate(45 50 50)"/>
+                    <text x="50" y="55" text-anchor="middle" fill="var(--gold)" font-family="serif" font-weight="900" font-size="20">SFA</text>
+                  </svg>
+                </div>
+                <h3 style="font-size: 1rem; color: var(--gold);">Solvency Forensic Auditor</h3>
+                <p style="font-size: 0.75rem; color: var(--cream-dim); margin-top: 0.5rem;">Issued: Jan 2022 · Recertified 2024</p>
+                <div class="cert-id-code">ID: IACS-AUD-883-GAMMA</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academic Trajectory (Course History) -->
+          <div class="experience-card reveal">
+            <h2 class="section-title-sm">Advanced Academic Path</h2>
+            <div class="progress-stepper">
+              <div class="step-item completed">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                  <h4>Module I: The Physics of Friction (Fi)</h4>
+                  <p class="step-desc">Completed with Honors (98%). Mastered quantification of operational drag in P&L frameworks.</p>
+                </div>
+              </div>
+              <div class="step-item active">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                  <h4>Module II: The Economics of Solvency (Ts)</h4>
+                  <p class="step-desc">Current Focus: Converting sentiment metrics into P&L performance benchmarks.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                  <h4>Module III: AI Hallucination & Governance</h4>
+                  <p class="step-desc">Next Phase: Auditing automated agents to prevent financial capital destruction.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-marker"></div>
+                <div class="step-content">
+                  <h4>Module IV: The Boardroom Protocol</h4>
+                  <p class="step-desc">Capstone: Presenting Solvency Risk to a CEO and securing the board mandate.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer id="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-col-title">HQ &amp; Contact</div>
+            <p class="footer-text">34-35 Hatton Garden<br>London, UK</p>
+            <a href="mailto:chairman@appliedcxscience.com" class="footer-link" style="margin-top:0.75rem; display:block;">chairman@appliedcxscience.com</a>
+          </div>
+          <div>
+            <div class="footer-col-title">Institute Tools</div>
+            <a href="verify.html" class="footer-link">Credential Verification Portal</a>
+            <a href="login.html" class="footer-link">Faculty Login</a>
+          </div>
+          <div>
+            <div class="footer-col-title">Legal</div>
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Audit</a>
+            <a href="#" class="footer-link">Press Enquiries</a>
+          </div>
+        </div>
+        <div class="footer-motto">&ldquo;In God we trust. Everyone else must bring data.&rdquo;</div>
+        <div class="footer-copy">&copy; 2026 The Institute of Applied CX Science. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <script src="iacs.js"></script>
+  </body>
+</html>

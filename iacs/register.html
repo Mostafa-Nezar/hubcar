@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join IACS | Institutional Registration</title>
+    <meta name="description" content="Register for the IACS Member Ecosystem. Join a global community of forensic CX professionals.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="iacs.css">
+  </head>
+  <body class="noise-bg">
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-follower" id="cursor-follower"></div>
+
+    <div class="scanline-overlay"></div>
+    <div class="noise-overlay"></div>
+
+    <div class="scroll-progress-container">
+      <div class="scroll-progress-bar" id="scroll-bar"></div>
+    </div>
+
+    <header id="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="IACS Home">
+          <img src="images/logo.png" alt="IACS Logo" class="logo-img">
+        </a>
+        <nav class="nav-desktop" aria-label="Main navigation">
+          <a href="certification.html" class="nav-link">Certification (The CGVS&#8482;)</a>
+          <a href="board.html" class="nav-link">The Board of Governors</a>
+          <a href="audits.html" class="nav-link">Corporate Audits</a>
+          <a href="library.html" class="nav-link">The Research Library</a>
+          <a href="about.html" class="nav-link">About the Institute</a>
+        </nav>
+        <div class="header-actions">
+          <a href="login.html" class="btn btn--outline" style="padding:0.55em 1.4em; font-size:0.68rem;">Member Login</a>
+          <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+      <a href="certification.html" class="nav-link">Certification (The CGVS&#8482;)</a>
+      <a href="board.html" class="nav-link">The Board of Governors</a>
+      <a href="audits.html" class="nav-link">Corporate Audits</a>
+      <a href="library.html" class="nav-link">The Research Library</a>
+      <a href="about.html" class="nav-link">About the Institute</a>
+      <div class="nav-mobile-sep"></div>
+      <a href="login.html" class="btn btn--outline">Member Login</a>
+    </nav>
+
+    <main class="login-section" style="padding-top: 120px;">
+      <div class="grid-scan-overlay"></div>
+      
+      <div class="login-card reveal" style="max-width: 500px;">
+        <div class="corner-bracket bracket-tl"></div>
+        <div class="corner-bracket bracket-tr"></div>
+        <div class="corner-bracket bracket-bl"></div>
+        <div class="corner-bracket bracket-br"></div>
+
+        <div class="login-header">
+          <div class="t-label" style="margin-bottom: 0.5rem;">Member Enrollment</div>
+          <h1 class="t-section-title" style="font-size: 1.8rem;">Create Forensic Identity</h1>
+          <p class="t-body" style="font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem;">Join the elite council of CX governance specialists.</p>
+        </div>
+
+        <div class="social-grid">
+          <button class="btn--social">
+            <i class="fab fa-linkedin-in"></i>
+            <span>Import from LinkedIn</span>
+          </button>
+        </div>
+
+        <div class="login-divider">OR MANUAL REGISTRATION</div>
+
+        <form id="register-form">
+          <div class="grid-2" style="gap: 1rem;">
+            <div class="calc-input-group">
+              <label class="calc-label">First Name</label>
+              <input type="text" class="calc-input" placeholder="e.g. Alexander" required>
+            </div>
+            <div class="calc-input-group">
+              <label class="calc-label">Last Name</label>
+              <input type="text" class="calc-input" placeholder="e.g. Hamilton" required>
+            </div>
+          </div>
+          <div class="calc-input-group">
+            <label class="calc-label">Institutional Email</label>
+            <input type="email" class="calc-input" placeholder="name@organization.com" required>
+          </div>
+          <div class="calc-input-group">
+            <label class="calc-label">Current Designation / Role</label>
+            <input type="text" class="calc-input" placeholder="e.g. Chief Experience Officer" required>
+          </div>
+          <div class="calc-input-group">
+            <label class="calc-label">Create Access Token (Password)</label>
+            <input type="password" class="calc-input" placeholder="••••••••" required>
+          </div>
+          
+          <button type="submit" class="btn btn--primary" style="width: 100%; margin-top: 1.5rem; padding: 1.1em;">Finalize Enrollment</button>
+        </form>
+
+        <div class="login-footer">
+          <p class="t-body" style="font-size: 0.7rem; color: var(--gold-dim); line-height: 1.4;">
+            By enrolling, you attest to the accuracy of your professional credentials and agree to the <a href="#">IACS Code of Ethics</a> and <a href="#">Governance Protocols</a>.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer id="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-col-title">HQ &amp; Contact</div>
+            <p class="footer-text">34-35 Hatton Garden<br>London, UK</p>
+            <a href="mailto:chairman@appliedcxscience.com" class="footer-link" style="margin-top:0.75rem; display:block;">chairman@appliedcxscience.com</a>
+          </div>
+          <div>
+            <div class="footer-col-title">Institute Tools</div>
+            <a href="verify.html" class="footer-link">Credential Verification Portal</a>
+            <a href="login.html" class="footer-link">Faculty Login</a>
+          </div>
+          <div>
+            <div class="footer-col-title">Legal</div>
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Audit</a>
+            <a href="#" class="footer-link">Press Enquiries</a>
+          </div>
+        </div>
+        <div class="footer-motto">&ldquo;In God we trust. Everyone else must bring data.&rdquo;</div>
+        <div class="footer-copy">&copy; 2026 The Institute of Applied CX Science. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <script src="iacs.js"></script>
+    <script>
+      document.getElementById('register-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Simulate registration and redirect to profile
+        const btn = this.querySelector('button');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> GENERATING IDENTITY...';
+        setTimeout(() => {
+          window.location.href = 'profile.html';
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>
