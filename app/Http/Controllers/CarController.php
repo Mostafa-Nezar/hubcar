@@ -75,13 +75,15 @@ class CarController extends Controller
         }
 
         $validated = $request->validate([
-            'client_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'city' => 'nullable|string|max:100',
+            // 3 to 6 Arabic name parts separated by spaces (Saudi ID style)
+            'client_name' => ['required', 'string', 'max:255', 'regex:/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u'],
+            // Saudi mobile formats: 05xxxxxxxx | +9665xxxxxxxx | 009665xxxxxxxx (allow spaces/dashes)
+            'phone' => ['required', 'string', 'max:20', 'regex:/^(?:\+?966|00966|0)?5[0-9]{8}$/'],
+            'city' => 'required|string|max:100',
             'payment_type' => 'required|in:cash,finance',
-            'bank_name' => 'nullable|string|max:100',
-            'work_sector' => 'nullable|string|max:100',
-            'monthly_salary' => 'nullable|numeric',
+            'bank_name' => 'required_if:payment_type,finance|nullable|string|max:100',
+            'work_sector' => 'required_if:payment_type,finance|nullable|in:govt,private,military,retired',
+            'monthly_salary' => 'required_if:payment_type,finance|nullable|numeric|min:0',
             'client_notes' => 'nullable|string',
         ]);
 

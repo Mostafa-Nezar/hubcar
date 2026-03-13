@@ -25,13 +25,22 @@ class BookingRequestForm
                             ->schema([
                                 TextInput::make('client_name')
                                     ->label('اسم العميل')
+                                    // 3 to 6 Arabic name parts separated by spaces (Saudi ID style)
+                                    ->regex('/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u')
+                                    ->helperText('مثال: أحمد محمد علي (٣ أسماء على الأقل) حتى ٦ أسماء')
                                     ->required(),
                                 TextInput::make('phone')
                                     ->label('رقم الجوال')
                                     ->tel()
+                                    ->maxLength(20)
+                                    // Saudi mobile formats: 05xxxxxxxx | +9665xxxxxxxx | 009665xxxxxxxx
+                                    ->regex('/^(?:\+?966|00966|0)?5[0-9]{8}$/')
+                                    ->helperText('مثال: 05xxxxxxxx أو +9665xxxxxxxx أو 009665xxxxxxxx')
                                     ->required(),
                                 TextInput::make('city')
-                                    ->label('المدينة'),
+                                    ->label('المدينة')
+                                    ->maxLength(100)
+                                    ->required(),
                             ]),
                     ]),
 
@@ -77,14 +86,25 @@ class BookingRequestForm
                                     ->live(),
                                 TextInput::make('bank_name')
                                     ->label('اسم البنك')
-                                    ->visible(fn ($get) => $get('payment_type') === 'finance'),
-                                TextInput::make('work_sector')
+                                    ->maxLength(100)
+                                    ->visible(fn ($get) => $get('payment_type') === 'finance')
+                                    ->required(fn ($get) => $get('payment_type') === 'finance'),
+                                Select::make('work_sector')
                                     ->label('قطاع العمل')
-                                    ->visible(fn ($get) => $get('payment_type') === 'finance'),
+                                    ->options([
+                                        'govt' => 'حكومي',
+                                        'private' => 'خاص',
+                                        'military' => 'عسكري',
+                                        'retired' => 'متقاعد',
+                                    ])
+                                    ->visible(fn ($get) => $get('payment_type') === 'finance')
+                                    ->required(fn ($get) => $get('payment_type') === 'finance'),
                                 TextInput::make('monthly_salary')
                                     ->label('الراتب الشهري')
                                     ->numeric()
-                                    ->visible(fn ($get) => $get('payment_type') === 'finance'),
+                                    ->minValue(0)
+                                    ->visible(fn ($get) => $get('payment_type') === 'finance')
+                                    ->required(fn ($get) => $get('payment_type') === 'finance'),
                                 DateTimePicker::make('request_date')
                                     ->label('تاريخ الطلب')
                                     ->default(now())

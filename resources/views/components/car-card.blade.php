@@ -14,7 +14,7 @@
                         ? asset($car->main_image)
                         : Storage::url($car->main_image));
             @endphp
-            <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}"
+            <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full z-20">
                 {{ $car->category }}
@@ -62,7 +62,7 @@
                 </div>
             </div>
 
-            <div class="flex space-x-reverse space-x-3 relative z-20">
+            <div class="flex space-x-reverse gap-3 space-x-3 relative z-20">
                 <a href="{{ route('cars.show', $car->slug) }}"
                     class="flex-1 bg-gray-100 text-secondary text-center py-2.5 rounded-xl font-bold hover:bg-gray-200 transition text-sm">
                     التفاصيل

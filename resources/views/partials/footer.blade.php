@@ -7,7 +7,7 @@
                 <p class="mb-6 leading-relaxed">
                     {{ $settings?->footer_description ?? 'نحن معرض سيارات رائد في المملكة العربية السعودية، نقدم أفضل السيارات الجديدة والمستعملة بأفضل الأسعار وأعلى معايير الجودة.' }}
                 </p>
-                <div class="flex space-x-reverse space-x-4">
+                <div class="flex gap-4">
                     @if ($settings?->whatsapp)
                         <a href="https://wa.me/{{ $settings->whatsapp }}" target="_blank"
                             class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:text-primary transition"><i
