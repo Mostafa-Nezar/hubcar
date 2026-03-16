@@ -85,7 +85,13 @@ class CarController extends Controller
             'work_sector' => 'required_if:payment_type,finance|nullable|in:govt,private,military,retired',
             'monthly_salary' => 'required_if:payment_type,finance|nullable|numeric|min:0',
             'client_notes' => 'nullable|string',
-        ]);
+        ]
+        ,
+        [
+            'client_name.regex' => 'الرجاء إدخال الاسم كما هو مكتوب في بطاقة الهوية.',
+            'phone.regex' => 'الرجاء إدخال رقم جوال صحيح بالصيغة السعودية.',
+        ]
+    );
 
         $booking = BookingRequest::create([
             'client_name' => $validated['client_name'],

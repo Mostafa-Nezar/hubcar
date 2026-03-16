@@ -63,6 +63,26 @@
                     </div>
                 </div>
 
+                <!-- Auth Buttons -->
+                @auth('customer')
+                    <div class="hidden lg:flex items-center gap-3">
+                        <span class="text-sm text-gray-600 font-medium">{{ Auth::guard('customer')->user()->name }}</span>
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @csrf
+                            <button type="submit"
+                                class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition text-sm font-medium">
+                                تسجيل الخروج
+                            </button>
+                        </form>
+                    </div>
+                @else
+                    <a href="{{ route('login') }}"
+                        class="hidden lg:flex items-center bg-secondary text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition">
+                        <i class="ti-user ml-2"></i>
+                        <span>تسجيل الدخول</span>
+                    </a>
+                @endauth('customer')
+
                 <a href="tel:{{ $settings?->phone ?? '+966500000000' }}"
                     class="hidden lg:flex items-center bg-primary text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition">
                     <i class="ti-mobile ml-2"></i>
@@ -135,7 +155,24 @@
                 </a>
             </nav>
 
-            <div class="p-6 border-t border-gray-50">
+            <div class="p-6 border-t border-gray-50 space-y-3">
+                @auth('customer')
+                    <div class="mb-3 p-3 bg-gray-50 rounded-xl">
+                        <p class="text-sm text-gray-600 mb-2">{{ Auth::guard('customer')->user()->name }}</p>
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @csrf
+                            <button type="submit"
+                                class="w-full bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition text-sm font-medium">
+                                تسجيل الخروج
+                            </button>
+                        </form>
+                    </div>
+                @else
+                    <a href="{{ route('login') }}"
+                        class="flex items-center justify-center gap-3 w-full bg-secondary text-white py-4 rounded-2xl font-bold shadow-lg shadow-secondary/20 mb-3">
+                        <i class="ti-user"></i> تسجيل الدخول
+                    </a>
+                @endauth('customer')
                 <a href="tel:{{ $settings?->phone ?? '+966500000000' }}"
                     class="flex items-center justify-center gap-3 w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-lg shadow-primary/20">
                     <i class="ti-mobile"></i> طلب سريع

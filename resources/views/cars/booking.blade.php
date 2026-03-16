@@ -82,7 +82,7 @@
 
                     <!-- Main Form -->
                     <div class="lg:w-2/3 p-8 lg:p-16">
-                        <form action="{{ route('cars.booking.store', $selectedCar->slug) }}" method="POST">
+                        <form action="{{ route('cars.booking.store', $selectedCar->slug) }}" method="POST" id="booking-form" onsubmit="return handleFormSubmit(event)">
                             @csrf
                             <input type="hidden" name="payment_type" value="{{ $type }}">
                             <input type="hidden" name="brand_name" value="{{ $selectedCar->brand->name ?? '' }}">
@@ -159,37 +159,49 @@
                                     <!-- Bank Name -->
                                     <div class="space-y-2">
                                         <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">اختر
-                                            الجهة التمويلية (البنك)</label>
+                                            الجهة التمويلية (البنك) <span class="text-primary">*</span></label>
                                         <select name="bank_name"
-                                            class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none appearance-none">
+                                            class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none appearance-none"
+                                            required>
                                             <option value="">اختر البنك أو شركة التمويل</option>
                                             @foreach ($financeEntities as $entity)
-                                                <option value="{{ $entity->name }}">{{ $entity->name }}</option>
+                                                <option value="{{ $entity->name }}" {{ old('bank_name') == $entity->name ? 'selected' : '' }}>{{ $entity->name }}</option>
                                             @endforeach
                                         </select>
+                                        @error('bank_name')
+                                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <!-- Work Sector -->
                                     <div class="space-y-2">
                                         <label
                                             class="block text-xs font-black text-gray-500 uppercase tracking-widest">قطاع
-                                            العمل</label>
+                                            العمل <span class="text-primary">*</span></label>
                                         <select name="work_sector"
-                                            class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none appearance-none">
+                                            class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none appearance-none"
+                                            required>
                                             <option value="">اختر القطاع</option>
-                                            <option value="govt">حكومي</option>
-                                            <option value="private">خاص</option>
-                                            <option value="military">عسكري</option>
-                                            <option value="retired">متقاعد</option>
+                                            <option value="govt" {{ old('work_sector') == 'govt' ? 'selected' : '' }}>حكومي</option>
+                                            <option value="private" {{ old('work_sector') == 'private' ? 'selected' : '' }}>خاص</option>
+                                            <option value="military" {{ old('work_sector') == 'military' ? 'selected' : '' }}>عسكري</option>
+                                            <option value="retired" {{ old('work_sector') == 'retired' ? 'selected' : '' }}>متقاعد</option>
                                         </select>
+                                        @error('work_sector')
+                                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="space-y-2">
                                         <label
                                             class="block text-xs font-black text-gray-500 uppercase tracking-widest">الراتب
-                                            الشهري</label>
-                                        <input type="number" name="monthly_salary" placeholder="مثال: 12000"
-                                            class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none">
+                                            الشهري <span class="text-primary">*</span></label>
+                                        <input type="number" name="monthly_salary" value="{{ old('monthly_salary') }}" placeholder="مثال: 12000"
+                                            class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none"
+                                            required min="0" step="0.01">
+                                        @error('monthly_salary')
+                                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 @endif
 
@@ -215,7 +227,7 @@
                             </div>
 
                             <div class="mt-12">
-                                <button type="submit" id="submit-btn" onclick="showLoading()"
+                                <button type="submit" id="submit-btn"
                                     class="w-full bg-primary text-white text-xl font-black py-5 rounded-2xl hover:bg-opacity-90 transition-all shadow-2xl transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-4 group">
                                     <span id="btn-text">إرسال الطلب الآن</span>
                                     <div id="btn-loader"
@@ -236,18 +248,23 @@
     </section>
 
     <script>
-        function showLoading() {
+        function handleFormSubmit(event) {
+            const form = document.getElementById('booking-form');
             const btn = document.getElementById('submit-btn');
             const text = document.getElementById('btn-text');
             const loader = document.getElementById('btn-loader');
             const icon = document.getElementById('btn-icon');
-
-            // Check if form is valid before showing loading
-            if (document.querySelector('form').checkValidity()) {
+            if (form.checkValidity()) {
                 text.innerText = 'جاري الإرسال...';
                 loader.classList.remove('hidden');
                 icon.classList.add('hidden');
                 btn.classList.add('opacity-80', 'pointer-events-none');
+                btn.disabled = true;
+                
+                return true;
+            } else {
+                event.preventDefault();
+                return false;
             }
         }
 

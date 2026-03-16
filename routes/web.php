@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +29,13 @@ Route::get('/cars/{car}', [CarController::class, 'show'])->name('cars.show');
 Route::get('/booking/{car}', [CarController::class, 'booking'])->name('cars.booking');
 Route::post('/booking/{car}', [CarController::class, 'storeBooking'])->name('cars.booking.store');
 
-Route::get('/login', function () {
-    return redirect()->route('filament.admin.auth.login');
-})->name('login');
+// Authentication Routes (User)
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest:customer');
+Route::post('/login', [AuthController::class, 'login'])->middleware('guest:customer');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register')->middleware('guest:customer');
+Route::post('/register', [AuthController::class, 'register'])->middleware('guest:customer');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:customer');
+
 
 Route::get('/migrate', function () {
     if (! app()->environment('local')) {
