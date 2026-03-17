@@ -78,7 +78,7 @@
                 <span class="text-gray-500">تصميم وتطوير بواسطة:</span>
                 <a href="https://highsolve.com/" target="_blank" rel="noopener noreferrer"
                     class="transition-opacity hover:opacity-100">
-                    <img src="{{ asset('img/developer-logo.png') }}" alt="High Solve Logo"
+                    <img src="{{ asset('img/developer-logo.png') }}" alt="High Solve Logo" loading="lazy" decoding="async"
                         class="h-8 md:h-10 w-auto transition-all">
                 </a>
             </div>

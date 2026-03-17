@@ -6,7 +6,7 @@
     <!-- Page Header -->
     <section class="bg-secondary py-20 relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <img src="{{ asset('img/slider/2.jpg') }}" alt="" class="w-full h-full object-cover">
+            <img src="{{ asset('img/slider/2.jpg') }}" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover">
         </div>
         <div class="container mx-auto px-4 lg:px-8 relative z-10 text-center">
             <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">جميع السيارات</h1>

@@ -16,6 +16,9 @@
                                     : Storage::url($car->main_image));
                         @endphp
                         <img src="{{ $imageUrl }}" alt="{{ $car->name }}"
+                            loading="{{ $loop->first ? 'eager' : 'lazy' }}"
+                            fetchpriority="{{ $loop->first ? 'high' : 'auto' }}"
+                            decoding="async"
                             class="w-full h-full object-cover transform scale-110 transition-transform duration-[12000ms] ease-out car-img-zoom group-hover/slide:scale-105">
                         <!-- Elegant Dark Gradient Overlay -->
                         <div

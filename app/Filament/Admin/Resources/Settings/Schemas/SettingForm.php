@@ -30,6 +30,8 @@ class SettingForm
                         TextInput::make('phone')
                             ->label('رقم الهاتف')
                             ->tel()
+                            ->regex('/^(\+?966|0)?5[0-9]{8}$/')
+                            ->helperText('اكتب رقم جوال سعودي بصيغة صحيحة، مثل 05XXXXXXXX أو +9665XXXXXXXX')
                             ->default(null),
                         TextInput::make('email')
                             ->label('البريد الإلكتروني')
@@ -40,6 +42,9 @@ class SettingForm
                             ->default(null),
                         TextInput::make('whatsapp')
                             ->label('رقم الواتساب')
+                            ->tel()
+                            ->regex('/^(\+?966|0)?5[0-9]{8}$/')
+                            ->helperText('اكتب رقم واتساب سعودي بصيغة صحيحة')
                             ->default(null),
                     ]),
                 \Filament\Schemas\Components\Section::make('ساعات العمل')
@@ -59,15 +64,19 @@ class SettingForm
                     ->schema([
                         TextInput::make('twitter')
                             ->label('تويتر (X)')
+                            ->url()
                             ->default(null),
                         TextInput::make('instagram')
                             ->label('انستقرام')
+                            ->url()
                             ->default(null),
                         TextInput::make('snapchat')
                             ->label('سناب شات')
+                            ->url()
                             ->default(null),
                         TextInput::make('facebook')
                             ->label('فيسبوك')
+                            ->url()
                             ->default(null),
                     ]),
                 \Filament\Schemas\Components\Section::make('التذييل (Footer)')

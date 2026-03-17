@@ -31,7 +31,8 @@
             <div class="flex flex-col lg:flex-row items-center gap-16">
                 <div class="lg:w-1/2 relative">
                     <img src="{{ $about?->image ? asset('storage/' . $about->image) : asset('img/about.jpg') }}"
-                        alt="{{ $about?->title ?? 'About our showroom' }}" class="rounded-3xl shadow-2xl z-10 relative">
+                        alt="{{ $about?->title ?? 'About our showroom' }}" loading="lazy" decoding="async"
+                        class="rounded-3xl shadow-2xl z-10 relative">
                     <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-primary rounded-3xl -z-0 hidden lg:block"></div>
                 </div>
                 <div class="lg:w-1/2">

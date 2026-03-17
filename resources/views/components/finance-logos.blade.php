@@ -12,7 +12,8 @@
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-center justify-center opacity-70">
             @foreach ($banks as $bank)
                 <div class="flex justify-center p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition">
-                    <img src="{{ asset($bank->logo) }}" alt="{{ $bank->name }}" class="h-10 object-contain">
+                    <img src="{{ asset($bank->logo) }}" alt="{{ $bank->name }}" loading="lazy" decoding="async"
+                        class="h-10 object-contain">
                 </div>
             @endforeach
         </div>

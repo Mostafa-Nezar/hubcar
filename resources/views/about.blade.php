@@ -6,7 +6,7 @@
     <!-- Page Header -->
     <section class="bg-secondary py-20 relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <img src="{{ asset('img/about.jpg') }}" alt="" class="w-full h-full object-cover">
+            <img src="{{ asset('img/about.jpg') }}" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover">
         </div>
         <div class="container mx-auto px-4 lg:px-8 relative z-10 text-center">
             <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">من نحن</h1>
@@ -59,7 +59,7 @@
                                 : asset('storage/' . $about->image))
                             : asset('img/slider/1.jpg');
                     @endphp
-                    <img src="{{ $image }}" alt="" class="rounded-3xl shadow-2xl relative z-10">
+                    <img src="{{ $image }}" alt="" loading="lazy" decoding="async" class="rounded-3xl shadow-2xl relative z-10">
                     <div class="absolute -top-10 -left-10 w-64 h-64 bg-primary bg-opacity-10 rounded-full animate-pulse">
                     </div>
                 </div>

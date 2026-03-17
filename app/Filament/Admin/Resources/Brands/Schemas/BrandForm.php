@@ -24,6 +24,7 @@ class BrandForm
                                     ->label('اسم الماركة')
                                     ->placeholder('مثلاً: تويوتا، لاند روفر')
                                     ->required()
+                                    ->maxLength(255)
                                     ->unique(ignoreRecord: true),
                                 FileUpload::make('logo')
                                     ->label('الشعار')

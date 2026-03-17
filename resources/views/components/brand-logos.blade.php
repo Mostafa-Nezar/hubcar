@@ -14,7 +14,8 @@
                     @php
                         $logoUrl = str_starts_with($brand->logo, 'http') ? $brand->logo : Storage::url($brand->logo);
                     @endphp
-                    <img src="{{ $logoUrl }}" alt="{{ $brand->name }}" class="h-12 object-contain filter">
+                    <img src="{{ $logoUrl }}" alt="{{ $brand->name }}" loading="lazy" decoding="async"
+                        class="h-12 object-contain filter">
                 </a>
             @endforeach
         </div>

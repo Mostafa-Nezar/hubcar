@@ -30,6 +30,7 @@ class CarForm
                                 TextInput::make('name')
                                     ->label('اسم السيارة')
                                     ->required()
+                                    ->maxLength(255)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(function ($state, $set, $get) {
                                         $set(
@@ -89,11 +90,13 @@ class CarForm
                                         TextInput::make('price')
                                             ->label('السعر قبل الخصم')
                                             ->numeric()
+                                            ->minValue(0)
                                             ->required()
                                             ->helperText('يظهر كالسعر الأصلي مشطوباً في حال وجود خصم'),
                                         TextInput::make('discount_price')
                                             ->label('السعر بعد الخصم (العرض)')
                                             ->numeric()
+                                            ->minValue(0)
                                             ->helperText('اتركه فارغاً إذا لا يوجد عرض'),
                                     ]),
                             ]),
@@ -128,13 +131,24 @@ class CarForm
                             ->schema([
                                 TextInput::make('seats')
                                     ->label('عدد المقاعد')
-                                    ->numeric(),
-                                TextInput::make('transmission')
+                                    ->numeric()
+                                    ->minValue(1)
+                                    ->maxValue(9),
+                                Select::make('transmission')
                                     ->label('ناقل الحركة')
-                                    ->placeholder('مثل: Automatic, Manual'),
-                                TextInput::make('fuel_type')
+                                    ->options([
+                                        'automatic' => 'أتوماتيك',
+                                        'manual' => 'يدوي',
+                                    ])
+                                    ->required(),
+                                Select::make('fuel_type')
                                     ->label('نوع الوقود')
-                                    ->placeholder('مثل: Gasoline, Hybrid, Electric'),
+                                    ->options([
+                                        'gasoline' => 'بنزين',
+                                        'diesel' => 'ديزل',
+                                        'hybrid' => 'هايبرد',
+                                        'electric' => 'كهرباء',
+                                    ]),
                             ]),
                     ]),
 
@@ -167,10 +181,12 @@ class CarForm
                     ->schema([
                         Textarea::make('description')
                             ->label('الوصف')
-                            ->rows(5),
+                            ->rows(5)
+                            ->maxLength(2000),
                         Textarea::make('other_specs')
                             ->label('مواصفات إضافية')
-                            ->rows(3),
+                            ->rows(3)
+                            ->maxLength(1000),
                         KeyValue::make('specs')
                             ->label('المواصفات الفنية')
                             ->keyLabel('المواصفة')

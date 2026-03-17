@@ -5,7 +5,7 @@
 @section('content')
     <section class="bg-secondary py-20 text-center relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
-            <img src="{{ asset('img/about.jpg') }}" alt="" class="w-full h-full object-cover">
+            <img src="{{ asset('img/about.jpg') }}" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover">
         </div>
         <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4 relative z-10">تواصل معنا</h1>
         <p class="text-gray-400 relative z-10 italic">فريقنا جاهز للرد على جميع استفساراتكم</p>

@@ -15,14 +15,16 @@ class FinanceEntityForm
             ->components([
                 TextInput::make('name')
                     ->label('اسم الجهة')
-                    ->required(),
+                    ->required()
+                    ->maxLength(255),
                 FileUpload::make('logo')
                     ->label('الشعار')
                     ->image()
                     ->directory('banks'),
                 Textarea::make('description')
                     ->label('وصف الخدمة')
-                    ->rows(3),
+                    ->rows(3)
+                    ->maxLength(500),
             ]);
     }
 }

@@ -74,7 +74,8 @@
                     <div class="mb-16">
                         <div
                             class="relative rounded-[2rem] overflow-hidden shadow-2xl mb-6 group bg-gray-100 aspect-[16/9]">
-                            <img id="mainGalleryImage" src="{{ $mainImageUrl }}" alt="{{ $car->name }}"
+                            <img id="mainGalleryImage" src="{{ $mainImageUrl }}" alt="{{ $car->name }}" loading="lazy"
+                                decoding="async"
                                 class="w-full h-full object-cover transform transition-all duration-700">
 
                             <!-- Overlay Info -->
@@ -98,7 +99,7 @@
                             <div class="grid grid-cols-4 md:grid-cols-6 gap-4">
                                 <div class="aspect-square rounded-2xl overflow-hidden shadow-sm border-2 border-primary cursor-pointer thumbnail-item active"
                                     onclick="switchImage('{{ $mainImageUrl }}', this)">
-                                    <img src="{{ $mainImageUrl }}" class="w-full h-full object-cover">
+                                    <img src="{{ $mainImageUrl }}" class="w-full h-full object-cover" loading="lazy" decoding="async">
                                 </div>
                                 @foreach ($car->images as $img)
                                     @php
@@ -108,7 +109,7 @@
                                     @endphp
                                     <div class="aspect-square rounded-2xl overflow-hidden shadow-sm border-2 border-transparent hover:border-primary transition-all cursor-pointer thumbnail-item"
                                         onclick="switchImage('{{ $galleryUrl }}', this)">
-                                        <img src="{{ $galleryUrl }}" alt="Gallery image"
+                                        <img src="{{ $galleryUrl }}" alt="Gallery image" loading="lazy" decoding="async"
                                             class="w-full h-full object-cover">
                                     </div>
                                 @endforeach

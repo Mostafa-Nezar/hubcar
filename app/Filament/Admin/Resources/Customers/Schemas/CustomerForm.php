@@ -32,9 +32,10 @@ class CustomerForm
                                     ->label('كلمة المرور')
                                     ->password()
                                     ->revealable()
+                                    ->rule('min:8')
                                     ->dehydrated(fn ($state) => filled($state))
                                     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                                    ->helperText('اتركها فارغة إذا لا تريد تغيير كلمة المرور عند التعديل.'),
+                                    ->helperText('كلمة المرور لا تقل عن 8 أحرف. اتركها فارغة إذا لا تريد تغييرها عند التعديل.'),
                             ]),
                     ]),
             ]);
