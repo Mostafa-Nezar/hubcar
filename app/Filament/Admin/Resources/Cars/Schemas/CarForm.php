@@ -31,6 +31,7 @@ class CarForm
                                     ->label('اسم السيارة')
                                     ->required()
                                     ->maxLength(255)
+                                    ->regex('/^[\p{Arabic}\p{Latin}0-9\s\-]+$/u') // يمنع الرموز الغريبة
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(function ($state, $set, $get) {
                                         $set(
@@ -59,9 +60,7 @@ class CarForm
                                     ->label('نوع السيارة')
                                     ->options(function ($get) {
                                         $brandId = $get('brand_id');
-                                        if (!$brandId) {
-                                            return [];
-                                        }
+                                        if (!$brandId) return [];
                                         return CarModel::where('brand_id', $brandId)->pluck('name', 'name')->toArray();
                                     })
                                     ->live()
@@ -72,13 +71,9 @@ class CarForm
                                     ->options(function ($get) {
                                         $brandId = $get('brand_id');
                                         $typeName = $get('type');
-                                        if (!$brandId || !$typeName) {
-                                            return [];
-                                        }
+                                        if (!$brandId || !$typeName) return [];
                                         $model = CarModel::where('brand_id', $brandId)->where('name', $typeName)->first();
-                                        if (!$model) {
-                                            return [];
-                                        }
+                                        if (!$model) return [];
                                         return CarCategory::where('car_model_id', $model->id)->pluck('name', 'name')->toArray();
                                     }),
                                 Select::make('model_year')
@@ -97,6 +92,12 @@ class CarForm
                                             ->label('السعر بعد الخصم (العرض)')
                                             ->numeric()
                                             ->minValue(0)
+                                            ->rule(function ($get) {
+                                                $price = $get('price');
+                                                return $price
+                                                    ? fn ($attribute, $value, $fail) => $value > $price ? $fail('السعر بعد الخصم لا يمكن أن يكون أكبر من السعر الأصلي.') : true
+                                                    : true;
+                                            })
                                             ->helperText('اتركه فارغاً إذا لا يوجد عرض'),
                                     ]),
                             ]),
@@ -132,8 +133,10 @@ class CarForm
                                 TextInput::make('seats')
                                     ->label('عدد المقاعد')
                                     ->numeric()
-                                    ->minValue(1)
-                                    ->maxValue(9),
+                                    ->minValue(2)
+                                    ->maxValue(8)
+                                    ->required()
+                                    ->helperText('عدد المقاعد يجب أن يكون بين 2 و 8'),
                                 Select::make('transmission')
                                     ->label('ناقل الحركة')
                                     ->options([
@@ -148,7 +151,8 @@ class CarForm
                                         'diesel' => 'ديزل',
                                         'hybrid' => 'هايبرد',
                                         'electric' => 'كهرباء',
-                                    ]),
+                                    ])
+                                    ->required(),
                             ]),
                     ]),
 
@@ -182,11 +186,14 @@ class CarForm
                         Textarea::make('description')
                             ->label('الوصف')
                             ->rows(5)
-                            ->maxLength(2000),
+                            ->maxLength(2000)
+                            ->required()
+                            ->regex('/^[\p{Arabic}\p{Latin}0-9\s.,\-]+$/u'), // منع الرموز الغريبة
                         Textarea::make('other_specs')
                             ->label('مواصفات إضافية')
                             ->rows(3)
-                            ->maxLength(1000),
+                            ->maxLength(1000)
+                            ->regex('/^[\p{Arabic}\p{Latin}0-9\s.,\-]+$/u'),
                         KeyValue::make('specs')
                             ->label('المواصفات الفنية')
                             ->keyLabel('المواصفة')

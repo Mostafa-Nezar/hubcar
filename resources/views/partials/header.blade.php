@@ -2,7 +2,7 @@
     <div class="container mx-auto px-4 lg:px-8">
         <div class="flex items-center justify-between h-20">
             <!-- Logo -->
-            <div class="flex-shrink-0">
+            <div class="flex-1 flex items-center justify-start">
                 <a href="{{ route('home') }}" class="flex items-center">
                     @if ($settings?->logo)
                         <img src="{{ asset('storage/' . $settings->logo) }}" alt="{{ $settings->site_name }}"
@@ -14,7 +14,7 @@
             </div>
 
             <!-- Main Menu (Desktop) -->
-            <nav class="hidden md:flex items-center gap-8">
+            <nav class="hidden lg:flex items-center gap-8">
                 <a href="{{ route('home') }}"
                     class="{{ request()->routeIs('home') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">الرئيسية</a>
                 <a href="{{ route('cars.index') }}"
@@ -34,7 +34,7 @@
             </nav>
 
             <!-- Quick Order & Search -->
-            <div class="flex items-center space-x-reverse space-x-4">
+            <div class="flex-1 flex items-center justify-end space-x-reverse space-x-4">
                 <!-- Search Component -->
                 <div class="relative flex items-center">
                     <button @click="openSearch = !openSearch; if(openSearch) $nextTick(() => $refs.searchInput.focus())"

@@ -68,9 +68,9 @@ class CarController extends Controller
     {
 
         $settings = \App\Models\Setting::first();
-        if ($settings?->recaptcha_enabled_booking) {
-            if (!$this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
-                return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من الكابتشا.'])->withInput();
+        if (env('RECAPTCHA_SITE_KEY') || $settings?->recaptcha_enabled_booking) {
+            if (!$this->validateRecaptcha($request->input('g-recaptcha-response'))) {
+                return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])->withInput();
             }
         }
 

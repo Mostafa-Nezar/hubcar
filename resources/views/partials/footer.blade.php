@@ -7,33 +7,42 @@
                 <p class="mb-6 leading-relaxed">
                     {{ $settings?->footer_description ?? 'نحن معرض سيارات رائد في المملكة العربية السعودية، نقدم أفضل السيارات الجديدة والمستعملة بأفضل الأسعار وأعلى معايير الجودة.' }}
                 </p>
-                <div class="flex gap-4">
-                    @if ($settings?->whatsapp)
-                        <a href="https://wa.me/{{ $settings->whatsapp }}" target="_blank"
-                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:text-primary transition"><i
-                                class="fa-brands fa-whatsapp"></i></a>
-                    @endif
-                    @if ($settings?->twitter)
-                        <a href="{{ $settings->twitter }}" target="_blank"
-                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:text-primary transition"><i
-                                class="fa-brands fa-twitter"></i></a>
-                    @endif
-                    @if ($settings?->instagram)
-                        <a href="{{ $settings->instagram }}" target="_blank"
-                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:text-primary transition"><i
-                                class="fa-brands fa-instagram"></i></a>
-                    @endif
-                    @if ($settings?->snapchat)
-                        <a href="{{ $settings->snapchat }}" target="_blank"
-                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:text-primary transition"><i
-                                class="fa-brands fa-snapchat"></i></a>
-                    @endif
-                    @if ($settings?->facebook)
-                        <a href="{{ $settings->facebook }}" target="_blank"
-                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:text-primary transition"><i
-                                class="fa-brands fa-facebook"></i></a>
-                    @endif
-                </div>
+<div class="flex gap-4">
+    @if ($settings?->facebook)
+        <a href="{{ $settings->facebook }}" target="_blank"
+            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:text-primary transition">
+            <i class="fa-brands fa-facebook"></i>
+        </a>
+    @endif
+
+    @if ($settings?->instagram)
+        <a href="{{ $settings->instagram }}" target="_blank"
+            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:text-primary transition">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+    @endif
+
+    @if ($settings?->whatsapp)
+        <a href="https://wa.me/{{ $settings->whatsapp }}" target="_blank"
+            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:text-primary transition">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    @endif
+
+    @if ($settings?->twitter)
+        <a href="{{ $settings->twitter }}" target="_blank"
+            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:text-primary transition">
+            <i class="fa-brands fa-twitter"></i>
+        </a>
+    @endif
+
+    @if ($settings?->snapchat)
+        <a href="{{ $settings->snapchat }}" target="_blank"
+            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:text-primary transition">
+            <i class="fa-brands fa-snapchat"></i>
+        </a>
+    @endif
+</div>
             </div>
 
             <!-- Quick Links -->

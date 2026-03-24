@@ -205,10 +205,13 @@
                                     </div>
                                 @endif
 
-                                @if ($settings?->recaptcha_enabled_booking && $settings?->recaptcha_site_key)
+                                @php
+                                    $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
+                                @endphp
+                                @if ($siteKey)
                                     <div class="md:col-span-2 flex justify-center mt-4">
                                         <div class="recaptcha-wrapper">
-                                            <div class="g-recaptcha" data-sitekey="{{ $settings->recaptcha_site_key }}">
+                                            <div class="g-recaptcha" data-sitekey="{{ $siteKey }}">
                                             </div>
                                         </div>
                                     </div>

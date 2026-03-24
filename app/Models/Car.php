@@ -7,10 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 class Car extends Model
 {
     protected $fillable = [
-        'name', 'brand_id', 'type', 'category', 'model_year', 'price', 'discount_price',
-        'condition', 'availability_status', 'main_image', 'specs', 
-        'other_specs', 'description', 'seats', 'doors', 
-        'transmission', 'luggage', 'fuel_type', 'is_featured', 'slug',
+        'name',
+        'brand_id',
+        'type',
+        'category',
+        'model_year',
+        'price',
+        'discount_price',
+        'condition',
+        'availability_status',
+        'main_image',
+        'specs',
+        'other_specs',
+        'description',
+        'seats',
+        'doors',
+        'transmission',
+        'luggage',
+        'fuel_type',
+        'is_featured',
+        'slug',
     ];
 
     protected $casts = [
@@ -47,6 +63,6 @@ class Car extends Model
 
     public function images()
     {
-        return $this->hasMany(CarImage::class);
+        return $this->hasMany(CarImage::class)->orderBy('sort_order');
     }
 }

@@ -15,14 +15,11 @@
                                     ? asset($car->main_image)
                                     : Storage::url($car->main_image));
                         @endphp
-                        <img src="{{ $imageUrl }}" alt="{{ $car->name }}"
-                            loading="{{ $loop->first ? 'eager' : 'lazy' }}"
-                            fetchpriority="{{ $loop->first ? 'high' : 'auto' }}"
-                            decoding="async"
-                            class="w-full h-full object-cover transform scale-110 transition-transform duration-[12000ms] ease-out car-img-zoom group-hover/slide:scale-105">
+                        <img src="{{ $imageUrl }}" alt="{{ $car->name }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}"
+                            fetchpriority="{{ $loop->first ? 'high' : 'auto' }}" decoding="async"
+                            class="w-full h-full object-contain bg-gray-100 transform scale-110 transition-transform duration-[12000ms] ease-out car-img-zoom group-hover/slide:scale-105">
                         <!-- Elegant Dark Gradient Overlay -->
-                        <div
-                            class="absolute inset-0 bg-gradient-to-b from-secondary/50 via-secondary/20 to-secondary/90">
+                        <div class="absolute inset-0 bg-gradient-to-b from-secondary/50 via-secondary/20 to-secondary/90">
                         </div>
                         <div class="absolute inset-0 bg-secondary/30"></div>
                     </a>
@@ -32,8 +29,7 @@
                         <div class="max-w-4xl mx-auto space-y-4 md:space-y-6">
 
                             <!-- Delicate Label -->
-                            <div
-                                class="slide-up-content opacity-0 translate-y-4 transition-all duration-1000 delay-300">
+                            <div class="slide-up-content opacity-0 translate-y-4 transition-all duration-1000 delay-300">
                                 <span
                                     class="text-primary font-medium tracking-[0.3em] md:tracking-[0.5em] text-xs md:text-sm uppercase inline-block border-b border-primary/30 pb-2">
                                     {{ $car->brand->name ?? 'Luxury Selection' }}
@@ -41,8 +37,7 @@
                             </div>
 
                             <!-- Majestic Title -->
-                            <div
-                                class="slide-up-content opacity-0 translate-y-4 transition-all duration-1000 delay-500">
+                            <div class="slide-up-content opacity-0 translate-y-4 transition-all duration-1000 delay-500">
                                 <h1
                                     class="text-3xl md:text-5xl lg:text-8xl font-black text-white leading-tight drop-shadow-2xl px-2">
                                     {{ $car->name }}
@@ -50,8 +45,7 @@
                             </div>
 
                             <!-- Minimal Price / Year -->
-                            <div
-                                class="slide-up-content opacity-0 translate-y-4 transition-all duration-1000 delay-700">
+                            <div class="slide-up-content opacity-0 translate-y-4 transition-all duration-1000 delay-700">
                                 <p
                                     class="text-base md:text-xl text-gray-200 font-light flex items-center justify-center gap-3 md:gap-4">
                                     <span>{{ $car->model_year }}</span>
@@ -177,7 +171,7 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             if (typeof Swiper !== 'undefined') {
                 const swiper = new Swiper('.heroSwiper', {
                     loop: true,

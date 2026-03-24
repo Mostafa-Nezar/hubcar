@@ -30,8 +30,11 @@ class SettingForm
                         TextInput::make('phone')
                             ->label('رقم الهاتف')
                             ->tel()
-                            ->regex('/^(\+?966|0)?5[0-9]{8}$/')
-                            ->helperText('اكتب رقم جوال سعودي بصيغة صحيحة، مثل 05XXXXXXXX أو +9665XXXXXXXX')
+                            ->regex('/^\+?[0-9\s\-]{9,20}$/')
+                            ->validationMessages([
+                                'regex' => 'يجب إدخال رقم هاتف صحيح يتكون من الأرقام فقط.',
+                            ])
+                            ->helperText('اكتب رقم الهاتف بصيغة صحيحة مثل 05XXXXXXXX')
                             ->default(null),
                         TextInput::make('email')
                             ->label('البريد الإلكتروني')
@@ -43,8 +46,11 @@ class SettingForm
                         TextInput::make('whatsapp')
                             ->label('رقم الواتساب')
                             ->tel()
-                            ->regex('/^(\+?966|0)?5[0-9]{8}$/')
-                            ->helperText('اكتب رقم واتساب سعودي بصيغة صحيحة')
+                            ->regex('/^\+?[0-9\s\-]{9,20}$/')
+                            ->validationMessages([
+                                'regex' => 'يجب إدخال رقم صحيح يتكون من الأرقام فقط.',
+                            ])
+                            ->helperText('اكتب رقم واتساب صحيح')
                             ->default(null),
                     ]),
                 \Filament\Schemas\Components\Section::make('ساعات العمل')

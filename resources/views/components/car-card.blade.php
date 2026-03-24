@@ -15,7 +15,7 @@
                         : Storage::url($car->main_image));
             @endphp
             <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy" decoding="async"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 bg-gray-100">
             <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full z-20">
                 {{ $car->category }}
             </div>

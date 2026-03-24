@@ -7,19 +7,24 @@ use App\Models\Setting;
 
 trait ValidatesRecaptcha
 {
-    protected function validateRecaptcha($response, $enabled)
+    protected function validateRecaptcha($response, $enabled = true)
     {
         if (!$enabled) {
             return true;
         }
 
-        $settings = Setting::first();
-        if (!$settings || !$settings->recaptcha_secret_key) {
+        $secretKey = env('RECAPTCHA_SECRET_KEY');
+        if (!$secretKey) {
+            $settings = Setting::first();
+            $secretKey = $settings?->recaptcha_secret_key;
+        }
+
+        if (!$secretKey) {
             return true;
         }
 
         $verify = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => $settings->recaptcha_secret_key,
+            'secret' => $secretKey,
             'response' => $response,
         ]);
 
