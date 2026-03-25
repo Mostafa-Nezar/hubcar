@@ -10,6 +10,9 @@ class ViewContactMessage extends ViewRecord
 {
     protected static string $resource = ContactMessageResource::class;
 
+    // أضف هذا السطر لربط التصميم
+    protected string $view = 'filament.custom-view-contact';
+
     protected function getHeaderActions(): array
     {
         return [

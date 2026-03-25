@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /livewire/
+Disallow: /vendor/
+Disallow: /api/
+Allow: /
+Sitemap: https://hubcar.highsolve.com/sitemap.xml
