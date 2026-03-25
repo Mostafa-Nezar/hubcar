@@ -156,6 +156,21 @@
     <!-- Footer -->
     @include('partials.footer')
 
+    <!-- WhatsApp Floating Button -->
+    <div class="fixed bottom-8 right-8 z-50 group">
+        <a href="https://wa.me/{{ $settings?->whatsapp ? preg_replace('/[^0-9]/', '', $settings->whatsapp) : '966532533580' }}" target="_blank" 
+           class="relative flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-full shadow-lg shadow-green-500/40 transition-all duration-300 hover:scale-110" 
+           aria-label="Chat on WhatsApp">
+            <span class="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-20 animate-ping duration-[1.5s]"></span>
+            <span class="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-10 animate-ping duration-[2s] delay-150"></span>
+            <i class="fa-brands fa-whatsapp text-4xl drop-shadow-md z-10"></i>
+            <span class="absolute right-full mr-4 bg-gray-900/90 backdrop-blur text-white text-sm font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap shadow-xl pointer-events-none transform translate-x-2 group-hover:translate-x-0">
+                تواصل معنا
+                <span class="absolute top-1/2 -right-1 -translate-y-1/2 border-4 border-transparent border-l-gray-900/90"></span>
+            </span>
+        </a>
+    </div>
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?hl=ar" async defer></script>
