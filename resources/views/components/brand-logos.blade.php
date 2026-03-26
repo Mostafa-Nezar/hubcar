@@ -115,7 +115,13 @@
                     $logoUrl = str_starts_with($brand->logo, 'http') ? $brand->logo : Storage::url($brand->logo);
                 @endphp
                 <a href="{{ route('cars.index', ['brand' => $brand->id]) }}" class="partner-logo-card">
-                    <img src="{{ $logoUrl }}" alt="{{ $brand->name }}" loading="lazy" decoding="async">
+                    <img
+                        class="partner-logo-img"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        data-src="{{ $logoUrl }}"
+                        alt="{{ $brand->name }}"
+                        decoding="async"
+                        loading="lazy">
                 </a>
             @endforeach
 
@@ -125,9 +131,52 @@
                     $logoUrl = str_starts_with($brand->logo, 'http') ? $brand->logo : Storage::url($brand->logo);
                 @endphp
                 <a href="{{ route('cars.index', ['brand' => $brand->id]) }}" class="partner-logo-card">
-                    <img src="{{ $logoUrl }}" alt="{{ $brand->name }}" loading="lazy" decoding="async">
+                    <img
+                        class="partner-logo-img"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        data-src="{{ $logoUrl }}"
+                        alt="{{ $brand->name }}"
+                        decoding="async"
+                        loading="lazy">
                 </a>
             @endforeach
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Avoid double-initializing if this component renders more than once.
+                if (window.__brandLogosLazyInit) return;
+                window.__brandLogosLazyInit = true;
+
+                const images = document.querySelectorAll('.partner-logo-img[data-src]:not([data-loaded])');
+                if (!('IntersectionObserver' in window) || images.length === 0) {
+                    images.forEach(img => {
+                        img.src = img.dataset.src;
+                        img.dataset.loaded = '1';
+                    });
+                    return;
+                }
+
+                // Shrink the root horizontally so "edge" logos load later.
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.dataset.loaded = '1';
+                            obs.unobserve(img);
+                        }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: '0px -250px 0px -250px',
+                    threshold: 0.01
+                });
+
+                images.forEach(img => observer.observe(img));
+            });
+        </script>
+    @endpush
 </section>

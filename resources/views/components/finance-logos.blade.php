@@ -12,8 +12,17 @@
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-center justify-center opacity-70">
             @foreach ($banks as $bank)
                 <div class="flex justify-center p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition">
-                    <img src="{{ asset($bank->logo) }}" alt="{{ $bank->name }}" loading="lazy" decoding="async"
+                    @php
+                        $logoUrl = blank($bank->logo)
+                            ? null
+                            : (str_starts_with($bank->logo, 'http')
+                                ? $bank->logo
+                                : Storage::url($bank->logo));
+                    @endphp
+                    @if ($logoUrl)
+                        <img src="{{ $logoUrl }}" alt="{{ $bank->name }}" loading="lazy" decoding="async"
                         class="h-10 object-contain">
+                    @endif
                 </div>
             @endforeach
         </div>
