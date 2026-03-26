@@ -96,10 +96,13 @@
                                 class="w-full bg-gray-50 border-none rounded-3xl px-6 py-4 focus:ring-2 focus:ring-primary text-gray-600 transition"
                                 required></textarea>
                         </div>
-                        @if ($settings?->recaptcha_enabled_contact && $settings?->recaptcha_site_key)
+                        @php
+                            $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
+                        @endphp
+                        @if ($siteKey)
                             <div class="md:col-span-2 flex justify-center">
                                 <div class="recaptcha-wrapper">
-                                    <div class="g-recaptcha" data-sitekey="{{ $settings->recaptcha_site_key }}"></div>
+                                    <div class="g-recaptcha" data-sitekey="{{ $siteKey }}"></div>
                                 </div>
                             </div>
                         @endif

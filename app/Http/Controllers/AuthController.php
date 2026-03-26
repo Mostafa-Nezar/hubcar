@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
+use App\Models\Setting;
 
 class AuthController extends Controller
 {
+    use \App\Traits\ValidatesRecaptcha;
+
     public function showLoginForm()
     {
         return view('auth.login');
@@ -16,6 +19,19 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $settings = Setting::first();
+        $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
+        $secretKey = env('RECAPTCHA_SECRET_KEY', $settings?->recaptcha_secret_key);
+        $recaptchaEnabled = (bool) ($siteKey && $secretKey);
+
+        if ($recaptchaEnabled) {
+            if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
+                return back()
+                    ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
+                    ->withInput();
+            }
+        }
+
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -38,6 +54,19 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        $settings = Setting::first();
+        $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
+        $secretKey = env('RECAPTCHA_SECRET_KEY', $settings?->recaptcha_secret_key);
+        $recaptchaEnabled = (bool) ($siteKey && $secretKey);
+
+        if ($recaptchaEnabled) {
+            if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
+                return back()
+                    ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
+                    ->withInput();
+            }
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:customers',

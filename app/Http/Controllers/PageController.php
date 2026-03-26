@@ -69,7 +69,17 @@ class PageController extends Controller
     public function storeContact(Request $request)
     {
         $settings = \App\Models\Setting::first();
-        if ($settings?->recaptcha_enabled_contact) {
+        $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
+        $secretKey = env('RECAPTCHA_SECRET_KEY', $settings?->recaptcha_secret_key);
+        $shouldValidate = (bool) ($siteKey && $secretKey) && ((bool) $settings?->recaptcha_enabled_contact || (bool) env('RECAPTCHA_SITE_KEY'));
+
+        if ($shouldValidate) {
+            if (! $siteKey || ! $secretKey) {
+                return back()->withErrors([
+                    'g-recaptcha-response' => 'الكابتشا مفعلة لكن مفاتيحها غير مُعدة. يرجى إضافة Site Key و Secret Key من الإعدادات.',
+                ])->withInput();
+            }
+
             if (!$this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
                 return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من الكابتشا.'])->withInput();
             }

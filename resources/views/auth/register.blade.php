@@ -57,6 +57,22 @@
                                 placeholder="••••••••">
                         </div>
 
+                        @php
+                            $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
+                        @endphp
+                        @if ($siteKey)
+                            <div class="flex justify-center">
+                                <div class="recaptcha-wrapper">
+                                    <div class="g-recaptcha" data-sitekey="{{ $siteKey }}"></div>
+                                </div>
+                            </div>
+                            @error('g-recaptcha-response')
+                                <div class="text-red-500 text-sm font-bold text-center italic">
+                                    يجب تأكيد أنك لست برنامج روبوت.
+                                </div>
+                            @enderror
+                        @endif
+
                         <button type="submit"
                             class="w-full bg-primary text-white font-bold py-4 rounded-xl hover:bg-opacity-90 transition shadow-lg">
                             إنشاء حساب

@@ -42,6 +42,22 @@
                                 placeholder="••••••••">
                         </div>
 
+                        @php
+                            $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
+                        @endphp
+                        @if ($siteKey)
+                            <div class="flex justify-center">
+                                <div class="recaptcha-wrapper">
+                                    <div class="g-recaptcha" data-sitekey="{{ $siteKey }}"></div>
+                                </div>
+                            </div>
+                            @error('g-recaptcha-response')
+                                <div class="text-red-500 text-sm font-bold text-center italic">
+                                    يجب تأكيد أنك لست برنامج روبوت.
+                                </div>
+                            @enderror
+                        @endif
+
                         <div class="flex items-center justify-between">
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" name="remember" class="w-4 h-4 text-primary rounded focus:ring-primary">

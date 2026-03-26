@@ -13,6 +13,10 @@ trait ValidatesRecaptcha
             return true;
         }
 
+        if (!$response) {
+            return false;
+        }
+
         $secretKey = env('RECAPTCHA_SECRET_KEY');
         if (!$secretKey) {
             $settings = Setting::first();
@@ -20,7 +24,7 @@ trait ValidatesRecaptcha
         }
 
         if (!$secretKey) {
-            return true;
+            return false;
         }
 
         $verify = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
