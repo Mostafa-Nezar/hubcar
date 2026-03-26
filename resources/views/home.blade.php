@@ -11,7 +11,7 @@
     <x-brand-logos :brands="$brands" />
 
     <!-- Banner Component (أول سيارة بالهيرو سلايدر) -->
-    <x-banner :car="$featuredCars->first()" />
+    <x-banner />
 
     <!-- Dynamic Cars Section with Real-time Filtering -->
     <section class="py-20 bg-gray-50 overflow-hidden">

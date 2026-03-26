@@ -160,6 +160,7 @@ class CarForm
                     ->schema([
                         FileUpload::make('main_image')
                             ->label('الصورة الرئيسية')
+                            ->disk('public')
                             ->image()
                             ->directory('cars')
                             ->required(),
@@ -169,6 +170,7 @@ class CarForm
                             ->schema([
                                 FileUpload::make('path')
                                     ->label('الصورة')
+                                    ->disk('public')
                                     ->image()
                                     ->directory('cars/gallery')
                                     ->required(),

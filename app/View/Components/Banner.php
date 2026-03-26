@@ -5,17 +5,18 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use App\Models\Banner as BannerModel;
 
 class Banner extends Component
 {
-    public $car;
+    public $banner;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($car = null)
+    public function __construct()
     {
-        $this->car = $car;
+        $this->banner = BannerModel::where('is_active', true)->latest()->first();
     }
 
     /**

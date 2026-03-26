@@ -28,6 +28,7 @@ class BrandForm
                                     ->unique(ignoreRecord: true),
                                 FileUpload::make('logo')
                                     ->label('الشعار')
+                                    ->disk('public')
                                     ->image()
                                     ->directory('brands')
                                     ->imageEditor(),

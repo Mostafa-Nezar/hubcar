@@ -56,6 +56,7 @@ class AboutPageForm
                     ->schema([
                         FileUpload::make('image')
                             ->label('الصورة الرئيسية')
+                            ->disk('public')
                             ->image()
                             ->directory('about'),
                     ]),

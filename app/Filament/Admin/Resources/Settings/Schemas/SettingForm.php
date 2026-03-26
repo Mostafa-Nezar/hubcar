@@ -21,6 +21,7 @@ class SettingForm
                             ->default('RENAX'),
                         \Filament\Forms\Components\FileUpload::make('logo')
                             ->label('الشعار (Logo)')
+                            ->disk('public')
                             ->image()
                             ->directory('settings'),
                     ]),
@@ -128,6 +129,7 @@ class SettingForm
                             ->columnSpanFull(),
                         \Filament\Forms\Components\FileUpload::make('og_image')
                             ->label('صورة المشاركة (Open Graph)')
+                            ->disk('public')
                             ->image()
                             ->directory('seo')
                             ->columnSpanFull(),
