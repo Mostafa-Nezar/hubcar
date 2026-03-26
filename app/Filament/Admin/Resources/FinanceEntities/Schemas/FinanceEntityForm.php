@@ -19,7 +19,6 @@ class FinanceEntityForm
                     ->maxLength(255),
                 FileUpload::make('logo')
                     ->label('الشعار')
-                    ->disk('public')
                     ->image()
                     ->directory('banks'),
                 Textarea::make('description')
