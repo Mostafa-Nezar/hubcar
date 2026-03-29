@@ -4,7 +4,7 @@
     <div
         class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 relative">
         <!-- Overlay Link for entire card -->
-        <a href="{{ route('cars.show', $car->slug) }}" class="absolute inset-0 z-10" aria-label="View Details"></a>
+        <a href="{{ route('cars.show', array_merge(['car' => $car->slug], request()->query())) }}" class="absolute inset-0 z-10" aria-label="عرض التفاصيل"></a>
 
         <div class="relative overflow-hidden aspect-[16/10]">
             @php
@@ -63,7 +63,7 @@
             </div>
 
             <div class="flex space-x-reverse gap-3 space-x-3 relative z-20">
-                <a href="{{ route('cars.show', $car->slug) }}"
+                <a href="{{ route('cars.show', array_merge(['car' => $car->slug], request()->query())) }}"
                     class="flex-1 bg-gray-100 text-secondary text-center py-2.5 rounded-xl font-bold hover:bg-gray-200 transition text-sm">
                     التفاصيل
                 </a>
@@ -79,7 +79,7 @@
     <div
         class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 relative flex flex-col md:flex-row items-center gap-6 p-4">
         <!-- Overlay Link for entire card -->
-        <a href="{{ route('cars.show', $car->slug) }}" class="absolute inset-0 z-10" aria-label="View Details"></a>
+        <a href="{{ route('cars.show', array_merge(['car' => $car->slug], request()->query())) }}" class="absolute inset-0 z-10" aria-label="عرض التفاصيل"></a>
 
         <div class="relative overflow-hidden w-full md:w-1/3 aspect-[16/10] rounded-xl flex-shrink-0">
             @php
@@ -151,7 +151,7 @@
             </div>
 
             <div class="flex gap-4 relative z-20">
-                <a href="{{ route('cars.show', $car->slug) }}"
+                <a href="{{ route('cars.show', array_merge(['car' => $car->slug], request()->query())) }}"
                     class="flex-1 md:flex-none md:px-8 bg-gray-100 text-secondary text-center py-3 rounded-xl font-bold hover:bg-gray-200 transition text-sm">
                     التفاصيل
                 </a>

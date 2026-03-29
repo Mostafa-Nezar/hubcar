@@ -11,6 +11,8 @@ class CarList extends Component
 {
     use WithPagination;
 
+    private const FILTERS_SESSION_KEY = 'cars_list.filters';
+
     public $brand_id = '';
     public $type = '';
     public $category = '';
@@ -40,9 +42,37 @@ class CarList extends Component
         $this->types_list = Car::distinct()->pluck('type')->filter()->values();
         $this->categories_list = Car::distinct()->pluck('category')->filter()->values();
         $this->years_list = Car::distinct()->orderBy('model_year', 'desc')->pluck('model_year')->filter()->values();
-        
-        // Populate from request if needed (though queryString handles it)
+
+        // Support legacy/query links like ?brand=ID
         $this->brand_id = request('brand', $this->brand_id);
+
+        $hasQueryFilters = request()->hasAny([
+            'brand',
+            'brand_id',
+            'type',
+            'category',
+            'year',
+            'sort',
+            'search',
+            'viewMode',
+            'page',
+        ]);
+
+        if (! $hasQueryFilters) {
+            $saved = session(self::FILTERS_SESSION_KEY, []);
+
+            $this->brand_id = $saved['brand_id'] ?? $this->brand_id;
+            $this->type = $saved['type'] ?? $this->type;
+            $this->category = $saved['category'] ?? $this->category;
+            $this->year = $saved['year'] ?? $this->year;
+            $this->sort = $saved['sort'] ?? $this->sort;
+            $this->search = $saved['search'] ?? $this->search;
+            $this->viewMode = $saved['viewMode'] ?? $this->viewMode;
+
+            if (! empty($saved['page']) && (int) $saved['page'] > 1) {
+                $this->setPage((int) $saved['page']);
+            }
+        }
     }
 
     public function updating($name)
@@ -53,6 +83,24 @@ class CarList extends Component
     public function resetFilters()
     {
         $this->reset(['brand_id', 'type', 'category', 'year', 'search', 'sort']);
+        $this->viewMode = 'grid';
+        session()->forget(self::FILTERS_SESSION_KEY);
+    }
+
+    private function persistFilters(int $page): void
+    {
+        session([
+            self::FILTERS_SESSION_KEY => [
+                'brand_id' => $this->brand_id,
+                'type' => $this->type,
+                'category' => $this->category,
+                'year' => $this->year,
+                'sort' => $this->sort,
+                'search' => $this->search,
+                'viewMode' => $this->viewMode,
+                'page' => $page,
+            ],
+        ]);
     }
 
     public function render()
@@ -95,6 +143,7 @@ class CarList extends Component
         }
 
         $cars = $query->paginate(12);
+        $this->persistFilters($cars->currentPage());
 
         return view('livewire.car-list', [
             'cars' => $cars

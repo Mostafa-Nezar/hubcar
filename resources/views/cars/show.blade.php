@@ -25,7 +25,7 @@
                 <ol class="inline-flex items-center space-x-reverse space-x-2">
                     <li><a href="{{ route('home') }}" class="hover:text-primary transition-colors">الرئيسية</a></li>
                     <li><i class="ti-angle-left text-[10px] mx-2"></i></li>
-                    <li><a href="{{ route('cars.index') }}" class="hover:text-primary transition-colors">السيارات</a></li>
+                    <li><a href="{{ route('cars.index', request()->query()) }}" class="hover:text-primary transition-colors">السيارات</a></li>
                     <li><i class="ti-angle-left text-[10px] mx-2"></i></li>
                     <li class="text-secondary font-bold">{{ $car->name }}</li>
                 </ol>
