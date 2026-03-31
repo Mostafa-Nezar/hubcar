@@ -162,13 +162,6 @@ class CarForm
                             ->label('الصورة الرئيسية')
                             ->image()
                             ->directory('cars')
-                            ->saveUploadedFileUsing(function ($file) {
-                                $filename = pathinfo($file->hashName(), PATHINFO_FILENAME) . '.webp';
-                                $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
-                                $image = $manager->read($file->getRealPath());
-                                \Illuminate\Support\Facades\Storage::disk('public')->put('cars/' . $filename, (string) $image->toWebp(85));
-                                return 'cars/' . $filename;
-                            })
                             ->required(),
                         Repeater::make('images')
                             ->label('معرض الصور')
@@ -178,13 +171,6 @@ class CarForm
                                     ->label('الصورة')
                                     ->image()
                                     ->directory('cars/gallery')
-                                    ->saveUploadedFileUsing(function ($file) {
-                                        $filename = pathinfo($file->hashName(), PATHINFO_FILENAME) . '.webp';
-                                        $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
-                                        $image = $manager->read($file->getRealPath());
-                                        \Illuminate\Support\Facades\Storage::disk('public')->put('cars/gallery/' . $filename, (string) $image->toWebp(85));
-                                        return 'cars/gallery/' . $filename;
-                                    })
                                     ->required(),
                                 TextInput::make('sort_order')
                                     ->label('الترتيب')

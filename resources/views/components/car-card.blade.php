@@ -13,35 +13,9 @@
                     : (str_starts_with($car->main_image, 'img/')
                         ? asset($car->main_image)
                         : Storage::url($car->main_image));
-
-                $webpPath = preg_replace('/\.(jpg|jpeg|png)$/i', '.webp', $car->main_image);
-                $hasWebp = false;
-                
-                if (str_starts_with($car->main_image, 'http')) {
-                    $hasWebp = false;
-                } elseif (str_starts_with($car->main_image, 'img/')) {
-                    $hasWebp = file_exists(public_path($webpPath));
-                } else {
-                    $hasWebp = Storage::disk('public')->exists($webpPath);
-                }
-                
-                $webpImageUrl = str_starts_with($webpPath, 'http')
-                    ? $webpPath
-                    : (str_starts_with($webpPath, 'img/')
-                        ? asset($webpPath)
-                        : Storage::url($webpPath));
             @endphp
-
-            @if($hasWebp)
-                <picture>
-                    <source srcset="{{ $webpImageUrl }}" type="image/webp">
-                    <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy" decoding="async"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </picture>
-            @else
-                <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy" decoding="async"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            @endif
+            <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy" decoding="async"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full z-20">
                 {{ $car->category }}
             </div>
@@ -114,35 +88,9 @@
                     : (str_starts_with($car->main_image, 'img/')
                         ? asset($car->main_image)
                         : Storage::url($car->main_image));
-
-                $webpPath = preg_replace('/\.(jpg|jpeg|png)$/i', '.webp', $car->main_image);
-                $hasWebp = false;
-                
-                if (str_starts_with($car->main_image, 'http')) {
-                    $hasWebp = false;
-                } elseif (str_starts_with($car->main_image, 'img/')) {
-                    $hasWebp = file_exists(public_path($webpPath));
-                } else {
-                    $hasWebp = Storage::disk('public')->exists($webpPath);
-                }
-                
-                $webpImageUrl = str_starts_with($webpPath, 'http')
-                    ? $webpPath
-                    : (str_starts_with($webpPath, 'img/')
-                        ? asset($webpPath)
-                        : Storage::url($webpPath));
             @endphp
-
-            @if($hasWebp)
-                <picture>
-                    <source srcset="{{ $webpImageUrl }}" type="image/webp">
-                    <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy" decoding="async"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </picture>
-            @else
-                <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy" decoding="async"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            @endif
+            <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy" decoding="async"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div
                 class="absolute top-2 right-2 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full z-20">
                 {{ $car->category }}
