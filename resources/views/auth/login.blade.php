@@ -77,12 +77,6 @@
                             <a href="{{ route('register') }}" class="text-primary font-bold hover:underline">سجل الآن</a>
                         </p>
                     </div>
-
-                    <div class="mt-6 pt-6 border-t border-gray-100 text-center">
-                        <a href="{{ url('/admin/login') }}" class="text-sm text-gray-500 hover:text-primary transition">
-                            تسجيل دخول الأدمن
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

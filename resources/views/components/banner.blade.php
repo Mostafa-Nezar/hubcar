@@ -1,3 +1,4 @@
+@if($banner)
 <section class="py-12 bg-white">
     <div class="container mx-auto px-4">
         <div         @if($banner->link)
@@ -22,3 +23,4 @@
 
     </div>
 </section>
+@endif

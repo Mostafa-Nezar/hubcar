@@ -10,8 +10,7 @@
     <!-- Brand Logos Section -->
     <x-brand-logos :brands="$brands" />
 
-    <!-- Banner Component (أول سيارة بالهيرو سلايدر) -->
-    <x-banner />
+
 
     <!-- Dynamic Cars Section with Real-time Filtering -->
     <section class="py-20 bg-gray-50 overflow-hidden">
@@ -24,6 +23,9 @@
             @livewire('car-list')
         </div>
     </section>
+
+    <!-- Banner Component (أول سيارة بالهيرو سلايدر) -->
+    <x-banner />
 
     <!-- Finance Section -->
     <x-finance-logos :banks="$banks" />
