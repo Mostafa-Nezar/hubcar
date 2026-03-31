@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeUserMail;
 
 class AuthController extends Controller
 {
@@ -20,17 +22,17 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $settings = Setting::first();
-        $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
-        $secretKey = env('RECAPTCHA_SECRET_KEY', $settings?->recaptcha_secret_key);
-        $recaptchaEnabled = (bool) ($siteKey && $secretKey);
+        // $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
+        // $secretKey = env('RECAPTCHA_SECRET_KEY', $settings?->recaptcha_secret_key);
+        // $recaptchaEnabled = (bool) ($siteKey && $secretKey);
 
-        if ($recaptchaEnabled) {
-            if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
-                return back()
-                    ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
-                    ->withInput();
-            }
-        }
+        // if ($recaptchaEnabled) {
+        //     if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
+        //         return back()
+        //             ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
+        //             ->withInput();
+        //     }
+        // }
 
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -59,13 +61,13 @@ class AuthController extends Controller
         $secretKey = env('RECAPTCHA_SECRET_KEY', $settings?->recaptcha_secret_key);
         $recaptchaEnabled = (bool) ($siteKey && $secretKey);
 
-        if ($recaptchaEnabled) {
-            if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
-                return back()
-                    ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
-                    ->withInput();
-            }
-        }
+        // if ($recaptchaEnabled) {
+        //     if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
+        //         return back()
+        //             ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
+        //             ->withInput();
+        //     }
+        // }
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -78,6 +80,12 @@ class AuthController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
+
+        try {
+            Mail::to($customer->email)->send(new WelcomeUserMail($customer));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Welcome Email Sending failed: ' . $e->getMessage());
+        }
 
         Auth::guard('customer')->login($customer);
 
