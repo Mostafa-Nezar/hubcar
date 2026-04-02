@@ -16,9 +16,10 @@
                                     : Storage::url($car->main_image));
                         @endphp
                         <!-- <img src="{{ $imageUrl }}" alt="{{ $car->name }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}"
-                            fetchpriority="{{ $loop->first ? 'high' : 'auto' }}" decoding="async"
-                            class="w-full h-full object-contain bg-gray-100 transform scale-110 transition-transform duration-[12000ms] ease-out car-img-zoom group-hover/slide:scale-105"> -->
-                        <img src="{{ $imageUrl }}" alt="{{ $car->name }}"
+                                fetchpriority="{{ $loop->first ? 'high' : 'auto' }}" decoding="async"
+                                class="w-full h-full object-contain bg-gray-100 transform scale-110 transition-transform duration-[12000ms] ease-out car-img-zoom group-hover/slide:scale-105"> -->
+                        <img src="{{ $imageUrl }}" alt="{{ $car->name }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}"
+                        fetchpriority="{{ $loop->first ? 'high' : 'auto' }}" decoding="async"
                             class="w-full h-full object-cover transform scale-110 transition-transform duration-[12000ms] ease-out car-img-zoom group-hover/slide:scale-105">
                         <!-- Elegant Dark Gradient Overlay -->
                         <div class="absolute inset-0 bg-gradient-to-b from-secondary/50 via-secondary/20 to-secondary/90">
