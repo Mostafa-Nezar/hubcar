@@ -206,7 +206,7 @@
                                 @endif
 
                                 @php
-                                    $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
+                                    $siteKey = config('services.recaptcha.site_key', $settings?->recaptcha_site_key);
                                 @endphp
                                 @if ($siteKey)
                                     <div class="md:col-span-2 flex justify-center mt-4">

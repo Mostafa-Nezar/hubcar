@@ -55,3 +55,21 @@ Route::get('/migrate', function () {
 
     return 'Database reset & seeded successfully!';
 });
+
+Route::get('/fix-storage', function () {
+    try {
+        // حذفه في حال كان موجود كملف وهمي أو مجلد فارغ لمنع تعارض الإنشاء
+        if (file_exists(public_path('storage'))) {
+            if (is_link(public_path('storage'))) {
+                unlink(public_path('storage'));
+            } else {
+                \Illuminate\Support\Facades\File::deleteDirectory(public_path('storage'));
+            }
+        }
+        
+        \Illuminate\Support\Facades\Artisan::call('storage:link');
+        return 'تم إصلاح مشكلة الصور (Storage Linked Successfully) ✅';
+    } catch (\Exception $e) {
+        return 'حدث خطأ: ' . $e->getMessage();
+    }
+});

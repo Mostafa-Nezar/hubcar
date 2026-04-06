@@ -30,9 +30,9 @@
             <!-- Type -->
             <div>
                 <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">النوع</label>
-                <select wire:model.live="type"
-                    class="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary text-sm appearance-none">
-                    <option value="">جميع الأنواع</option>
+                <select wire:model.live="type" @if(empty($brand_id)) disabled @endif
+                    class="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary text-sm appearance-none disabled:opacity-50 disabled:cursor-not-allowed">
+                    <option value="">{{ !empty($brand_id) ? 'جميع الأنواع' : 'اختر الماركة أولاً' }}</option>
                     @foreach ($types_list as $t)
                         <option value="{{ $t }}">{{ $t }}</option>
                     @endforeach
@@ -42,9 +42,9 @@
             <!-- Category -->
             <div>
                 <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">الفئة</label>
-                <select wire:model.live="category"
-                    class="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary text-sm appearance-none">
-                    <option value="">جميع الفئات</option>
+                <select wire:model.live="category" @if(empty($type)) disabled @endif
+                    class="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary text-sm appearance-none disabled:opacity-50 disabled:cursor-not-allowed">
+                    <option value="">{{ !empty($type) ? 'جميع الفئات' : 'اختر النوع أولاً' }}</option>
                     @foreach ($categories_list as $c)
                         <option value="{{ $c }}">{{ $c }}</option>
                     @endforeach
@@ -54,9 +54,9 @@
             <!-- Year -->
             <div>
                 <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">الموديل</label>
-                <select wire:model.live="year"
-                    class="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary text-sm appearance-none">
-                    <option value="">جميع السنوات</option>
+                <select wire:model.live="year" @if(empty($category)) disabled @endif
+                    class="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary text-sm appearance-none disabled:opacity-50 disabled:cursor-not-allowed">
+                    <option value="">{{ !empty($category) ? 'جميع السنوات' : 'اختر الفئة أولاً' }}</option>
                     @foreach ($years_list as $y)
                         <option value="{{ $y }}">{{ $y }}</option>
                     @endforeach

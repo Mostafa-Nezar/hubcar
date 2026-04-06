@@ -39,7 +39,7 @@ class CarController extends Controller
             $query->latest();
         }
 
-        $cars = $query->paginate(12);
+        $cars = $query->paginate(12)->withQueryString();
         
         return view('cars.index', compact('cars'));
     }
@@ -68,7 +68,7 @@ class CarController extends Controller
     {
 
         $settings = \App\Models\Setting::first();
-        if (env('RECAPTCHA_SITE_KEY') || $settings?->recaptcha_enabled_booking) {
+        if (config('services.recaptcha.site_key') || $settings?->recaptcha_enabled_booking) {
             if (!$this->validateRecaptcha($request->input('g-recaptcha-response'))) {
                 return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])->withInput();
             }

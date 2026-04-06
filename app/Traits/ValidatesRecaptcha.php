@@ -17,7 +17,7 @@ trait ValidatesRecaptcha
             return false;
         }
 
-        $secretKey = env('RECAPTCHA_SECRET_KEY');
+        $secretKey = config('services.recaptcha.secret_key');
         if (!$secretKey) {
             $settings = Setting::first();
             $secretKey = $settings?->recaptcha_secret_key;

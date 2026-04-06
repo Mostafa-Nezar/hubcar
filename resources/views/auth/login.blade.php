@@ -43,7 +43,7 @@
                         </div>
 
                         @php
-                            $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
+                            $siteKey = config('services.recaptcha.site_key', $settings?->recaptcha_site_key);
                         @endphp
                         @if ($siteKey)
                             <div class="flex justify-center">

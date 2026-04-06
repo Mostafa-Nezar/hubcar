@@ -39,9 +39,7 @@ class CarList extends Component
     public function mount()
     {
         $this->brands_list = Brand::all();
-        $this->types_list = Car::distinct()->pluck('type')->filter()->values();
-        $this->categories_list = Car::distinct()->pluck('category')->filter()->values();
-        $this->years_list = Car::distinct()->orderBy('model_year', 'desc')->pluck('model_year')->filter()->values();
+        $this->updateDependentLists();
 
         // Support legacy/query links like ?brand=ID
         $this->brand_id = request('brand', $this->brand_id);
@@ -58,7 +56,7 @@ class CarList extends Component
             'page',
         ]);
 
-        if (! $hasQueryFilters) {
+        if (!$hasQueryFilters) {
             $saved = session(self::FILTERS_SESSION_KEY, []);
 
             $this->brand_id = $saved['brand_id'] ?? $this->brand_id;
@@ -69,7 +67,7 @@ class CarList extends Component
             $this->search = $saved['search'] ?? $this->search;
             $this->viewMode = $saved['viewMode'] ?? $this->viewMode;
 
-            if (! empty($saved['page']) && (int) $saved['page'] > 1) {
+            if (!empty($saved['page']) && (int) $saved['page'] > 1) {
                 $this->setPage((int) $saved['page']);
             }
         }
@@ -78,6 +76,42 @@ class CarList extends Component
     public function updating($name)
     {
         $this->resetPage();
+    }
+
+    public function updatedBrandId()
+    {
+        $this->type = '';
+        $this->category = '';
+        $this->year = '';
+        $this->updateDependentLists();
+    }
+
+    public function updatedType()
+    {
+        $this->category = '';
+        $this->year = '';
+        $this->updateDependentLists();
+    }
+
+    public function updatedCategory()
+    {
+        $this->year = '';
+        $this->updateDependentLists();
+    }
+
+    private function updateDependentLists()
+    {
+        $this->types_list = $this->brand_id 
+            ? Car::where('brand_id', $this->brand_id)->distinct()->pluck('type')->filter()->values()
+            : collect();
+
+        $this->categories_list = ($this->brand_id && $this->type)
+            ? Car::where('brand_id', $this->brand_id)->where('type', $this->type)->distinct()->pluck('category')->filter()->values()
+            : collect();
+
+        $this->years_list = ($this->brand_id && $this->type && $this->category)
+            ? Car::where('brand_id', $this->brand_id)->where('type', $this->type)->where('category', $this->category)->distinct()->orderBy('model_year', 'desc')->pluck('model_year')->filter()->values()
+            : collect();
     }
 
     public function resetFilters()
@@ -124,9 +158,9 @@ class CarList extends Component
         }
 
         if ($this->search) {
-            $query->where(function($q) {
+            $query->where(function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('description', 'like', '%' . $this->search . '%');
+                    ->orWhere('description', 'like', '%' . $this->search . '%');
             });
         }
 
@@ -142,7 +176,7 @@ class CarList extends Component
             $query->latest();
         }
 
-        $cars = $query->paginate(12);
+        $cars = $query->paginate(12)->withQueryString();
         $this->persistFilters($cars->currentPage());
 
         return view('livewire.car-list', [

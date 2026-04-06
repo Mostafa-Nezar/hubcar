@@ -22,8 +22,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $settings = Setting::first();
-        $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
-        $secretKey = env('RECAPTCHA_SECRET_KEY', $settings?->recaptcha_secret_key);
+        $siteKey = config('services.recaptcha.site_key', $settings?->recaptcha_site_key);
+        $secretKey = config('services.recaptcha.secret_key', $settings?->recaptcha_secret_key);
         $recaptchaEnabled = (bool) ($siteKey && $secretKey);
 
         if ($recaptchaEnabled) {
@@ -57,8 +57,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $settings = Setting::first();
-        $siteKey = env('RECAPTCHA_SITE_KEY', $settings?->recaptcha_site_key);
-        $secretKey = env('RECAPTCHA_SECRET_KEY', $settings?->recaptcha_secret_key);
+        $siteKey = config('services.recaptcha.site_key', $settings?->recaptcha_site_key);
+        $secretKey = config('services.recaptcha.secret_key', $settings?->recaptcha_secret_key);
         $recaptchaEnabled = (bool) ($siteKey && $secretKey);
 
         if ($recaptchaEnabled) {
