@@ -52,7 +52,7 @@
 
                                     <!-- Action -->
                                     <div class="text-right">
-                                        <a href="{{ route('customer.booking-detail', $booking->id) }}"
+                                        <a href="{{ route('customer.booking-detail', ['id' => $booking->id, 'type' => $booking->booking_type]) }}"
                                             class="inline-block bg-primary text-white font-bold px-6 py-3 rounded-2xl hover:bg-opacity-90 transition">
                                             عرض التفاصيل
                                         </a>

@@ -111,7 +111,7 @@
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <a href="{{ route('customer.booking-detail', $booking->id) }}"
+                                                <a href="{{ route('customer.booking-detail', ['id' => $booking->id, 'type' => $booking->booking_type]) }}"
                                                     class="text-primary font-bold hover:underline">
                                                     عرض التفاصيل
                                                 </a>

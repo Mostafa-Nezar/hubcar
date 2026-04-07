@@ -15,11 +15,11 @@ class CustomerController extends Controller
         $customer = Auth::guard('customer')->user();
         
         // Get both regular and quick bookings
-        $regularBookings = BookingRequest::where('phone', $customer->email)
+        $regularBookings = BookingRequest::where('email', $customer->email)
             ->select('*', \DB::raw("'regular' as booking_type"))
             ->get();
         
-        $quickBookings = QuickBookingRequest::where('phone', $customer->email)
+        $quickBookings = QuickBookingRequest::where('email', $customer->email)
             ->select('*', \DB::raw("'quick' as booking_type"))
             ->get();
         
@@ -28,6 +28,7 @@ class CustomerController extends Controller
             ->merge($regularBookings)
             ->merge($quickBookings)
             ->sortByDesc('request_date')
+            ->values()
             ->take(5);
         
         $bookingCount = $regularBookings->count() + $quickBookings->count();
@@ -88,11 +89,11 @@ class CustomerController extends Controller
         $customer = Auth::guard('customer')->user();
         
         // Get both regular and quick bookings
-        $regularBookings = BookingRequest::where('phone', $customer->email)
+        $regularBookings = BookingRequest::where('email', $customer->email)
             ->select('*', \DB::raw("'regular' as booking_type"))
             ->get();
         
-        $quickBookings = QuickBookingRequest::where('phone', $customer->email)
+        $quickBookings = QuickBookingRequest::where('email', $customer->email)
             ->select('*', \DB::raw("'quick' as booking_type"))
             ->get();
         
@@ -125,17 +126,21 @@ class CustomerController extends Controller
     public function bookingDetail($id)
     {
         $customer = Auth::guard('customer')->user();
-        
-        // Try to find in regular bookings first
-        $booking = BookingRequest::findOrFail($id);
+        $type = request()->query('type', 'regular');
+
+        if ($type === 'quick') {
+            $booking = QuickBookingRequest::findOrFail($id);
+            $booking->booking_type = 'quick';
+        } else {
+            $booking = BookingRequest::findOrFail($id);
+            $booking->booking_type = 'regular';
+        }
 
         // التحقق من ملكية الحجز
-        if ($booking->phone !== $customer->email) {
+        if ($booking->email !== $customer->email) {
             abort(403);
         }
 
-        $booking->booking_type = 'regular';
-        
         return view('customer.booking-detail', compact('booking'));
     }
 }

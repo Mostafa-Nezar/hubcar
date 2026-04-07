@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class QuickBookingRequest extends Model
 {
     protected $fillable = [
-        'payment_type', 'client_name', 'phone', 'car_id', 'car_name_manual',
+        'payment_type', 'client_name', 'phone', 'email', 'car_id', 'car_name_manual',
         'brand_name', 'car_type', 'car_category', 'car_price',
         'model_year', 'city', 'request_date', 'status', 'state_category',
         'bank_name', 'work_sector', 'monthly_salary', 'client_notes',

@@ -13,8 +13,7 @@
                         ? asset($selectedCar->main_image)
                         : Storage::url($selectedCar->main_image));
             @endphp
-            <img src="{{ $headerImg }}" alt=""
-                class="w-full h-full object-cover opacity-20 blur-sm transform scale-105">
+            <img src="{{ $headerImg }}" alt="" class="w-full h-full object-cover opacity-20 blur-sm transform scale-105">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent to-secondary"></div>
         </div>
         <div class="container mx-auto px-4 lg:px-8 relative z-10 text-center">
@@ -82,7 +81,8 @@
 
                     <!-- Main Form -->
                     <div class="lg:w-2/3 p-8 lg:p-16">
-                        <form action="{{ route('cars.booking.store', $selectedCar->slug) }}" method="POST" id="booking-form" onsubmit="return handleFormSubmit(event)">
+                        <form action="{{ route('cars.booking.store', $selectedCar->slug) }}" method="POST" id="booking-form"
+                            onsubmit="return handleFormSubmit(event)">
                             @csrf
                             <input type="hidden" name="payment_type" value="{{ $type }}">
                             <input type="hidden" name="brand_name" value="{{ $selectedCar->brand->name ?? '' }}">
@@ -124,8 +124,7 @@
                                 <div class="space-y-2">
                                     <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">رقم
                                         الجوال <span class="text-primary">*</span></label>
-                                    <input type="tel" name="phone" value="{{ old('phone') }}"
-                                        placeholder="05xxxxxxxx"
+                                    <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="05xxxxxxxx"
                                         class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold text-left transition-all outline-none"
                                         required>
                                     @error('phone')
@@ -164,8 +163,8 @@
                                             sort($saudiCities);
                                         @endphp
                                         @foreach ($saudiCities as $city)
-                                            <option value="{{ $city }}"
-                                                {{ old('city') == $city ? 'selected' : '' }}>{{ $city }}</option>
+                                            <option value="{{ $city }}" {{ old('city') == $city ? 'selected' : '' }}>{{ $city }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     @error('city')
@@ -193,17 +192,20 @@
 
                                     <!-- Work Sector -->
                                     <div class="space-y-2">
-                                        <label
-                                            class="block text-xs font-black text-gray-500 uppercase tracking-widest">قطاع
+                                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">قطاع
                                             العمل <span class="text-primary">*</span></label>
                                         <select name="work_sector"
                                             class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none appearance-none"
                                             required>
                                             <option value="">اختر القطاع</option>
-                                            <option value="govt" {{ old('work_sector') == 'govt' ? 'selected' : '' }}>حكومي</option>
-                                            <option value="private" {{ old('work_sector') == 'private' ? 'selected' : '' }}>خاص</option>
-                                            <option value="military" {{ old('work_sector') == 'military' ? 'selected' : '' }}>عسكري</option>
-                                            <option value="retired" {{ old('work_sector') == 'retired' ? 'selected' : '' }}>متقاعد</option>
+                                            <option value="govt" {{ old('work_sector') == 'govt' ? 'selected' : '' }}>حكومي
+                                            </option>
+                                            <option value="private" {{ old('work_sector') == 'private' ? 'selected' : '' }}>خاص
+                                            </option>
+                                            <option value="military" {{ old('work_sector') == 'military' ? 'selected' : '' }}>
+                                                عسكري</option>
+                                            <option value="retired" {{ old('work_sector') == 'retired' ? 'selected' : '' }}>متقاعد
+                                            </option>
                                         </select>
                                         @error('work_sector')
                                             <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -211,10 +213,10 @@
                                     </div>
 
                                     <div class="space-y-2">
-                                        <label
-                                            class="block text-xs font-black text-gray-500 uppercase tracking-widest">الراتب
+                                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">الراتب
                                             الشهري <span class="text-primary">*</span></label>
-                                        <input type="number" name="monthly_salary" value="{{ old('monthly_salary') }}" placeholder="مثال: 12000"
+                                        <input type="number" name="monthly_salary" value="{{ old('monthly_salary') }}"
+                                            placeholder="مثال: 12000"
                                             class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none"
                                             required min="0" step="0.01">
                                         @error('monthly_salary')
@@ -242,7 +244,8 @@
                                 <div class="md:col-span-2 space-y-2">
                                     <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">ملاحظات
                                         إضافية</label>
-                                    <textarea name="client_notes" rows="4" placeholder="هل لديك استفسارات أو تفاصيل إضافية تود إضافتها؟"
+                                    <textarea name="client_notes" rows="4"
+                                        placeholder="هل لديك استفسارات أو تفاصيل إضافية تود إضافتها؟"
                                         class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-3xl px-6 py-4 text-secondary font-bold transition-all outline-none"></textarea>
                                 </div>
                             </div>
@@ -281,7 +284,7 @@
                 icon.classList.add('hidden');
                 btn.classList.add('opacity-80', 'pointer-events-none');
                 btn.disabled = true;
-                
+
                 return true;
             } else {
                 event.preventDefault();
@@ -289,7 +292,7 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             new TomSelect('#city-select', {
                 create: false,
                 sortField: {
@@ -299,7 +302,7 @@
                 placeholder: "ابحث عن مدينتك...",
                 noResultsText: "لم يتم العثور على نتائج",
                 render: {
-                    no_results: function(data, escape) {
+                    no_results: function (data, escape) {
                         return '<div class="no-results">لم يتم العثور على مدينة بهذا الاسم</div>';
                     }
                 }
