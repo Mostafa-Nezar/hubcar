@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\BookingRequest;
+use App\Models\QuickBookingRequest;
 use App\Models\FinanceEntity;
 use Illuminate\Http\Request;
 
@@ -61,41 +62,54 @@ class CarController extends Controller
         $type = $request->query('type', 'cash'); // cash or finance
         $financeEntities = FinanceEntity::all();
         
-        return view('cars.booking', compact('selectedCar', 'type', 'financeEntities'));
+        // If user is logged in, pass their data
+        $user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
+        
+        return view('cars.booking', compact('selectedCar', 'type', 'financeEntities', 'user'));
+    }
+
+    public function quickBooking()
+    {
+        $cars = Car::latest()->get();
+        
+        // If user is logged in, pass their data
+        $user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
+        
+        return view('cars.quick-booking', compact('cars', 'user'));
     }
 
     public function storeBooking(Request $request, Car $car)
     {
+        // $settings = \App\Models\Setting::first();
+        // if (config('services.recaptcha.site_key') || $settings?->recaptcha_enabled_booking) {
+        //     if (!$this->validateRecaptcha($request->input('g-recaptcha-response'))) {
+        //         return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])->withInput();
+        //     }
+        // }
 
-        $settings = \App\Models\Setting::first();
-        if (config('services.recaptcha.site_key') || $settings?->recaptcha_enabled_booking) {
-            if (!$this->validateRecaptcha($request->input('g-recaptcha-response'))) {
-                return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])->withInput();
-            }
-        }
+        $user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
+        
+        // Adjust validation based on login status
+        $phoneRule = $user ? 'nullable' : ['required', 'string', 'max:20', 'regex:/^(?:\+?966|00966|0)?5[0-9]{8}$/'];
+        $nameRule = $user ? 'nullable' : ['required', 'string', 'max:255', 'regex:/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u'];
 
         $validated = $request->validate([
-            // 3 to 6 Arabic name parts separated by spaces (Saudi ID style)
-            'client_name' => ['required', 'string', 'max:255', 'regex:/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u'],
-            // Saudi mobile formats: 05xxxxxxxx | +9665xxxxxxxx | 009665xxxxxxxx (allow spaces/dashes)
-            'phone' => ['required', 'string', 'max:20', 'regex:/^(?:\+?966|00966|0)?5[0-9]{8}$/'],
+            'client_name' => $nameRule,
+            'phone' => $phoneRule,
             'city' => 'required|string|max:100',
             'payment_type' => 'required|in:cash,finance',
             'bank_name' => 'required_if:payment_type,finance|nullable|string|max:100',
             'work_sector' => 'required_if:payment_type,finance|nullable|in:govt,private,military,retired',
             'monthly_salary' => 'required_if:payment_type,finance|nullable|numeric|min:0',
             'client_notes' => 'nullable|string',
-        ]
-        ,
-        [
+        ], [
             'client_name.regex' => 'الرجاء إدخال الاسم كما هو مكتوب في بطاقة الهوية.',
             'phone.regex' => 'الرجاء إدخال رقم جوال صحيح بالصيغة السعودية.',
-        ]
-    );
+        ]);
 
         $booking = BookingRequest::create([
-            'client_name' => $validated['client_name'],
-            'phone' => $validated['phone'],
+            'client_name' => $user ? $user->name : $validated['client_name'],
+            'phone' => $user ? $user->email : $validated['phone'],  // Store email if logged in
             'city' => $validated['city'],
             'car_id' => $car->id,
             'car_name_manual' => $car->name,
@@ -114,5 +128,53 @@ class CarController extends Controller
         ]);
 
         return redirect()->route('home')->with('success', 'تم استلام طلبك بنجاح! سنقوم بالتواصل معك قريباً.');
+    }
+
+    public function storeQuickBooking(Request $request)
+    {
+        $user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
+        
+        // Adjust validation based on login status
+        $phoneRule = $user ? 'nullable' : ['required', 'string', 'max:20', 'regex:/^(?:\+?966|00966|0)?5[0-9]{8}$/'];
+        $nameRule = $user ? 'nullable' : ['required', 'string', 'max:255', 'regex:/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u'];
+
+        $validated = $request->validate([
+            'car_id' => 'required|exists:cars,id',
+            'client_name' => $nameRule,
+            'phone' => $phoneRule,
+            'city' => 'required|string|max:100',
+        ], [
+            'client_name.regex' => 'الرجاء إدخال الاسم كما هو مكتوب في بطاقة الهوية.',
+            'phone.regex' => 'الرجاء إدخال رقم جوال صحيح بالصيغة السعودية.',
+        ]);
+
+        $car = Car::findOrFail($validated['car_id']);
+
+        $booking = QuickBookingRequest::create([
+            'client_name' => $user ? $user->name : $validated['client_name'],
+            'phone' => $user ? $user->email : $validated['phone'],  // Store email if logged in
+            'city' => $validated['city'],
+            'car_id' => $car->id,
+            'car_name_manual' => $car->name,
+            'brand_name' => $car->brand->name ?? null,
+            'car_type' => $car->type,
+            'car_category' => $car->category,
+            'car_price' => $car->price,
+            'model_year' => $car->model_year,
+            'payment_type' => 'cash',
+            'request_date' => now(),
+            'status' => 'New',
+        ]);
+
+        // إذا كان الطلب AJAX، أعد JSON response
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'تم إرسال طلبك بنجاح! سنقوم بالتواصل معك في أقرب وقت.',
+                'booking_id' => $booking->id
+            ]);
+        }
+
+        return redirect()->route('home')->with('success', 'تم إرسال طلبك بنجاح! سنقوم بالتواصل معك في أقرب وقت.');
     }
 }

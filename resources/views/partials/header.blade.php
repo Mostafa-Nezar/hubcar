@@ -65,15 +65,52 @@
 
                 <!-- Auth Buttons -->
                 @auth('customer')
-                    <div class="hidden lg:flex items-center gap-3">
-                        <span class="text-sm text-gray-600 font-medium">{{ Auth::guard('customer')->user()->name }}</span>
-                        <form method="POST" action="{{ route('logout') }}" class="inline">
-                            @csrf
-                            <button type="submit"
-                                class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition text-sm font-medium">
-                                تسجيل الخروج
+                    <div class="hidden lg:flex items-center gap-4">
+                        <!-- Dashboard Button -->
+                        <a href="{{ route('customer.dashboard') }}"
+                            class="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all"
+                            title="لوحة التحكم">
+                            <i class="ti-dashboard text-xl"></i>
+                        </a>
+                        <!-- Dropdown Menu -->
+                        <div class="relative" x-data="{ open: false }">
+                            <button @click="open = !open"
+                                class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-gray-100 hover:bg-gray-200 transition text-secondary font-medium">
+                                <i class="ti-user"></i>
+                                <span class="text-sm">{{ Auth::guard('customer')->user()->name }}</span>
+                                <i class="ti-arrow-down text-xs" :class="{ 'rotate-180': open }"></i>
                             </button>
-                        </form>
+                            <!-- Dropdown Items -->
+                            <div @show="open" @click.away="open = false"
+                                class="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-lg border border-gray-100 z-50"
+                                x-show="open"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 scale-95"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100 scale-100"
+                                x-transition:leave-end="opacity-0 scale-95">
+                                <a href="{{ route('customer.dashboard') }}"
+                                    class="block px-6 py-3 text-secondary hover:bg-gray-50 font-medium border-b border-gray-100 flex items-center gap-2">
+                                    <i class="ti-dashboard"></i> لوحة التحكم
+                                </a>
+                                <a href="{{ route('customer.profile') }}"
+                                    class="block px-6 py-3 text-secondary hover:bg-gray-50 font-medium border-b border-gray-100 flex items-center gap-2">
+                                    <i class="ti-user"></i> الملف الشخصي
+                                </a>
+                                <a href="{{ route('customer.bookings') }}"
+                                    class="block px-6 py-3 text-secondary hover:bg-gray-50 font-medium border-b border-gray-100 flex items-center gap-2">
+                                    <i class="ti-clipboard"></i> الحجزات
+                                </a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full text-left px-6 py-3 text-red-600 hover:bg-red-50 font-medium flex items-center gap-2">
+                                        <i class="ti-logout"></i> تسجيل الخروج
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 @else
                     <a href="{{ route('login') }}"
@@ -83,9 +120,9 @@
                     </a>
                 @endauth('customer')
 
-                <a href="tel:{{ $settings?->phone ?? '+966500000000' }}"
+                <a href="{{ route('cars.quick-booking') }}"
                     class="hidden lg:flex items-center bg-primary text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition">
-                    <i class="ti-mobile ml-2"></i>
+                    <i class="ti-bolt ml-2"></i>
                     <span>طلب سريع</span>
                 </a>
 

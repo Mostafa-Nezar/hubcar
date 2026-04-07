@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', $settings?->meta_title ?? 'معرض هب كار') - سيارات للبيع في السعودية</title>
+    <title>@yield('title', $settings?->meta_title ?? 'معرض هب كار') - Renax</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="@yield('meta_description', $settings?->meta_description ?? 'أفضل معرض سيارات في المملكة العربية السعودية - نوفر أفضل السيارات بأفضل الأسعار مع إمكانية التمويل')">

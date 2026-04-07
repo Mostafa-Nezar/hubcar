@@ -111,26 +111,38 @@
                                 <div class="space-y-2">
                                     <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">الاسم
                                         الكامل <span class="text-primary">*</span></label>
-                                    <input type="text" name="client_name" value="{{ old('client_name') }}"
-                                        placeholder="الاسم كما هو في الهوية"
-                                        class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none"
-                                        required>
-                                    @error('client_name')
-                                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                                    @enderror
+                                    @if($user)
+                                        <input type="text" value="{{ $user->name }}" disabled
+                                            class="w-full bg-gray-100 border-2 border-gray-200 rounded-2xl px-6 py-4 text-secondary font-bold cursor-not-allowed opacity-75">
+                                        <p class="text-xs text-gray-500">مسجل من حسابك</p>
+                                    @else
+                                        <input type="text" name="client_name" value="{{ old('client_name') }}"
+                                            placeholder="الاسم كما هو في الهوية"
+                                            class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none"
+                                            required>
+                                        @error('client_name')
+                                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                                        @enderror
+                                    @endif
                                 </div>
 
                                 <!-- Phone -->
                                 <div class="space-y-2">
                                     <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">رقم
                                         الجوال <span class="text-primary">*</span></label>
-                                    <input type="tel" name="phone" value="{{ old('phone') }}"
-                                        placeholder="05xxxxxxxx"
-                                        class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold text-left transition-all outline-none"
-                                        required>
-                                    @error('phone')
-                                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                                    @enderror
+                                    @if($user)
+                                        <input type="text" value="{{ $user->email }}" disabled
+                                            class="w-full bg-gray-100 border-2 border-gray-200 rounded-2xl px-6 py-4 text-secondary font-bold cursor-not-allowed opacity-75 ltr">
+                                        <p class="text-xs text-gray-500">من حسابك المسجل</p>
+                                    @else
+                                        <input type="tel" name="phone" value="{{ old('phone') }}"
+                                            placeholder="05xxxxxxxx"
+                                            class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold text-left transition-all outline-none"
+                                            required>
+                                        @error('phone')
+                                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                                        @enderror
+                                    @endif
                                 </div>
 
                                 <!-- City -->

@@ -21,6 +21,13 @@ class BannerForm
                     ->disk('public')
                     ->directory('banners')
                     ->image()
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                        '3:4',
+                    ])
                     ->required(),
                 TextInput::make('link')
                     ->label('الرابط')

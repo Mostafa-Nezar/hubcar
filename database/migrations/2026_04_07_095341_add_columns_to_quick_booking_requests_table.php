@@ -1,0 +1,54 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('quick_booking_requests', function (Blueprint $table) {
+            $table->string('payment_type'); // cash, finance
+            $table->string('client_name');
+            $table->string('phone');
+            $table->foreignId('car_id')->nullable()->constrained()->onDelete('set null');
+            $table->string('car_name_manual')->nullable(); // In case car is deleted
+            $table->string('brand_name')->nullable();
+            $table->string('car_type')->nullable();
+            $table->string('car_category')->nullable();
+            $table->decimal('car_price', 12, 2)->nullable();
+            $table->integer('model_year')->nullable();
+            $table->string('city')->nullable();
+            $table->timestamp('request_date')->useCurrent();
+            $table->string('status')->default('New'); // New, Contacted, Interested, Not Interested, Completed
+            $table->string('state_category')->default('New'); // Same as status or similar
+            $table->string('bank_name')->nullable();
+            $table->string('work_sector')->nullable();
+            $table->decimal('monthly_salary', 12, 2)->nullable();
+            $table->text('client_notes')->nullable();
+            $table->text('internal_notes')->nullable();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->timestamp('last_status_update')->nullable();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('quick_booking_requests', function (Blueprint $table) {
+            $table->dropColumn([
+                'payment_type', 'client_name', 'phone', 'car_id', 'car_name_manual',
+                'brand_name', 'car_type', 'car_category', 'car_price',
+                'model_year', 'city', 'request_date', 'status', 'state_category',
+                'bank_name', 'work_sector', 'monthly_salary', 'client_notes',
+                'internal_notes', 'updated_by', 'last_status_update'
+            ]);
+        });
+    }
+};

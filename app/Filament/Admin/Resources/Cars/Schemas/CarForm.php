@@ -161,6 +161,13 @@ class CarForm
                         FileUpload::make('main_image')
                             ->label('الصورة الرئيسية')
                             ->image()
+                            ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                '16:9',
+                                '4:3',
+                                '1:1',
+                                '3:4',
+                            ])
                             ->directory('cars')
                             ->required(),
                         Repeater::make('images')
@@ -170,6 +177,13 @@ class CarForm
                                 FileUpload::make('path')
                                     ->label('الصورة')
                                     ->image()
+                                    ->imageEditor()
+                                    ->imageEditorAspectRatios([
+                                        '16:9',
+                                        '4:3',
+                                        '1:1',
+                                        '3:4',
+                                    ])
                                     ->directory('cars/gallery')
                                     ->required(),
                                 TextInput::make('sort_order')
