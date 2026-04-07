@@ -37,6 +37,11 @@ class BookingRequestForm
                                     ->regex('/^(?:\+?966|00966|0)?5[0-9]{8}$/')
                                     ->helperText('مثال: 05xxxxxxxx أو +9665xxxxxxxx أو 009665xxxxxxxx')
                                     ->required(),
+                                TextInput::make('email')
+                                    ->label('البريد الإلكتروني')
+                                    ->email()
+                                    ->maxLength(255)
+                                    ->nullable(),
                                 TextInput::make('city')
                                     ->label('المدينة')
                                     ->maxLength(100)

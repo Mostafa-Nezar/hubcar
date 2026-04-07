@@ -10,22 +10,32 @@
     <meta name="description" content="@yield('meta_description', $settings?->meta_description ?? 'أفضل معرض سيارات في المملكة العربية السعودية - نوفر أفضل السيارات بأفضل الأسعار مع إمكانية التمويل')">
     <meta name="keywords" content="@yield('meta_keywords', $settings?->meta_keywords ?? 'سيارات, معرض سيارات, الرياض, تمويل سيارات, السعودية')">
     <meta name="author" content="{{ $settings?->site_name ?? 'هب كار' }}">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="@yield('robots', $settings?->seo_robots ?? 'index, follow')">
     <link rel="canonical" href="{{ url()->current() }}">
 
+    @if($settings?->facebook_app_id)
+    <meta property="fb:app_id" content="{{ $settings->facebook_app_id }}">
+    @endif
+
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="@yield('og_type', $settings?->og_type ?? 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('title', $settings?->meta_title ?? 'معرض هب كار')">
-    <meta property="og:description" content="@yield('meta_description', $settings?->meta_description ?? 'أفضل معرض سيارات في المملكة العربية السعودية')">
+    <meta property="og:title" content="@yield('og_title', $settings?->og_title ?: ($settings?->meta_title ?? 'معرض هب كار'))">
+    <meta property="og:description" content="@yield('og_description', $settings?->og_description ?: ($settings?->meta_description ?? 'أفضل معرض سيارات في المملكة العربية السعودية'))">
     <meta property="og:image" content="@yield('og_image', $settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg'))">
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:card" content="@yield('twitter_card', $settings?->twitter_card ?? 'summary_large_image')">
     <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="@yield('title', $settings?->meta_title ?? 'معرض هب كار')">
-    <meta property="twitter:description" content="@yield('meta_description', $settings?->meta_description ?? 'أفضل معرض سيارات في المملكة العربية السعودية')">
-    <meta property="twitter:image" content="@yield('twitter_image', $settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg'))">
+    <meta property="twitter:title" content="@yield('twitter_title', $settings?->twitter_title ?: ($settings?->og_title ?: ($settings?->meta_title ?? 'معرض هب كار')))">
+    <meta property="twitter:description" content="@yield('twitter_description', $settings?->twitter_description ?: ($settings?->og_description ?: ($settings?->meta_description ?? 'أفضل معرض سيارات في المملكة العربية السعودية')))">
+    <meta property="twitter:image" content="@yield('twitter_image', $settings?->twitter_image ? asset('storage/' . $settings->twitter_image) : ($settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg')))">
+    @if($settings?->twitter_site)
+    <meta property="twitter:site" content="{{ $settings->twitter_site }}">
+    @endif
+    @if($settings?->twitter_creator)
+    <meta property="twitter:creator" content="{{ $settings->twitter_creator }}">
+    @endif
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

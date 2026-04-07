@@ -62,6 +62,13 @@ class BookingRequestsTable
                     ->copyable()
                     ->icon('heroicon-m-phone'),
 
+                TextColumn::make('email')
+                    ->label('البريد الإلكتروني')
+                    ->searchable()
+                    ->copyable()
+                    ->icon('heroicon-m-envelope')
+                    ->toggleable(),
+
                 TextColumn::make('car_name_manual')
                     ->label('السيارة المطلوبة')
                     ->searchable()

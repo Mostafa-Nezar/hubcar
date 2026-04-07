@@ -89,13 +89,11 @@ class CarController extends Controller
 
         $user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
         
-        // Adjust validation based on login status
-        $phoneRule = $user ? 'nullable' : ['required', 'string', 'max:20', 'regex:/^(?:\+?966|00966|0)?5[0-9]{8}$/'];
-        $nameRule = $user ? 'nullable' : ['required', 'string', 'max:255', 'regex:/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u'];
-
+        // Always require name and phone, regardless of login status
         $validated = $request->validate([
-            'client_name' => $nameRule,
-            'phone' => $phoneRule,
+            'client_name' => ['required', 'string', 'max:255', 'regex:/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u'],
+            'phone' => ['required', 'string', 'max:20', 'regex:/^(?:\+?966|00966|0)?5[0-9]{8}$/'],
+            'email' => 'nullable|email|max:255',
             'city' => 'required|string|max:100',
             'payment_type' => 'required|in:cash,finance',
             'bank_name' => 'required_if:payment_type,finance|nullable|string|max:100',
@@ -108,8 +106,9 @@ class CarController extends Controller
         ]);
 
         $booking = BookingRequest::create([
-            'client_name' => $user ? $user->name : $validated['client_name'],
-            'phone' => $user ? $user->email : $validated['phone'],  // Store email if logged in
+            'client_name' => $validated['client_name'],
+            'phone' => $validated['phone'],
+            'email' => $user ? $user->email : ($validated['email'] ?? null),
             'city' => $validated['city'],
             'car_id' => $car->id,
             'car_name_manual' => $car->name,
@@ -134,14 +133,12 @@ class CarController extends Controller
     {
         $user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
         
-        // Adjust validation based on login status
-        $phoneRule = $user ? 'nullable' : ['required', 'string', 'max:20', 'regex:/^(?:\+?966|00966|0)?5[0-9]{8}$/'];
-        $nameRule = $user ? 'nullable' : ['required', 'string', 'max:255', 'regex:/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u'];
-
+        // Always require name and phone, regardless of login status
         $validated = $request->validate([
             'car_id' => 'required|exists:cars,id',
-            'client_name' => $nameRule,
-            'phone' => $phoneRule,
+            'client_name' => ['required', 'string', 'max:255', 'regex:/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u'],
+            'phone' => ['required', 'string', 'max:20', 'regex:/^(?:\+?966|00966|0)?5[0-9]{8}$/'],
+            'email' => 'nullable|email|max:255',
             'city' => 'required|string|max:100',
         ], [
             'client_name.regex' => 'الرجاء إدخال الاسم كما هو مكتوب في بطاقة الهوية.',
@@ -151,8 +148,9 @@ class CarController extends Controller
         $car = Car::findOrFail($validated['car_id']);
 
         $booking = QuickBookingRequest::create([
-            'client_name' => $user ? $user->name : $validated['client_name'],
-            'phone' => $user ? $user->email : $validated['phone'],  // Store email if logged in
+            'client_name' => $validated['client_name'],
+            'phone' => $validated['phone'],
+            'email' => $user ? $user->email : ($validated['email'] ?? null),
             'city' => $validated['city'],
             'car_id' => $car->id,
             'car_name_manual' => $car->name,

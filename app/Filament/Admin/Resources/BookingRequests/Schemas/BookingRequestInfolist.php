@@ -23,6 +23,9 @@ class BookingRequestInfolist
                                 Placeholder::make('phone')
                                     ->label('رقم الجوال')
                                     ->content(fn ($record) => $record->phone),
+                                Placeholder::make('email')
+                                    ->label('البريد الإلكتروني')
+                                    ->content(fn ($record) => $record->email ?? '---'),
                                 Placeholder::make('city')
                                     ->label('المدينة')
                                     ->content(fn ($record) => $record->city ?? '---'),

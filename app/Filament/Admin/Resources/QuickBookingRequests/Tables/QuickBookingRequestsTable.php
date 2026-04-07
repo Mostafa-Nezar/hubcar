@@ -21,6 +21,10 @@ class QuickBookingRequestsTable
                 Tables\Columns\TextColumn::make('phone')
                     ->label('الهاتف')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->label('البريد الإلكتروني')
+                    ->searchable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('city')
                     ->label('المدينة')
                     ->searchable(),

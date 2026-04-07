@@ -38,18 +38,12 @@
                     <label for="client_name" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-3">
                         الاسم الكامل <span class="text-red-500">*</span>
                     </label>
-                    @if($user)
-                        <input type="text" value="{{ $user->name }}" disabled
-                            class="w-full bg-gray-100 border-2 border-gray-200 rounded-2xl px-6 py-4 text-secondary font-bold cursor-not-allowed opacity-75">
-                        <p class="text-xs text-gray-500">مسجل من حسابك</p>
-                    @else
-                        <input type="text" id="client_name" name="client_name" required placeholder="أحمد محمد علي سالم"
-                            value="{{ old('client_name') }}"
-                            class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none @error('client_name') border-red-500 @enderror">
-                        @error('client_name')
-                            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                        @enderror
-                    @endif
+                    <input type="text" id="client_name" name="client_name" required placeholder="أحمد محمد علي سالم"
+                        value="{{ old('client_name') }}"
+                        class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none @error('client_name') border-red-500 @enderror">
+                    @error('client_name')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Phone Number -->
@@ -57,18 +51,12 @@
                     <label for="phone" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-3">
                         رقم الجوال <span class="text-red-500">*</span>
                     </label>
-                    @if($user)
-                        <input type="text" value="{{ $user->email }}" disabled
-                            class="w-full bg-gray-100 border-2 border-gray-200 rounded-2xl px-6 py-4 text-secondary font-bold cursor-not-allowed opacity-75 ltr">
-                        <p class="text-xs text-gray-500">من حسابك المسجل</p>
-                    @else
-                        <input type="tel" id="phone" name="phone" required placeholder="0512345678"
-                            value="{{ old('phone') }}"
-                            class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none text-left @error('phone') border-red-500 @enderror">
-                        @error('phone')
-                            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                        @enderror
-                    @endif
+                    <input type="tel" id="phone" name="phone" required placeholder="0512345678"
+                        value="{{ old('phone') }}"
+                        class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none text-left @error('phone') border-red-500 @enderror">
+                    @error('phone')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- City -->
@@ -92,6 +80,25 @@
                     @error('city')
                         <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                     @enderror
+                </div>
+
+                <!-- Email -->
+                <div class="space-y-2">
+                    <label for="email" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-3">
+                        البريد الإلكتروني
+                    </label>
+                    @if($user)
+                        <input type="email" value="{{ $user->email }}" disabled
+                            class="w-full bg-gray-100 border-2 border-gray-200 rounded-2xl px-6 py-4 text-secondary font-bold cursor-not-allowed opacity-75">
+                        <p class="text-xs text-gray-500">من حسابك المسجل</p>
+                    @else
+                        <input type="email" id="email" name="email" placeholder="example@email.com"
+                            value="{{ old('email') }}"
+                            class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none @error('email') border-red-500 @enderror">
+                        @error('email')
+                            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                        @enderror
+                    @endif
                 </div>
 
                 <!-- Submit Button -->

@@ -22,6 +22,11 @@ class QuickBookingRequestForm
                     ->label('رقم الجوال')
                     ->required()
                     ->maxLength(20),
+                TextInput::make('email')
+                    ->label('البريد الإلكتروني')
+                    ->email()
+                    ->maxLength(255)
+                    ->nullable(),
                 Select::make('city')
                     ->label('المدينة')
                     ->options(config('saudi-cities', []))
