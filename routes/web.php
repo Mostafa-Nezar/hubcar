@@ -91,3 +91,16 @@ Route::get('/fix-storage', function () {
         return 'حدث خطأ: ' . $e->getMessage();
     }
 });
+
+Route::get('/clear-cache', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+        \Illuminate\Support\Facades\Artisan::call('config:clear');
+        \Illuminate\Support\Facades\Artisan::call('cache:clear');
+        \Illuminate\Support\Facades\Artisan::call('view:clear');
+        
+        return 'تم تنظيف الكاشات والإعدادات بنجاح من السيرفر ✅';
+    } catch (\Exception $e) {
+        return 'حدث خطأ: ' . $e->getMessage();
+    }
+});
