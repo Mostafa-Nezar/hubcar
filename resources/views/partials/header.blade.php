@@ -165,54 +165,81 @@
                 </button>
             </div>
 
-            <nav class="flex-grow p-6 space-y-4 overflow-y-auto">
+            <nav class="flex-grow p-6 space-y-2 overflow-y-auto">
                 <a href="{{ route('home') }}"
-                    class="flex items-center gap-4 p-4 rounded-xl {{ request()->routeIs('home') ? 'bg-primary/10 text-primary font-bold' : 'text-gray-600 font-medium' }}">
-                    <i class="ti-home"></i> الرئيسية
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('home') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    <i class="ti-home text-lg"></i>
+                    <span>الرئيسية</span>
                 </a>
                 <a href="{{ route('cars.index') }}"
-                    class="flex items-center gap-4 p-4 rounded-xl {{ request()->routeIs('cars.index') ? 'bg-primary/10 text-primary font-bold' : 'text-gray-600 font-medium' }}">
-                    <i class="ti-car"></i> السيارات
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('cars.index') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    <i class="ti-car text-lg"></i>
+                    <span>السيارات</span>
                 </a>
                 <a href="{{ route('banks') }}"
-                    class="flex items-center gap-4 p-4 rounded-xl {{ request()->routeIs('banks') ? 'bg-primary/10 text-primary font-bold' : 'text-gray-600 font-medium' }}">
-                    <i class="ti-wallet"></i> جهات التمويل
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('banks') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    <i class="ti-wallet text-lg"></i>
+                    <span>جهات التمويل</span>
                 </a>
                 <a href="{{ route('faq') }}"
-                    class="flex items-center gap-4 p-4 rounded-xl {{ request()->routeIs('faq') ? 'bg-primary/10 text-primary font-bold' : 'text-gray-600 font-medium' }}">
-                    <i class="ti-help-alt"></i> الأسئلة الشائعة
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('faq') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    <i class="ti-help-alt text-lg"></i>
+                    <span>الأسئلة الشائعة</span>
                 </a>
                 <a href="{{ route('about') }}"
-                    class="flex items-center gap-4 p-4 rounded-xl {{ request()->routeIs('about') ? 'bg-primary/10 text-primary font-bold' : 'text-gray-600 font-medium' }}">
-                    <i class="ti-info-alt"></i> من نحن
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('about') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    <i class="ti-info-alt text-lg"></i>
+                    <span>من نحن</span>
                 </a>
                 <a href="{{ route('contact') }}"
-                    class="flex items-center gap-4 p-4 rounded-xl {{ request()->routeIs('contact') ? 'bg-primary/10 text-primary font-bold' : 'text-gray-600 font-medium' }}">
-                    <i class="ti-headphone-alt"></i> اتصل بنا
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('contact') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    <i class="ti-headphone-alt text-lg"></i>
+                    <span>اتصل بنا</span>
                 </a>
             </nav>
 
-            <div class="p-6 border-t border-gray-50 space-y-3">
+            <div class="p-6 border-t border-gray-100 space-y-4 bg-gray-50/50">
                 @auth('customer')
-                    <div class="mb-3 p-3 bg-gray-50 rounded-xl">
-                        <p class="text-sm text-gray-600 mb-2">{{ Auth::guard('customer')->user()->name }}</p>
-                        <form method="POST" action="{{ route('logout') }}" class="inline">
-                            @csrf
-                            <button type="submit"
-                                class="w-full bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition text-sm font-medium">
-                                تسجيل الخروج
-                            </button>
-                        </form>
+                    <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+                        <div class="flex items-center gap-3 mb-4 pb-4 border-b border-gray-50">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                <i class="ti-user text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-secondary text-sm">{{ Auth::guard('customer')->user()->name }}</h4>
+                                <p class="text-xs text-gray-500">مرحباً بك مجدداً</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-2">
+                            <a href="{{ route('customer.dashboard') }}" class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
+                                <i class="ti-dashboard text-primary"></i> لوحة التحكم
+                            </a>
+                            <a href="{{ route('customer.profile') }}" class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
+                                <i class="ti-id-badge text-primary"></i> الملف الشخصي
+                            </a>
+                            <a href="{{ route('customer.bookings') }}" class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
+                                <i class="ti-package text-primary"></i> طلباتي الحالية
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}" class="mt-2 pt-2 border-t border-gray-50">
+                                @csrf
+                                <button type="submit" class="flex items-center gap-2 text-sm text-red-500 hover:text-red-600 font-medium">
+                                    <i class="ti-power-off"></i> تسجيل الخروج
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 @else
                     <a href="{{ route('login') }}"
-                        class="flex items-center justify-center gap-3 w-full bg-secondary text-white py-4 rounded-2xl font-bold shadow-lg shadow-secondary/20 mb-3">
-                        <i class="ti-user"></i> تسجيل الدخول
+                        class="flex items-center justify-center gap-3 w-full bg-secondary text-white py-4 rounded-2xl font-bold shadow-lg shadow-secondary/20 hover:bg-gray-800 transition-all">
+                        <i class="ti-user text-lg"></i>
+                        <span>تسجيل الدخول</span>
                     </a>
                 @endauth('customer')
-                <a href="tel:{{ $settings?->phone ?? '+966500000000' }}"
-                    class="flex items-center justify-center gap-3 w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-lg shadow-primary/20">
-                    <i class="ti-mobile"></i> طلب سريع
+
+                <a href="{{ route('cars.quick-booking') }}"
+                    class="flex items-center justify-center gap-3 w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all">
+                    <i class="ti-bolt-alt text-lg"></i>
+                    <span>طلب حجز سريع</span>
                 </a>
             </div>
         </div>

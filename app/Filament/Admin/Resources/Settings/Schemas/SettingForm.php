@@ -4,9 +4,6 @@ namespace App\Filament\Admin\Resources\Settings\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Select;
-use Filament\Schemas\Components\Tabs;
-use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 
 class SettingForm
@@ -73,7 +70,7 @@ class SettingForm
                     ->schema([
                         TextInput::make('twitter')
                             ->label('تويتر (X)')
-                            // ->url()
+                            ->url()
                             ->default(null),
                         TextInput::make('instagram')
                             ->label('انستقرام')
@@ -113,95 +110,27 @@ class SettingForm
                             ->label('تفعيل في نموذج "طلب الحجز"'),
                     ])->columns(2),
                 \Filament\Schemas\Components\Section::make('إعدادات محركات البحث (SEO)')
-                    ->description('تحكم في كيفية ظهور موقعك في نتائج بحث جوجل ومنصات التواصل الاجتماعي')
+                    ->description('تحكم في كيفية ظهور موقعك في نتائج بحث جوجل')
                     ->schema([
-                        Tabs::make('SEO Settings')
-                            ->tabs([
-                                Tab::make('العامة (Meta Tags)')
-                                    ->schema([
-                                        TextInput::make('meta_title')
-                                            ->label('عنوان الموقع (Meta Title)')
-                                            ->placeholder('أفضل معرض سيارات في السعودية - هيوب كار')
-                                            ->columnSpanFull(),
-                                        Textarea::make('meta_description')
-                                            ->label('وصف الموقع (Meta Description)')
-                                            ->rows(3)
-                                            ->placeholder('معرض هيوب كار يوفر لك أفضل مجموعة من السيارات الجديدة والمستعملة...')
-                                            ->columnSpanFull(),
-                                        Textarea::make('meta_keywords')
-                                            ->label('الكلمات المفتاحية (Keywords)')
-                                            ->rows(2)
-                                            ->placeholder('سيارات، معرض سيارات، الرياض، شراء سيارة...')
-                                            ->columnSpanFull(),
-                                        Select::make('seo_robots')
-                                            ->label('أوامر محركات البحث (Robots)')
-                                            ->options([
-                                                'index, follow' => 'Index, Follow (الافتراضي)',
-                                                'noindex, follow' => 'NoIndex, Follow',
-                                                'index, nofollow' => 'Index, NoFollow',
-                                                'noindex, nofollow' => 'NoIndex, NoFollow',
-                                            ])
-                                            ->default('index, follow'),
-                                    ]),
-                                Tab::make('Open Graph (Facebook)')
-                                    ->schema([
-                                        TextInput::make('og_title')
-                                            ->label('عنوان المشاركة (OG Title)')
-                                            ->placeholder('اتركه فارغاً ليستخدم العنوان العام'),
-                                        Select::make('og_type')
-                                            ->label('نوع المحتوى (OG Type)')
-                                            ->options([
-                                                'website' => 'Website',
-                                                'article' => 'Article',
-                                                'profile' => 'Profile',
-                                            ])
-                                            ->default('website'),
-                                        Textarea::make('og_description')
-                                            ->label('وصف المشاركة (OG Description)')
-                                            ->rows(3)
-                                            ->placeholder('اتركه فارغاً ليستخدم الوصف العام')
-                                            ->columnSpanFull(),
-                                        \Filament\Forms\Components\FileUpload::make('og_image')
-                                            ->label('صورة المشاركة (OG Image)')
-                                            ->image()
-                                            ->directory('seo')
-                                            ->columnSpanFull(),
-                                        TextInput::make('facebook_app_id')
-                                            ->label('Facebook App ID')
-                                            ->placeholder('1234567890'),
-                                    ]),
-                                Tab::make('Twitter (X)')
-                                    ->schema([
-                                        Select::make('twitter_card')
-                                            ->label('نوع البطاقة (Twitter Card)')
-                                            ->options([
-                                                'summary' => 'Summary',
-                                                'summary_large_image' => 'Summary Large Image',
-                                                'app' => 'App',
-                                                'player' => 'Player',
-                                            ])
-                                            ->default('summary_large_image'),
-                                        TextInput::make('twitter_site')
-                                            ->label('حساب الموقع (Twitter Site)')
-                                            ->placeholder('@username'),
-                                        TextInput::make('twitter_creator')
-                                            ->label('حساب الناشر (Twitter Creator)')
-                                            ->placeholder('@username'),
-                                        TextInput::make('twitter_title')
-                                            ->label('عنوان البطاقة (Twitter Title)')
-                                            ->placeholder('اتركه فارغاً ليستخدم العنوان العام'),
-                                        Textarea::make('twitter_description')
-                                            ->label('وصف البطاقة (Twitter Description)')
-                                            ->rows(3)
-                                            ->placeholder('اتركه فارغاً ليستخدم الوصف العام')
-                                            ->columnSpanFull(),
-                                        \Filament\Forms\Components\FileUpload::make('twitter_image')
-                                            ->label('صورة البطاقة (Twitter Image)')
-                                            ->image()
-                                            ->directory('seo')
-                                            ->columnSpanFull(),
-                                    ]),
-                            ])->columnSpanFull(),
+                        TextInput::make('meta_title')
+                            ->label('عنوان الموقع لمحركات البحث')
+                            ->placeholder('أفضل معرض سيارات في السعودية - هيوب كار')
+                            ->columnSpanFull(),
+                        Textarea::make('meta_description')
+                            ->label('وصف الموقع لمحركات البحث')
+                            ->rows(3)
+                            ->placeholder('معرض هيوب كار يوفر لك أفضل مجموعة من السيارات الجديدة والمستعملة...')
+                            ->columnSpanFull(),
+                        Textarea::make('meta_keywords')
+                            ->label('الكلمات المفتاحية (Keywords)')
+                            ->rows(2)
+                            ->placeholder('سيارات، معرض سيارات، الرياض، شراء سيارة...')
+                            ->columnSpanFull(),
+                        \Filament\Forms\Components\FileUpload::make('og_image')
+                            ->label('صورة المشاركة (Open Graph)')
+                            ->image()
+                            ->directory('seo')
+                            ->columnSpanFull(),
                     ])->columns(1),
             ]);
     }

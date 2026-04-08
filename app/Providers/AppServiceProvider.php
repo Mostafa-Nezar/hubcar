@@ -27,7 +27,20 @@ class AppServiceProvider extends ServiceProvider
             if (!$settings) {
                 $settings = new Setting(['site_name' => 'RENAX (DB EMPTY)']);
             }
+
+            // Fetch SEO for the current path with safety check
+            $seoPage = null;
+            try {
+                if (\Illuminate\Support\Facades\Schema::hasTable('seo_pages')) {
+                    $currentPath = request()->getPathInfo();
+                    $seoPage = \App\Models\SeoPage::where('url_path', $currentPath)->first();
+                }
+            } catch (\Exception $e) {
+                // Ignore error to keep site running
+            }
+
             $view->with('settings', $settings);
+            $view->with('seoPage', $seoPage);
         });
     }
 }
