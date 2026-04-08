@@ -11,6 +11,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\TagsInput;
 use Filament\Schemas\Schema;
 use App\Models\CarModel;
 use App\Models\CarCategory;
@@ -213,6 +214,30 @@ class CarForm
                             ->keyLabel('المواصفة')
                             ->valueLabel('القيمة')
                             ->reorderable(),
+                    ]),
+
+                Section::make('تحسين محركات البحث (SEO)')
+                    ->schema([
+                        Grid::make(2)
+                            ->schema([
+                                TextInput::make('seo_title')
+                                    ->label('عنوان SEO')
+                                    ->maxLength(255)
+                                    ->helperText('اتركه فارغاً لاستخدام اسم السيارة'),
+                                FileUpload::make('og_image')
+                                    ->label('صورة المشاركة (Open Graph)')
+                                    ->image()
+                                    ->directory('seo/cars')
+                                    ->helperText('تظهر عند مشاركة رابط السيارة على منصات التواصل'),
+                            ]),
+                        Textarea::make('seo_description')
+                            ->label('وصف SEO')
+                            ->rows(3)
+                            ->maxLength(500)
+                            ->helperText('اتركه فارغاً لاستخدام أول جزء من الوصف'),
+                        TagsInput::make('seo_keywords')
+                            ->label('الكلمات المفتاحية')
+                            ->helperText('اضغط Enter بعد كل كلمة'),
                     ]),
             ]);
     }

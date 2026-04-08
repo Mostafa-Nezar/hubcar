@@ -27,6 +27,10 @@ class Car extends Model
         'fuel_type',
         'is_featured',
         'slug',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
+        'og_image',
     ];
 
     protected $casts = [
@@ -34,6 +38,7 @@ class Car extends Model
         'is_featured' => 'boolean',
         'price' => 'decimal:2',
         'discount_price' => 'decimal:2',
+        'seo_keywords' => 'array',
     ];
 
     protected static function booted()

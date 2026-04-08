@@ -1,21 +1,31 @@
 @extends('layouts.app')
 
-@section('title', $car->name)
+@section('title', $car->seo_title ?? $car->name)
 
-@section('meta_description', Str::limit(strip_tags($car->description), 160))
-@section('meta_keywords', 'سيارة ' . $car->name . ', ' . $car->brand->name . ', ' . $car->model_year . ', ' . $car->type
-    . ', سيارات للبيع')
+@section('meta_description', $car->seo_description ?? Str::limit(strip_tags($car->description), 160))
 
-    @php
-        $mainImageUrl = str_starts_with($car->main_image, 'http')
-            ? $car->main_image
-            : (str_starts_with($car->main_image, 'img/')
-                ? asset($car->main_image)
-                : Storage::url($car->main_image));
-    @endphp
+@section('meta_keywords')
+@if($car->seo_keywords)
+{{ is_array($car->seo_keywords) ? implode(', ', $car->seo_keywords) : $car->seo_keywords }}
+@else
+سيارة {{ $car->name }}, {{ $car->brand->name }}, {{ $car->model_year }}, {{ $car->type }}, سيارات للبيع
+@endif
+@endsection
 
-@section('og_image', $mainImageUrl)
-@section('twitter_image', $mainImageUrl)
+@php
+    $mainImageUrl = str_starts_with($car->main_image, 'http')
+        ? $car->main_image
+        : (str_starts_with($car->main_image, 'img/')
+            ? asset($car->main_image)
+            : Storage::url($car->main_image));
+
+    $ogImageUrl = $car->og_image 
+        ? (str_starts_with($car->og_image, 'http') ? $car->og_image : Storage::url($car->og_image))
+        : $mainImageUrl;
+@endphp
+
+@section('og_image', $ogImageUrl)
+@section('twitter_image', $ogImageUrl)
 
 @section('content')
     <!-- Breadcrumb & Header -->
