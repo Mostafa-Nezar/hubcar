@@ -24,6 +24,10 @@ Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'storeContact'])->name('contact.store');
 
+// Blog Routes
+Route::get('/blog', [PageController::class, 'blogs'])->name('blog.index');
+Route::get('/blog/{slug}', [PageController::class, 'blogDetail'])->name('blog.show');
+
 // Cars Gallery & Details
 Route::get('/cars', [CarController::class, 'index'])->name('cars.index');
 Route::get('/cars/{car}', [CarController::class, 'show'])->name('cars.show');

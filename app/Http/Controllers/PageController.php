@@ -96,4 +96,32 @@ class PageController extends Controller
 
         return back()->with('success', 'شكراً لتواصلك! تم حفظ رسالتك في نظامنا وسنرد عليك قريباً جداً.');
     }
+    public function blogs()
+    {
+        $posts = \App\Models\BlogPost::where('is_published', true)
+            ->where(function ($query) {
+                $query->where('published_at', '<=', now())
+                    ->orWhereNull('published_at');
+            })
+            ->orderBy('published_at', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(9);
+
+        return view('blogs', compact('posts'));
+    }
+
+    public function blogDetail($slug)
+    {
+        $post = \App\Models\BlogPost::where('slug', $slug)
+            ->where('is_published', true)
+            ->firstOrFail();
+
+        // Get related posts
+        $relatedPosts = \App\Models\BlogPost::where('is_published', true)
+            ->where('id', '!=', $post->id)
+            ->limit(3)
+            ->get();
+
+        return view('blog-detail', compact('post', 'relatedPosts'));
+    }
 }
