@@ -22,17 +22,17 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $settings = Setting::first();
-        // $siteKey = config('services.recaptcha.site_key', $settings?->recaptcha_site_key);
-        // $secretKey = config('services.recaptcha.secret_key', $settings?->recaptcha_secret_key);
-        // $recaptchaEnabled = (bool) ($siteKey && $secretKey);
+        $siteKey = config('services.recaptcha.site_key', $settings?->recaptcha_site_key);
+        $secretKey = config('services.recaptcha.secret_key', $settings?->recaptcha_secret_key);
+        $recaptchaEnabled = (bool) ($siteKey && $secretKey);
 
-        // if ($recaptchaEnabled) {
-        //     if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
-        //         return back()
-        //             ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
-        //             ->withInput();
-        //     }
-        // }
+        if ($recaptchaEnabled) {
+            if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
+                return back()
+                    ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
+                    ->withInput();
+            }
+        }
 
         $credentials = $request->validate([
             'email' => 'required|email',

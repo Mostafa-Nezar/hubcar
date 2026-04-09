@@ -80,12 +80,12 @@ class CarController extends Controller
 
     public function storeBooking(Request $request, Car $car)
     {
-        // $settings = \App\Models\Setting::first();
-        // if (config('services.recaptcha.site_key') || $settings?->recaptcha_enabled_booking) {
-        //     if (!$this->validateRecaptcha($request->input('g-recaptcha-response'))) {
-        //         return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])->withInput();
-        //     }
-        // }
+        $settings = \App\Models\Setting::first();
+        if (config('services.recaptcha.site_key') || $settings?->recaptcha_enabled_booking) {
+            if (!$this->validateRecaptcha($request->input('g-recaptcha-response'))) {
+                return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])->withInput();
+            }
+        }
 
         $user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
         

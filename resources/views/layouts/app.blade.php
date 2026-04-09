@@ -5,29 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        @if(View::hasSection('title')) @yield('title') @elseif(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }} @else {{ $settings?->meta_title ?? 'معرض هب كار' }} @endif - هب كار
+        @if(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }} 
+        @elseif(View::hasSection('title')) @yield('title') 
+        @else {{ $settings?->meta_title ?? 'معرض هب كار' }} @endif 
+        - {{ $settings?->site_name ?? 'هب كار' }}
     </title>
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="@if(View::hasSection('meta_description')) @yield('meta_description') @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @else {{ $settings?->meta_description ?? 'أفضل معرض سيارات هب كار' }} @endif">
     <meta name="keywords" content="@if(View::hasSection('meta_keywords')) @yield('meta_keywords') @elseif(isset($seoPage) && $seoPage->meta_keywords) {{ is_array($seoPage->meta_keywords) ? implode(', ', $seoPage->meta_keywords) : $seoPage->meta_keywords }} @else {{ $settings?->meta_keywords ?? 'سيارات, هب كار' }} @endif">
     <meta name="author" content="{{ $settings?->site_name ?? 'هب كار' }}">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="{{ $seoPage?->seo_robots ?? ($settings?->seo_robots ?? 'index, follow') }}">
     <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="{{ $seoPage?->og_type ?? ($settings?->og_type ?? 'website') }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@if(View::hasSection('title')) @yield('title') @elseif(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }} @else {{ $settings?->meta_title ?? 'معرض هب كار' }} @endif">
-    <meta property="og:description" content="@if(View::hasSection('meta_description')) @yield('meta_description') @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @else {{ $settings?->meta_description ?? 'أفضل معرض سيارات هب كار' }} @endif">
-    <meta property="og:image" content="@if(View::hasSection('og_image')) @yield('og_image') @elseif(isset($seoPage) && $seoPage->og_image) {{ asset('storage/' . $seoPage->og_image) }} @else {{ $settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg') }} @endif">
+    <meta property="og:title" content="@if(isset($seoPage) && $seoPage->og_title) {{ $seoPage->og_title }} @elseif(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }} @elseif(View::hasSection('title')) @yield('title') @else {{ $settings?->og_title ?? ($settings?->meta_title ?? 'معرض هب كار') }} @endif">
+    <meta property="og:description" content="@if(isset($seoPage) && $seoPage->og_description) {{ $seoPage->og_description }} @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @elseif(View::hasSection('meta_description')) @yield('meta_description') @else {{ $settings?->og_description ?? ($settings?->meta_description ?? 'أفضل معرض سيارات هب كار') }} @endif">
+    <meta property="og:image" content="@if(isset($seoPage) && $seoPage->og_image) {{ asset('storage/' . $seoPage->og_image) }} @else {{ $settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg') }} @endif">
+    @if($settings?->facebook_app_id)
+    <meta property="fb:app_id" content="{{ $settings->facebook_app_id }}">
+    @endif
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:card" content="{{ $seoPage?->twitter_card ?? ($settings?->twitter_card ?? 'summary_large_image') }}">
     <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="@if(View::hasSection('title')) @yield('title') @elseif(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }} @else {{ $settings?->meta_title ?? 'معرض هب كار' }} @endif">
-    <meta property="twitter:description" content="@if(View::hasSection('meta_description')) @yield('meta_description') @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @else {{ $settings?->meta_description ?? 'أفضل معرض سيارات هب كار' }} @endif">
-    <meta property="twitter:image" content="@if(View::hasSection('twitter_image')) @yield('twitter_image') @elseif(isset($seoPage) && $seoPage->twitter_image) {{ asset('storage/' . $seoPage->twitter_image) }} @elseif(isset($seoPage) && $seoPage->og_image) {{ asset('storage/' . $seoPage->og_image) }} @else {{ $settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg') }} @endif">
+    <meta property="twitter:title" content="@if(isset($seoPage) && $seoPage->twitter_title) {{ $seoPage->twitter_title }} @elseif(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }} @elseif(View::hasSection('title')) @yield('title') @else {{ $settings?->twitter_title ?? ($settings?->meta_title ?? 'معرض هب كار') }} @endif">
+    <meta property="twitter:description" content="@if(isset($seoPage) && $seoPage->twitter_description) {{ $seoPage->twitter_description }} @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @elseif(View::hasSection('meta_description')) @yield('meta_description') @else {{ $settings?->twitter_description ?? ($settings?->meta_description ?? 'أفضل معرض سيارات هب كار') }} @endif">
+    <meta property="twitter:image" content="@if(isset($seoPage) && $seoPage->twitter_image) {{ asset('storage/' . $seoPage->twitter_image) }} @elseif(isset($seoPage) && $seoPage->og_image) {{ asset('storage/' . $seoPage->og_image) }} @else {{ $settings?->twitter_image ? asset('storage/' . $settings->twitter_image) : ($settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg')) }} @endif">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

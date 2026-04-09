@@ -27,18 +27,18 @@ class SeoPageResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return 'إدارة الـ SEO للمواقع';
+        return 'إدارة تحسين محركات البحث للمواقع';
     }
 
     public static function getModelLabel(): string
     {
-        return 'صفحة SEO';
+        return 'صفحة تحسين محركات البحث';
     }
 
     public static function getPluralModelLabel(): string
     {
-        return 'إدارة الـ SEO للمواقع';
-    }
+        return 'إدارة تحسين محركات البحث للمواقع';
+    }       
 
     public static function form(Schema $schema): Schema
     {

@@ -14,6 +14,14 @@ class SeoPage extends Model
         'meta_keywords',
         'og_image',
         'twitter_image',
+        'seo_robots',
+        'canonical_url',
+        'og_title',
+        'og_description',
+        'og_type',
+        'twitter_title',
+        'twitter_description',
+        'twitter_card',
     ];
 
     protected $casts = [
