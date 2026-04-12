@@ -52,8 +52,9 @@ class CarController extends Controller
             ->where('id', '!=', $car->id)
             ->take(3)
             ->get();
+        $financeEntities = FinanceEntity::all();
             
-        return view('cars.show', compact('car', 'similarCars'));
+        return view('cars.show', compact('car', 'similarCars', 'financeEntities'));
     }
 
     public function booking(Request $request, Car $car)
@@ -65,7 +66,14 @@ class CarController extends Controller
         // If user is logged in, pass their data
         $user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
         
-        return view('cars.booking', compact('selectedCar', 'type', 'financeEntities', 'user'));
+        $financeData = [
+            'installment' => $request->query('installment'),
+            'down_payment' => $request->query('down_payment'),
+            'period' => $request->query('period'),
+            'bank' => $request->query('bank'),
+        ];
+        
+        return view('cars.booking', compact('selectedCar', 'type', 'financeEntities', 'user', 'financeData'));
     }
 
     public function quickBooking()
@@ -80,12 +88,12 @@ class CarController extends Controller
 
     public function storeBooking(Request $request, Car $car)
     {
-        $settings = \App\Models\Setting::first();
-        if (config('services.recaptcha.site_key') || $settings?->recaptcha_enabled_booking) {
-            if (!$this->validateRecaptcha($request->input('g-recaptcha-response'))) {
-                return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])->withInput();
-            }
-        }
+        // $settings = \App\Models\Setting::first();
+        // if (config('services.recaptcha.site_key') || $settings?->recaptcha_enabled_booking) {
+        //     if (!$this->validateRecaptcha($request->input('g-recaptcha-response'))) {
+        //         return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])->withInput();
+        //     }
+        // }
 
         $user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
         
@@ -99,6 +107,9 @@ class CarController extends Controller
             'bank_name' => 'required_if:payment_type,finance|nullable|string|max:100',
             'work_sector' => 'required_if:payment_type,finance|nullable|in:govt,private,military,retired',
             'monthly_salary' => 'required_if:payment_type,finance|nullable|numeric|min:0',
+            'monthly_installment' => 'nullable|numeric|min:0',
+            'down_payment' => 'nullable|numeric|min:0',
+            'finance_period' => 'nullable|integer|min:1',
             'client_notes' => 'nullable|string',
         ], [
             'client_name.regex' => 'الرجاء إدخال الاسم كما هو مكتوب في بطاقة الهوية.',
@@ -121,6 +132,9 @@ class CarController extends Controller
             'bank_name' => $validated['bank_name'] ?? null,
             'work_sector' => $validated['work_sector'] ?? null,
             'monthly_salary' => $validated['monthly_salary'] ?? null,
+            'monthly_installment' => $validated['monthly_installment'] ?? null,
+            'down_payment' => $validated['down_payment'] ?? null,
+            'finance_period' => $validated['finance_period'] ?? null,
             'client_notes' => $validated['client_notes'] ?? null,
             'request_date' => now(),
             'status' => 'New',

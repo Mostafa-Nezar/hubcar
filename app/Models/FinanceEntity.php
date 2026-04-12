@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class FinanceEntity extends Model
 {
-    protected $fillable = ['name', 'logo', 'description'];
+    protected $fillable = ['name', 'logo', 'description', 'interest_rate', 'min_down_payment_percentage'];
 }

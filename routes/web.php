@@ -109,11 +109,13 @@ Route::get('/clear-cache', function () {
     }
 });
 
-Route::get('/test-db', function () {
+
+
+Route::get('/update-db', function () {
     try {
-        \DB::connection()->getPdo();
-        return "Database connection is working! DB: " . config('database.connections.mysql.database');
+        Artisan::call('migrate', ['--force' => true]);
+        return "تم تحديث قاعدة البيانات بنجاح!";
     } catch (\Exception $e) {
-        return "Database connection failed! Error: " . $e->getMessage();
+        return "خطأ: " . $e->getMessage();
     }
 });

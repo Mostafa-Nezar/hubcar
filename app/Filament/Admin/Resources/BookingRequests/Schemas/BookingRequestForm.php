@@ -110,6 +110,21 @@ class BookingRequestForm
                                     ->minValue(0)
                                     ->visible(fn ($get) => $get('payment_type') === 'finance')
                                     ->required(fn ($get) => $get('payment_type') === 'finance'),
+                                TextInput::make('monthly_installment')
+                                    ->label('القسط الشهري')
+                                    ->numeric()
+                                    ->minValue(0)
+                                    ->visible(fn ($get) => $get('payment_type') === 'finance'),
+                                TextInput::make('down_payment')
+                                    ->label('الدفعة المقدمة')
+                                    ->numeric()
+                                    ->minValue(0)
+                                    ->visible(fn ($get) => $get('payment_type') === 'finance'),
+                                TextInput::make('finance_period')
+                                    ->label('مدة التمويل (شهر)')
+                                    ->numeric()
+                                    ->minValue(1)
+                                    ->visible(fn ($get) => $get('payment_type') === 'finance'),
                                 DateTimePicker::make('request_date')
                                     ->label('تاريخ الطلب')
                                     ->default(now())

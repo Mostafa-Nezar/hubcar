@@ -70,4 +70,18 @@ class Car extends Model
     {
         return $this->hasMany(CarImage::class)->orderBy('sort_order');
     }
+
+    public function getStartingInstallmentAttribute()
+    {
+        $price = $this->discount_price ?? $this->price;
+        $interestRate = 3.5; // Default flat rate
+        $months = 60; // 5 years
+        $downPaymentPercent = 10;
+        
+        $principle = $price * (1 - ($downPaymentPercent / 100));
+        $totalInterest = $principle * ($interestRate / 100) * ($months / 12);
+        $totalAmount = $principle + $totalInterest;
+        
+        return round($totalAmount / $months);
+    }
 }

@@ -11,6 +11,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
@@ -73,6 +74,35 @@ class BlogPostForm
                                 Hidden::make('user_id')
                                     ->default(fn () => auth()->id())
                                     ->required(),
+                            ]),
+                    ]),
+
+                Section::make('تنسيق الخط')
+                    ->description('تحكم في حجم ونوع الخط لمحتوى المقال.')
+                    ->schema([
+                        Grid::make(2)
+                            ->schema([
+                                Select::make('content_font_family')
+                                    ->label('نوع الخط')
+                                    ->options([
+                                        'Cairo' => 'Cairo (الافتراضي)',
+                                        'Tajawal' => 'Tajawal',
+                                        'Almarai' => 'Almarai',
+                                        'IBM Plex Sans Arabic' => 'IBM Plex Sans Arabic',
+                                        'sans-serif' => 'Sans Serif',
+                                        'serif' => 'Serif',
+                                    ])
+                                    ->default('Cairo'),
+                                Select::make('content_font_size')
+                                    ->label('حجم الخط')
+                                    ->options([
+                                        '1rem' => 'صغير (16px)',
+                                        '1.125rem' => 'عادي (18px)',
+                                        '1.25rem' => 'متوسط (20px)',
+                                        '1.375rem' => 'كبير (22px)',
+                                        '1.5rem' => 'كبير جداً (24px)',
+                                    ])
+                                    ->default('1.125rem'),
                             ]),
                     ]),
 

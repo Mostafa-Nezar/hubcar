@@ -43,6 +43,7 @@
                             <span class="icon-saudi_riyal text-gray-400 text-xl"></span>
                         </span>
                     @endif
+                    <span class="text-[10px] text-gray-400 font-bold mt-1">أو قسط يبدأ من <span class="text-secondary">{{ number_format($car->starting_installment) }} ريال</span></span>
                 </div>
             </div>
 
@@ -118,7 +119,10 @@
                             <span class="icon-saudi_riyal text-2xl"></span>
                         </span>
                     @endif
-                    <span class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">السعر النقدي</span>
+                    <div class="flex flex-col md:items-end mt-1">
+                        <span class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">السعر النقدي</span>
+                        <span class="text-xs text-secondary font-bold">أو قسط شهري يبدأ من {{ number_format($car->starting_installment) }} ريال</span>
+                    </div>
                 </div>
             </div>
 

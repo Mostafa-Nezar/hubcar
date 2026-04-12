@@ -58,12 +58,39 @@
                                     <span class="text-lg font-bold block">{{ $selectedCar->category ?? 'Luxury' }}
                                         ({{ $selectedCar->model_year }})</span>
                                 </div>
-                                <div class="p-4 bg-primary/20 rounded-2xl border border-primary/30">
-                                    <span
-                                        class="text-[10px] text-primary font-bold uppercase tracking-widest block mb-1">السعر
-                                        نقدأً</span>
-                                    <span class="text-3xl font-black block">{{ number_format($selectedCar->price) }} <span
-                                            class="icon-saudi_riyal text-2xl"></span></span>
+                                <!-- Price & Finance Box -->
+                                <div class="bg-primary/10 rounded-[2rem] border border-primary/20 overflow-hidden">
+                                     <!-- Main Price -->
+                                     <div class="p-6 bg-primary/20 border-b border-primary/10">
+                                         <span class="text-[10px] text-primary font-bold uppercase tracking-widest block mb-1">السعر نقدأً</span>
+                                         <span class="text-3xl font-black block text-white">{{ number_format($selectedCar->price) }} <span class="icon-saudi_riyal text-2xl"></span></span>
+                                     </div>
+
+                                     @if($type == 'finance' && isset($financeData['installment']))
+                                     <!-- Finance Details -->
+                                     <div class="p-6 space-y-4">
+                                         <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
+                                             <span class="text-[10px] text-gray-400 font-bold uppercase">القسط الشهري</span>
+                                             <span class="text-xl font-black text-primary">{{ number_format($financeData['installment']) }} <small class="text-[10px]">ريال</small></span>
+                                         </div>
+                                         <div class="grid grid-cols-2 gap-3">
+                                             <div class="bg-white/5 p-3 rounded-xl">
+                                                 <span class="text-[10px] text-gray-400 font-bold uppercase block mb-1">الدفعة</span>
+                                                 <span class="text-sm font-bold text-white">{{ number_format($financeData['down_payment']) }}</span>
+                                             </div>
+                                             <div class="bg-white/5 p-3 rounded-xl">
+                                                 <span class="text-[10px] text-gray-400 font-bold uppercase block mb-1">المدة</span>
+                                                 <span class="text-sm font-bold text-white">{{ $financeData['period'] }} شهر</span>
+                                             </div>
+                                         </div>
+                                         @if($financeData['bank'])
+                                         <div class="pt-2 border-t border-white/5">
+                                             <span class="text-[10px] text-gray-400 font-bold uppercase block mb-1">الجهة المختارة</span>
+                                             <span class="text-sm font-bold text-primary">{{ $financeData['bank'] }}</span>
+                                         </div>
+                                         @endif
+                                     </div>
+                                     @endif
                                 </div>
                             </div>
                         </div>
@@ -90,6 +117,12 @@
                             <input type="hidden" name="car_category" value="{{ $selectedCar->category }}">
                             <input type="hidden" name="model_year" value="{{ $selectedCar->model_year }}">
                             <input type="hidden" name="car_price" value="{{ $selectedCar->price }}">
+                            
+                            @if(isset($financeData['installment']))
+                            <input type="hidden" name="monthly_installment" value="{{ $financeData['installment'] }}">
+                            <input type="hidden" name="down_payment" value="{{ $financeData['down_payment'] }}">
+                            <input type="hidden" name="finance_period" value="{{ $financeData['period'] }}">
+                            @endif
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <!-- Pre-filled Disabled Fields (Visual only) -->
@@ -182,7 +215,10 @@
                                             required>
                                             <option value="">اختر البنك أو شركة التمويل</option>
                                             @foreach ($financeEntities as $entity)
-                                                <option value="{{ $entity->name }}" {{ old('bank_name') == $entity->name ? 'selected' : '' }}>{{ $entity->name }}</option>
+                                                <option value="{{ $entity->name }}" 
+                                                    {{ (old('bank_name') == $entity->name || (isset($financeData['bank']) && $financeData['bank'] == $entity->name)) ? 'selected' : '' }}>
+                                                    {{ $entity->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         @error('bank_name')

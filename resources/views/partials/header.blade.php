@@ -19,6 +19,8 @@
                     class="{{ request()->routeIs('home') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">الرئيسية</a>
                 <a href="{{ route('cars.index') }}"
                     class="{{ request()->routeIs('cars.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">السيارات</a>
+                <a href="{{ route('blog.index') }}"
+                    class="{{ request()->routeIs('blog.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">المدونة</a>
                 <a href="{{ route('banks') }}"
                     class="{{ request()->routeIs('banks') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">جهات
                     التمويل</a>
@@ -175,6 +177,11 @@
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('cars.index') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-car text-lg"></i>
                     <span>السيارات</span>
+                </a>
+                <a href="{{ route('blog.index') }}"
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('blog.index') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    <i class="ti-layout-grid2 text-lg"></i>
+                    <span>المدونة</span>
                 </a>
                 <a href="{{ route('banks') }}"
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('banks') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">

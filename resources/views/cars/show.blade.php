@@ -67,6 +67,7 @@
                                 <span class="icon-saudi_riyal text-5xl text-primary font-bold"></span>
                             </div>
                         @endif
+                        <span class="text-sm text-gray-500 font-bold mt-2">أو قسط شهري يبدأ من <span class="text-primary">{{ number_format($car->starting_installment) }} ريال</span></span>
                     </div>
                 </div>
             </div>
@@ -237,6 +238,137 @@
                                 </div>
                             </div>
                         @endif
+
+                        <!-- Finance Calculator Section -->
+                        <style>
+                            .calc-range {
+                                -webkit-appearance: none;
+                                height: 8px;
+                                background: #eee;
+                                border-radius: 10px;
+                                outline: none;
+                                transition: all 0.3s;
+                            }
+                            .calc-range::-webkit-slider-thumb {
+                                -webkit-appearance: none;
+                                appearance: none;
+                                width: 28px;
+                                height: 28px;
+                                background: #c19b76;
+                                cursor: pointer;
+                                border-radius: 50%;
+                                border: 4px solid white;
+                                box-shadow: 0 5px 15px rgba(193, 155, 118, 0.4);
+                                transition: all 0.3s;
+                            }
+                            .calc-range::-webkit-slider-thumb:hover {
+                                transform: scale(1.1);
+                                box-shadow: 0 8px 20px rgba(193, 155, 118, 0.6);
+                            }
+                            .finance-entity-card.active {
+                                border-color: #c19b76 !important;
+                                background-color: rgba(193, 155, 118, 0.05) !important;
+                                transform: translateY(-5px);
+                                shadow: 0 10px 20px rgba(0,0,0,0.05);
+                            }
+                        </style>
+
+                        <div class="mt-24 pt-12 border-t border-gray-100">
+                            <div class="flex items-center gap-4 mb-10">
+                                <div class="h-10 w-2 bg-primary rounded-full"></div>
+                                <h2 class="text-4xl font-black text-secondary">حاسبة التمويل</h2>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-white to-gray-50 rounded-[3rem] p-8 md:p-12 border border-gray-100 shadow-2xl overflow-hidden relative">
+                                <div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+                                
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
+                                    <!-- Inputs -->
+                                    <div class="space-y-8">
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">سعر السيارة (ريال)</label>
+                                            <input type="number" id="calc_car_price" value="{{ $car->discount_price ?? $car->price }}" class="w-full bg-white border-2 border-gray-100 rounded-2xl p-5 text-2xl font-black text-secondary focus:border-primary focus:outline-none transition-all" readonly>
+                                        </div>
+
+                                        <div>
+                                            <label class="flex justify-between text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+                                                <span>الدفعة الأولى (ريال)</span>
+                                                <span id="down_payment_percent_label" class="text-primary">10%</span>
+                                            </label>
+                                            <div class="space-y-6">
+                                                <input type="number" id="calc_down_payment" value="{{ round(($car->discount_price ?? $car->price) * 0.1) }}" class="w-full bg-white border-2 border-gray-100 rounded-2xl p-5 text-2xl font-black text-secondary focus:border-primary focus:outline-none transition-all">
+                                                <input type="range" id="down_payment_range" min="0" max="80" value="10" class="w-full calc-range cursor-pointer">
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label class="flex justify-between text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+                                                <span>مدة التمويل (أشهر)</span>
+                                                <span id="period_label" class="text-primary">60 شهر</span>
+                                            </label>
+                                            <div class="space-y-4">
+                                                <input type="range" id="period_range" min="12" max="60" step="12" value="60" class="w-full calc-range cursor-pointer">
+                                                <div class="flex justify-between text-xs text-gray-400 font-bold px-1">
+                                                    <span>12</span>
+                                                    <span>24</span>
+                                                    <span>36</span>
+                                                    <span>48</span>
+                                                    <span>60</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">جهة التمويل</label>
+                                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                                @foreach($financeEntities as $entity)
+                                                <div class="finance-entity-card border-2 {{ $loop->first ? 'border-primary bg-primary/5 active' : 'border-gray-100 bg-white' }} rounded-2xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-primary transition-all group" 
+                                                    data-rate="{{ $entity->interest_rate ?? 3.5 }}" 
+                                                    data-min-down="{{ $entity->min_down_payment_percentage ?? 10 }}">
+                                                    @if($entity->logo)
+                                                    <img src="{{ str_starts_with($entity->logo, 'http') ? $entity->logo : Storage::url($entity->logo) }}" alt="{{ $entity->name }}" class="h-8 object-contain">
+                                                    @else
+                                                    <span class="font-bold text-xs text-center group-hover:text-primary transition-colors">{{ $entity->name }}</span>
+                                                    @endif
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                            <input type="hidden" id="calc_interest_rate" value="{{ $financeEntities->first()?->interest_rate ?? 3.5 }}">
+                                            <input type="hidden" id="calc_min_down_percent" value="{{ $financeEntities->first()?->min_down_payment_percentage ?? 10 }}">
+                                        </div>
+                                    </div>
+
+                                    <!-- Result -->
+                                    <div class="bg-secondary rounded-[2.5rem] p-10 text-white flex flex-col justify-between relative overflow-hidden shadow-xl">
+                                         <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+                                         
+                                         <div>
+                                             <h3 class="text-xl font-bold mb-10 opacity-70">القسط الشهري المتوقع</h3>
+                                             <div class="flex items-baseline gap-4 mb-2">
+                                                 <span id="monthly_payment_result" class="text-6xl md:text-7xl font-black text-primary">0</span>
+                                                 <span class="text-xl font-bold opacity-70">ريال / شهر</span>
+                                             </div>
+                                             <p class="text-[10px] opacity-50 leading-relaxed">* السعر يشمل ضريبة القيمة المضافة. القسط تقريبي وقد يتغير بناءً على تقييم الائتمان وسجل العميل.</p>
+                                         </div>
+
+                                         <div class="mt-12 space-y-4 pt-10 border-t border-white/10">
+                                             <div class="flex justify-between items-center">
+                                                 <span class="opacity-70 font-bold">إجمالي الفوائد</span>
+                                                 <span id="total_interest_result" class="font-black text-lg text-primary">0 ريال</span>
+                                             </div>
+                                             <div class="flex justify-between items-center">
+                                                 <span class="opacity-70 font-bold">إجمالي المبلغ</span>
+                                                 <span id="total_amount_result" class="font-black text-lg">0 ريال</span>
+                                             </div>
+                                             
+                                             <a href="{{ route('cars.booking', [$car->slug, 'type' => 'finance']) }}" class="block w-full bg-primary text-white text-center py-6 rounded-2xl font-black text-xl hover:bg-opacity-90 transition-all mt-8 shadow-lg shadow-primary/20">
+                                                 اطلب تمويل بهذا القسط
+                                             </a>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -340,6 +472,115 @@
                     element.classList.add('border-primary');
                 }, 300);
             }
+
+            // Finance Calculator Logic
+            document.addEventListener('DOMContentLoaded', function() {
+                const carPriceInput = document.getElementById('calc_car_price');
+                const downPaymentInput = document.getElementById('calc_down_payment');
+                const downPaymentRange = document.getElementById('down_payment_range');
+                const downPaymentPercentLabel = document.getElementById('down_payment_percent_label');
+                const periodRange = document.getElementById('period_range');
+                const periodLabel = document.getElementById('period_label');
+                const interestRateInput = document.getElementById('calc_interest_rate');
+                const minDownPercentInput = document.getElementById('calc_min_down_percent');
+                const monthlyPaymentResult = document.getElementById('monthly_payment_result');
+                const totalInterestResult = document.getElementById('total_interest_result');
+                const totalAmountResult = document.getElementById('total_amount_result');
+                const financeCards = document.querySelectorAll('.finance-entity-card');
+
+                function calculate() {
+                    const price = parseFloat(carPriceInput.value) || 0;
+                    let downPayment = parseFloat(downPaymentInput.value) || 0;
+                    const months = parseInt(periodRange.value);
+                    const annualRate = parseFloat(interestRateInput.value) || 0;
+                    const minDownPercent = parseFloat(minDownPercentInput.value) || 0;
+
+                    // Update UI range min
+                    downPaymentRange.min = minDownPercent;
+                    if (parseFloat(downPaymentRange.value) < minDownPercent) {
+                        downPaymentRange.value = minDownPercent;
+                    }
+
+                    if (downPayment < (price * minDownPercent / 100)) {
+                        downPayment = Math.round(price * minDownPercent / 100);
+                        downPaymentInput.value = downPayment;
+                    }
+                    
+                    const percent = price > 0 ? (downPayment / price) * 100 : 0;
+                    downPaymentRange.value = Math.min(percent, 80);
+                    downPaymentPercentLabel.textContent = Math.round(percent) + '%';
+
+                    const principle = price - downPayment;
+                    const years = months / 12;
+                    
+                    // Simple Flat Rate calculation for estimation
+                    const totalInterest = principle * (annualRate / 100) * years;
+                    const totalAmount = principle + totalInterest;
+                    const monthlyPayment = months > 0 ? (totalAmount / months) : 0;
+
+                    const formatter = new Intl.NumberFormat('en-US', {
+                        maximumFractionDigits: 0
+                    });
+
+                    monthlyPaymentResult.textContent = formatter.format(monthlyPayment);
+                    totalInterestResult.textContent = formatter.format(totalInterest) + ' ريال';
+                    totalAmountResult.textContent = formatter.format(totalAmount + downPayment) + ' ريال';
+                    
+                    periodLabel.textContent = months + ' شهر';
+                    updateBookingLink();
+                }
+
+                function updateBookingLink() {
+                    const months = periodRange.value;
+                    const downPayment = downPaymentInput.value;
+                    const installment = monthlyPaymentResult.textContent.replace(/,/g, '');
+                    const activeCard = document.querySelector('.finance-entity-card.active');
+                    const bankName = activeCard?.querySelector('span')?.textContent || 
+                                     activeCard?.querySelector('img')?.alt || '';
+                    
+                    const baseUrl = "{{ route('cars.booking', [$car->slug, 'type' => 'finance']) }}";
+                    const newUrl = `${baseUrl}&installment=${installment}&down_payment=${downPayment}&period=${months}&bank=${encodeURIComponent(bankName)}`;
+                    
+                    const bookingBtn = document.querySelector('a[href*="finance"][href*="booking"]');
+                    if (bookingBtn) bookingBtn.href = newUrl;
+                }
+
+                if (downPaymentRange) {
+                    downPaymentRange.addEventListener('input', function() {
+                        const price = parseFloat(carPriceInput.value) || 0;
+                        const percent = parseFloat(this.value);
+                        const downPayment = Math.round(price * (percent / 100));
+                        downPaymentInput.value = downPayment;
+                        downPaymentPercentLabel.textContent = percent + '%';
+                        calculate();
+                    });
+
+                    downPaymentInput.addEventListener('input', calculate);
+                    periodRange.addEventListener('input', calculate);
+
+                    financeCards.forEach(card => {
+                        card.addEventListener('click', function() {
+                            financeCards.forEach(c => {
+                                c.classList.remove('border-primary', 'bg-primary/5', 'active');
+                                c.classList.add('border-gray-100', 'bg-white');
+                            });
+                            this.classList.add('border-primary', 'bg-primary/5', 'active');
+                            this.classList.remove('border-gray-100', 'bg-white');
+                            
+                            // Update rate if available
+                            if (this.dataset.rate) {
+                                interestRateInput.value = this.dataset.rate;
+                            }
+                            if (this.dataset.minDown) {
+                                minDownPercentInput.value = this.dataset.minDown;
+                            }
+                            calculate();
+                        });
+                    });
+
+                    calculate();
+                }
+            });
         </script>
     @endpush
 @endsection

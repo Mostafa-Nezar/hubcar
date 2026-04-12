@@ -81,6 +81,23 @@ class BookingRequestsTable
                     ->sortable()
                     ->toggleable(),
 
+                TextColumn::make('monthly_installment')
+                    ->label('القسط')
+                    ->money('SAR')
+                    ->sortable()
+                    ->toggleable(),
+
+                TextColumn::make('down_payment')
+                    ->label('الدفعة')
+                    ->money('SAR')
+                    ->sortable()
+                    ->toggleable(),
+
+                TextColumn::make('finance_period')
+                    ->label('المدة (شهر)')
+                    ->sortable()
+                    ->toggleable(),
+
                 TextColumn::make('city')
                     ->label('المدينة')
                     ->searchable()

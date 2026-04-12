@@ -12,12 +12,16 @@ class BookingRequest extends Model
         'model_year', 'city', 'request_date', 'status', 'state_category',
         'bank_name', 'work_sector', 'monthly_salary', 'client_notes',
         'internal_notes', 'updated_by', 'last_status_update',
+        'monthly_installment', 'down_payment', 'finance_period',
     ];
 
     protected $casts = [
         'request_date' => 'datetime',
         'last_status_update' => 'datetime',
         'monthly_salary' => 'decimal:2',
+        'monthly_installment' => 'decimal:2',
+        'down_payment' => 'decimal:2',
+        'finance_period' => 'integer',
     ];
 
     public function car()

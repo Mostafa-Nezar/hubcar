@@ -76,6 +76,22 @@ class BookingRequestInfolist
                                     ->label('الراتب الشهري')
                                     ->content(fn ($record) => $record->monthly_salary ? number_format($record->monthly_salary).' ر.س' : '---')
                                     ->visible(fn ($record) => $record->payment_type === 'finance'),
+                                
+                                Placeholder::make('monthly_installment')
+                                    ->label('القسط المختار')
+                                    ->content(fn ($record) => $record->monthly_installment ? number_format($record->monthly_installment).' ر.س' : '---')
+                                    ->visible(fn ($record) => $record->payment_type === 'finance' && $record->monthly_installment),
+                                
+                                Placeholder::make('down_payment')
+                                    ->label('الدفعة المقدمة')
+                                    ->content(fn ($record) => $record->down_payment ? number_format($record->down_payment).' ر.س' : '---')
+                                    ->visible(fn ($record) => $record->payment_type === 'finance' && $record->down_payment),
+                                
+                                Placeholder::make('finance_period')
+                                    ->label('مدة التمويل')
+                                    ->content(fn ($record) => $record->finance_period ? $record->finance_period.' شهر' : '---')
+                                    ->visible(fn ($record) => $record->payment_type === 'finance' && $record->finance_period),
+
                                 Placeholder::make('request_date')
                                     ->label('تاريخ الطلب')
                                     ->content(fn ($record) => $record->request_date?->format('d/m/Y H:i A')),
