@@ -24,6 +24,12 @@ class FinanceEntitiesTable
                 TextColumn::make('description')
                     ->label('الوصف')
                     ->limit(50),
+                TextColumn::make('interest_rate')
+                    ->label('الفائدة (%)')
+                    ->sortable(),
+                TextColumn::make('min_down_payment_percentage')
+                    ->label('أقل دفعة (%)')
+                    ->sortable(),
             ])
             ->filters([
                 //

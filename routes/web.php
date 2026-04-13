@@ -35,6 +35,9 @@ Route::get('/booking/{car}', [CarController::class, 'booking'])->name('cars.book
 Route::post('/booking/{car}', [CarController::class, 'storeBooking'])->name('cars.booking.store');
 Route::get('/quick-booking', [CarController::class, 'quickBooking'])->name('cars.quick-booking');
 Route::post('/quick-booking-store', [CarController::class, 'storeQuickBooking'])->name('cars.quick-booking.store');
+Route::get('/compare', [CarController::class, 'compare'])->name('cars.compare');
+Route::get('/api/cars/compare', [CarController::class, 'apiCompare'])->name('api.cars.compare');
+
 
 // Authentication Routes (User)
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest:customer');

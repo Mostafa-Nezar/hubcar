@@ -7,6 +7,7 @@ use App\Models\BookingRequest;
 use App\Models\QuickBookingRequest;
 use App\Models\FinanceEntity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
 {
@@ -188,5 +189,64 @@ class CarController extends Controller
         }
 
         return redirect()->route('home')->with('success', 'تم إرسال طلبك بنجاح! سنقوم بالتواصل معك في أقرب وقت.');
+    }
+
+    public function compare()
+    {
+        $allCars = Car::select('id', 'name')->orderBy('name')->get();
+        return view('cars.compare', compact('allCars'));
+    }
+
+    public function apiCompare(Request $request)
+    {
+        $ids = $request->query('ids', []);
+        
+        // If IDs are sent as a comma-separated string instead of an array
+        if (is_string($ids)) {
+            $ids = explode(',', $ids);
+        }
+
+        if (empty($ids)) {
+            return response()->json([]);
+        }
+
+        $ids = array_filter(array_slice($ids, 0, 3)); // Limit and clean
+
+        $cars = Car::whereIn('id', $ids)
+            ->with('brand')
+            ->get();
+
+        // Sort by the order of IDs provided
+        $cars = $cars->sortBy(function($car) use ($ids) {
+            return array_search($car->id, $ids);
+        })->values();
+
+        return response()->json($cars->map(function($car) {
+            return [
+                'id' => $car->id,
+                'name' => $car->name,
+                'brand' => $car->brand->name ?? '',
+                'price' => number_format($car->price),
+                'discount_price' => $car->discount_price ? number_format($car->discount_price) : null,
+                'model_year' => $car->model_year,
+                'fuel_type' => $car->fuel_type ?? 'بنزين',
+                'transmission' => $car->transmission == 'automatic' ? 'أتوماتيك' : 'يدوي',
+                'seats' => $car->seats,
+                'doors' => $car->doors,
+                'luggage' => $car->luggage,
+                'condition' => $car->condition == 'new' ? 'جديدة' : 'مستعملة',
+                'type' => $car->type,
+                'category' => $car->category,
+                'image' => str_starts_with($car->main_image, 'http')
+                    ? $car->main_image
+                    : (str_starts_with($car->main_image, 'img/')
+                        ? asset($car->main_image)
+                        : Storage::url($car->main_image)),
+                'url' => route('cars.show', $car->slug),
+                'booking_url' => route('cars.booking', $car->slug),
+                'specs' => $car->specs,
+                'starting_installment' => number_format($car->starting_installment),
+            ];
+        }));
     }
 }

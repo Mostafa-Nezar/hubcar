@@ -407,8 +407,12 @@
                                             </div>
                                             اطلب تمويل الآن
                                         </span>
-                                        <i
-                                            class="ti-arrow-left opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all transition-all"></i>
+                                    </a>
+                                    
+                                    <a href="{{ route('cars.compare', ['car_id' => $car->id]) }}"
+                                        class="flex items-center justify-center w-full p-6 border-2 border-gray-100 text-gray-400 rounded-2xl font-black hover:border-primary hover:text-primary transition-all group">
+                                        <i class="ti-layers-alt text-xl ml-3"></i>
+                                        <span>مقارنة هذه السيارة</span>
                                     </a>
                                 </div>
                             </div>

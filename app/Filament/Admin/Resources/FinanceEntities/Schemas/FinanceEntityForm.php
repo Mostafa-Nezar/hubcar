@@ -25,6 +25,18 @@ class FinanceEntityForm
                     ->label('وصف الخدمة')
                     ->rows(3)
                     ->maxLength(500),
+                TextInput::make('interest_rate')
+                    ->label('نسبة الفائدة (%)')
+                    ->numeric()
+                    ->step(0.01)
+                    ->default(3.5)
+                    ->required(),
+                TextInput::make('min_down_payment_percentage')
+                    ->label('الحد الأدنى للدفعة الأولى (%)')
+                    ->numeric()
+                    ->step(1)
+                    ->default(10)
+                    ->required(),
             ]);
     }
 }
