@@ -5,6 +5,10 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use App\Models\Setting;
+use App\Models\BookingRequest;
+use App\Models\QuickBookingRequest;
+use App\Observers\BookingRequestObserver;
+use App\Observers\QuickBookingRequestObserver;
 use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        BookingRequest::observe(BookingRequestObserver::class);
+        QuickBookingRequest::observe(QuickBookingRequestObserver::class);
+
         View::composer('*', function ($view) {
             $settings = Setting::first();
             if (!$settings) {

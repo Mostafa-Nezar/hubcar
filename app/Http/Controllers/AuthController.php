@@ -9,6 +9,10 @@ use App\Models\Customer;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeUserMail;
+use App\Models\User;
+use App\Notifications\AdminNewUserRegistrationNotification;
+use Filament\Notifications\Notification as FilamentNotification;
+use Illuminate\Support\Facades\Notification;
 
 class AuthController extends Controller
 {
@@ -21,18 +25,18 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $settings = Setting::first();
-        $siteKey = config('services.recaptcha.site_key', $settings?->recaptcha_site_key);
-        $secretKey = config('services.recaptcha.secret_key', $settings?->recaptcha_secret_key);
-        $recaptchaEnabled = (bool) ($siteKey && $secretKey);
+        // $settings = Setting::first();
+        // $siteKey = config('services.recaptcha.site_key', $settings?->recaptcha_site_key);
+        // $secretKey = config('services.recaptcha.secret_key', $settings?->recaptcha_secret_key);
+        // $recaptchaEnabled = (bool) ($siteKey && $secretKey);
 
-        if ($recaptchaEnabled) {
-            if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
-                return back()
-                    ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
-                    ->withInput();
-            }
-        }
+        // if ($recaptchaEnabled) {
+        //     if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
+        //         return back()
+        //             ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
+        //             ->withInput();
+        //     }
+        // }
 
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -56,18 +60,18 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $settings = Setting::first();
-        $siteKey = config('services.recaptcha.site_key', $settings?->recaptcha_site_key);
-        $secretKey = config('services.recaptcha.secret_key', $settings?->recaptcha_secret_key);
-        $recaptchaEnabled = (bool) ($siteKey && $secretKey);
+        // $settings = Setting::first();
+        // $siteKey = config('services.recaptcha.site_key', $settings?->recaptcha_site_key);
+        // $secretKey = config('services.recaptcha.secret_key', $settings?->recaptcha_secret_key);
+        // $recaptchaEnabled = (bool) ($siteKey && $secretKey);
 
-        if ($recaptchaEnabled) {
-            if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
-                return back()
-                    ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
-                    ->withInput();
-            }
-        }
+        // if ($recaptchaEnabled) {
+        //     if (! $this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
+        //         return back()
+        //             ->withErrors(['g-recaptcha-response' => 'فشل التحقق من أنك لست روبوت، يرجى المحاولة مرة أخرى.'])
+        //             ->withInput();
+        //     }
+        // }
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -85,6 +89,24 @@ class AuthController extends Controller
             Mail::to($customer->email)->send(new WelcomeUserMail($customer));
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Welcome Email Sending failed: ' . $e->getMessage());
+        }
+
+        // Notify Admins
+        try {
+            $admins = User::all();
+            Notification::send($admins, new AdminNewUserRegistrationNotification($customer));
+
+            // Notify Admins in Filament UI
+            foreach ($admins as $admin) {
+                FilamentNotification::make()
+                    ->title('تسجيل عميل جديد')
+                    ->body("الاسم: {$customer->name}")
+                    ->icon('heroicon-o-user')
+                    ->iconColor('info')
+                    ->sendToDatabase($admin);
+            }
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Admin Registration Notification failed: ' . $e->getMessage());
         }
 
         Auth::guard('customer')->login($customer);

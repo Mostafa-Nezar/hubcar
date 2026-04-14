@@ -6,7 +6,7 @@ use Filament\Widgets\ChartWidget;
 
 class BookingChart extends ChartWidget
 {
-    protected ?string $heading = 'Booking Chart';
+    protected ?string $heading = 'رسم بياني للحجوزات';
 
     protected function getData(): array
     {

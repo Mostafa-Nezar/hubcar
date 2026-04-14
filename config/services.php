@@ -40,4 +40,10 @@ return [
         'secret_key' => env('RECAPTCHA_SECRET_KEY'),
     ],
 
+    'whatsapp' => [
+        'admin_phone' => env('WHATSAPP_ADMIN_PHONE'),
+        'client_token' => env('WHATSAPP_TOKEN'),
+        'api_url' => env('WHATSAPP_URL'),
+    ],
+
 ];

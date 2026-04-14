@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class QuickBookingRequest extends Model
 {
+    use Notifiable;
     protected $fillable = [
         'payment_type', 'client_name', 'phone', 'email', 'car_id', 'car_name_manual',
         'brand_name', 'car_type', 'car_category', 'car_price',
