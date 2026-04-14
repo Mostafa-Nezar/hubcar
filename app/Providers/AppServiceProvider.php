@@ -10,6 +10,7 @@ use App\Models\QuickBookingRequest;
 use App\Observers\BookingRequestObserver;
 use App\Observers\QuickBookingRequestObserver;
 use Illuminate\Support\Facades\View;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
     {
         BookingRequest::observe(BookingRequestObserver::class);
         QuickBookingRequest::observe(QuickBookingRequestObserver::class);
+
+        Paginator::useTailwind();
 
         View::composer('*', function ($view) {
             $settings = Setting::first();

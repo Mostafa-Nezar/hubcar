@@ -105,7 +105,7 @@ class PageController extends Controller
             })
             ->orderBy('published_at', 'desc')
             ->orderBy('created_at', 'desc')
-            ->paginate(9);
+            ->paginate(2);
 
         return view('blogs', compact('posts'));
     }

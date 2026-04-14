@@ -129,8 +129,8 @@
             </div>
 
             <!-- Custom Pagination -->
-            <div class="mt-16">
-                {{ $cars->links() }}
+            <div class="mt-16 flex justify-center">
+                {{ $cars->links('vendor.pagination.tailwind') }}
             </div>
         @else
             <!-- Empty State -->

@@ -10,6 +10,7 @@ use Livewire\WithPagination;
 class CarList extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'tailwind';
 
     private const FILTERS_SESSION_KEY = 'cars_list.filters';
 
@@ -101,7 +102,7 @@ class CarList extends Component
 
     private function updateDependentLists()
     {
-        $this->types_list = $this->brand_id 
+        $this->types_list = $this->brand_id
             ? Car::where('brand_id', $this->brand_id)->distinct()->pluck('type')->filter()->values()
             : collect();
 
@@ -176,7 +177,14 @@ class CarList extends Component
             $query->latest();
         }
 
-        $cars = $query->paginate(12)->withQueryString();
+        $cars = $query->paginate(9)->withQueryString();
+
+        // Auto-fix: If we're on a page that no longer exists after changing pagination size
+        if ($cars->isEmpty() && $cars->total() > 0 && $cars->currentPage() > 1) {
+            $this->resetPage();
+            $cars = $query->paginate(9)->withQueryString();
+        }
+
         $this->persistFilters($cars->currentPage());
 
         return view('livewire.car-list', [
