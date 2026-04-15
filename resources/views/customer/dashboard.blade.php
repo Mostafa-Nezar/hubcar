@@ -27,6 +27,10 @@
                             class="pb-4 px-2 border-b-4 {{ request()->routeIs('customer.bookings') ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-primary' }} font-bold transition-all flex items-center gap-2">
                             <i class="ti-clipboard"></i> حجوزاتي
                         </a>
+                        <a href="{{ route('customer.wishlist') }}"
+                            class="pb-4 px-2 border-b-4 {{ request()->routeIs('customer.wishlist') ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-primary' }} font-bold transition-all flex items-center gap-2">
+                            <i class="ti-heart"></i> المفضلة
+                        </a>
                     </div>
                 </div>
 

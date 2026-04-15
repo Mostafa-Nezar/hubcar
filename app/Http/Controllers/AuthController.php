@@ -73,6 +73,12 @@ class AuthController extends Controller
         //     }
         // }
 
+        // Sanitize inputs
+        $sanitized = array_map(function($value) {
+            return is_string($value) ? trim(strip_tags($value)) : $value;
+        }, $request->all());
+        $request->merge($sanitized);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:customers',

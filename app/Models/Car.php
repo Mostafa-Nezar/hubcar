@@ -31,6 +31,7 @@ class Car extends Model
         'seo_description',
         'seo_keywords',
         'og_image',
+        'offer_id',
     ];
 
     protected $casts = [
@@ -40,6 +41,11 @@ class Car extends Model
         'discount_price' => 'decimal:2',
         'seo_keywords' => 'array',
     ];
+
+    public function offer()
+    {
+        return $this->belongsTo(Offer::class);
+    }
 
     protected static function booted()
     {

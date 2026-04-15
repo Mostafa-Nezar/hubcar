@@ -16,23 +16,33 @@
             <!-- Main Menu (Desktop) -->
             <nav class="hidden lg:flex items-center gap-8">
                 <a href="{{ route('home') }}"
-                    class="{{ request()->routeIs('home') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">الرئيسية</a>
+                    class="{{ request()->routeIs('home') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-bold transition-colors">الرئيسية</a>
                 <a href="{{ route('cars.index') }}"
-                    class="{{ request()->routeIs('cars.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">السيارات</a>
+                    class="{{ request()->routeIs('cars.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-bold transition-colors">السيارات</a>
+                <a href="{{ route('offers.index') }}"
+                    class="{{ request()->routeIs('offers.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-bold transition-colors">العروض</a>
                 <a href="{{ route('blog.index') }}"
-                    class="{{ request()->routeIs('blog.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">المدونة</a>
-                <a href="{{ route('banks') }}"
-                    class="{{ request()->routeIs('banks') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">جهات
-                    التمويل</a>
-                <a href="{{ route('faq') }}"
-                    class="{{ request()->routeIs('faq') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">الأسئلة
-                    الشائعة</a>
-                <a href="{{ route('about') }}"
-                    class="{{ request()->routeIs('about') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">من
-                    نحن</a>
-                <a href="{{ route('contact') }}"
-                    class="{{ request()->routeIs('contact') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">اتصل
-                    بنا</a>
+                    class="{{ request()->routeIs('blog.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-bold transition-colors">المدونة</a>
+                
+                <!-- More Dropdown -->
+                <div class="relative" x-data="{ open: false }">
+                    <button @mouseenter="open = true" @mouseleave="open = false" @click="open = !open"
+                        class="flex items-center gap-2 text-gray-600 hover:text-primary font-bold transition-colors">
+                        المزيد
+                        <i class="ti-angle-down text-[10px] transition-transform" :class="{ 'rotate-180': open }"></i>
+                    </button>
+                    <!-- Dropdown Content -->
+                    <div x-show="open" @mouseenter="open = true" @mouseleave="open = false" x-cloak
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                        class="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 z-50">
+                        <a href="{{ route('banks') }}" class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">جهات التمويل</a>
+                        <a href="{{ route('faq') }}" class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">الأسئلة الشائعة</a>
+                        <a href="{{ route('about') }}" class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">من نحن</a>
+                        <a href="{{ route('contact') }}" class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">اتصل بنا</a>
+                    </div>
+                </div>
             </nav>
 
             <!-- Quick Order & Search -->
@@ -177,6 +187,11 @@
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('cars.index') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-car text-lg"></i>
                     <span>السيارات</span>
+                </a>
+                <a href="{{ route('offers.index') }}"
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('offers.index') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    <i class="ti-gift text-lg"></i>
+                    <span>العروض</span>
                 </a>
                 <a href="{{ route('blog.index') }}"
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('blog.index') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">

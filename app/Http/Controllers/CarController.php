@@ -15,7 +15,7 @@ class CarController extends Controller
 
     public function index(Request $request)
     {
-        $query = Car::query();
+        $query = Car::with(['brand', 'offer']);
 
         // Filtering
         if ($request->has('brand')) {
@@ -98,6 +98,12 @@ class CarController extends Controller
 
         $user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
         
+        // Sanitize inputs
+        $sanitized = array_map(function($value) {
+            return is_string($value) ? trim(strip_tags($value)) : $value;
+        }, $request->all());
+        $request->merge($sanitized);
+
         // Always require name and phone, regardless of login status
         $validated = $request->validate([
             'client_name' => ['required', 'string', 'max:255', 'regex:/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u'],
@@ -148,6 +154,12 @@ class CarController extends Controller
     {
         $user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
         
+        // Sanitize inputs
+        $sanitized = array_map(function($value) {
+            return is_string($value) ? trim(strip_tags($value)) : $value;
+        }, $request->all());
+        $request->merge($sanitized);
+
         // Always require name and phone, regardless of login status
         $validated = $request->validate([
             'car_id' => 'required|exists:cars,id',

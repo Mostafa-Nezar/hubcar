@@ -104,6 +104,31 @@
                                     {{ $car->availability_status == 'available' ? 'متوفرة الآن' : 'مباعة' }}
                                 </span>
                             </div>
+
+                            <!-- Offer Details -->
+                            @if($car->offer && $car->offer->is_active)
+                                <div class="absolute bottom-6 right-6 z-20 flex flex-col gap-3 items-start">
+                                    <div class="bg-white/95 backdrop-blur-md px-6 py-3 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-lg" style="background-color: {{ $car->offer->color }}">
+                                            <i class="ti-gift text-lg animate-bounce"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="text-secondary font-black text-sm leading-none mb-1">{{ $car->offer->badge_text }}</h5>
+                                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{{ $car->offer->name }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    @if($car->offer->expires_at && $car->offer->expires_at->isFuture())
+                                        <div class="bg-secondary text-white px-4 py-2 rounded-xl text-xs font-black shadow-2xl flex items-center gap-2 border border-white/10" 
+                                             x-data="countdown('{{ $car->offer->expires_at->toIso8601String() }}')" x-init="init()">
+                                             <div class="w-6 h-6 bg-white/10 rounded-lg flex items-center justify-center">
+                                                 <i class="ti-timer"></i>
+                                             </div>
+                                             <span>ينتهي العرض خلال: <span x-text="time"></span></span>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
 
                         @if ($car->images->count() > 0)
@@ -381,6 +406,10 @@
                             <div
                                 class="absolute top-0 right-0 py-2 px-8 bg-primary rounded-bl-[1.5rem] text-white text-[10px] font-black uppercase tracking-widest">
                                 Best Deal
+                            </div>
+
+                            <div class="mb-4 flex justify-end">
+                                @livewire('car-favorite-button', ['carId' => $car->id, 'style' => 'large'])
                             </div>
 
                             <div class="mb-10 mt-4">

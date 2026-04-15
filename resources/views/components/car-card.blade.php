@@ -16,7 +16,27 @@
             @endphp
             <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy" decoding="async"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full z-20">
+            
+            @livewire('car-favorite-button', ['carId' => $car->id], key('fav-grid-'.$car->id))
+
+            @if($car->offer && $car->offer->is_active)
+                <div class="absolute top-4 right-16 z-20 flex flex-col gap-2 items-end">
+                    <div class="bg-white/95 backdrop-blur px-3 py-1 rounded-lg shadow-sm border border-gray-100 flex items-center gap-2 animate-pulse">
+                        <span class="w-2 h-2 rounded-full" style="background-color: {{ $car->offer->color }}"></span>
+                        <span class="text-[10px] font-black text-secondary uppercase tracking-wider">{{ $car->offer->badge_text }}</span>
+                    </div>
+                    
+                    @if($car->offer->expires_at && $car->offer->expires_at->isFuture())
+                        <div class="bg-secondary/90 backdrop-blur px-2 py-1 rounded-md text-[9px] text-white font-bold flex items-center gap-1 shadow-xl" 
+                             x-data="countdown('{{ $car->offer->expires_at->toIso8601String() }}')" x-init="init()">
+                             <i class="ti-timer"></i>
+                             <span x-text="time"></span>
+                        </div>
+                    @endif
+                </div>
+            @endif
+
+            <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full z-20">
                 {{ $car->category }}
             </div>
         </div>
@@ -92,8 +112,11 @@
             @endphp
             <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy" decoding="async"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            
+            @livewire('car-favorite-button', ['carId' => $car->id], key('fav-list-'.$car->id))
+
             <div
-                class="absolute top-2 right-2 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full z-20">
+                class="absolute top-2 left-2 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full z-20">
                 {{ $car->category }}
             </div>
         </div>

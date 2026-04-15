@@ -123,6 +123,13 @@ class CustomerController extends Controller
         return view('customer.bookings', compact('bookings'));
     }
 
+    public function wishlist()
+    {
+        $customer = Auth::guard('customer')->user();
+        $wishlist = $customer->wishlistCars()->with(['brand', 'offer'])->latest()->paginate(9);
+        return view('customer.wishlist', compact('customer', 'wishlist'));
+    }
+
     public function bookingDetail($id)
     {
         $customer = Auth::guard('customer')->user();

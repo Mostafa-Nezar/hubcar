@@ -39,7 +39,9 @@ class CarList extends Component
 
     public function mount()
     {
-        $this->brands_list = Brand::all();
+        $this->brands_list = \Illuminate\Support\Facades\Cache::remember('all_brands', 86400, function() {
+            return Brand::all();
+        });
         $this->updateDependentLists();
 
         // Support legacy/query links like ?brand=ID
@@ -140,7 +142,7 @@ class CarList extends Component
 
     public function render()
     {
-        $query = Car::query();
+        $query = Car::with(['brand', 'offer']);
 
         if ($this->brand_id) {
             $query->where('brand_id', $this->brand_id);

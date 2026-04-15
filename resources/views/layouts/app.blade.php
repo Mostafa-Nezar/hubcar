@@ -35,9 +35,12 @@
     <meta property="twitter:description" content="@if(isset($seoPage) && $seoPage->twitter_description) {{ $seoPage->twitter_description }} @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @elseif(View::hasSection('meta_description')) @yield('meta_description') @else {{ $settings?->twitter_description ?? ($settings?->meta_description ?? 'أفضل معرض سيارات هب كار') }} @endif">
     <meta property="twitter:image" content="@if(isset($seoPage) && $seoPage->twitter_image) {{ asset('storage/' . $seoPage->twitter_image) }} @elseif(isset($seoPage) && $seoPage->og_image) {{ asset('storage/' . $seoPage->og_image) }} @else {{ $settings?->twitter_image ? asset('storage/' . $settings->twitter_image) : ($settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg')) }} @endif">
 
-    <!-- Fonts -->
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Tajawal:wght@200..900&family=Almarai:wght@300..800&family=IBM+Plex+Sans+Arabic:wght@100..700&display=swap" rel="stylesheet">
 
     <!-- Styles & Scripts -->
@@ -113,7 +116,18 @@
 <body class="bg-gray-50 text-gray-800">
 
     <!-- Header -->
-    @include('partials.header')
+    @php
+        $isGuest = !auth()->guard('customer')->check();
+        if ($isGuest) {
+            echo \Illuminate\Support\Facades\Cache::remember('header_guest_html', 86400, function() {
+                return view('partials.header')->render();
+            });
+        } else {
+            @endphp
+            @include('partials.header')
+            @php
+        }
+    @endphp
 
     <!-- Main Content -->
     <main>
@@ -162,7 +176,11 @@
     </main>
 
     <!-- Footer -->
-    @include('partials.footer')
+    @php
+        echo \Illuminate\Support\Facades\Cache::remember('footer_html', 86400, function() {
+            return view('partials.footer')->render();
+        });
+    @endphp
 
     <!-- WhatsApp Floating Button -->
     <div class="fixed bottom-8 right-8 z-50 group">
@@ -183,6 +201,35 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?hl=ar" async defer></script>
     
+    <script>
+        window.countdown = (expiresAt) => {
+            return {
+                expiresAt: expiresAt,
+                time: '',
+                init() {
+                    this.update();
+                    setInterval(() => this.update(), 1000);
+                },
+                update() {
+                    const end = new Date(this.expiresAt).getTime();
+                    const now = new Date().getTime();
+                    const distance = end - now;
+
+                    if (distance < 0) {
+                        this.time = "منتهي";
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    this.time = `${days}ي ${hours}س ${minutes}د ${seconds}ث`;
+                }
+            };
+        };
+    </script>
     @stack('scripts')
     @livewireScripts
 </body>

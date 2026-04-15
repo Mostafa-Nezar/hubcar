@@ -30,5 +30,10 @@ class Customer extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function wishlistCars()
+    {
+        return $this->belongsToMany(Car::class, 'wishlists');
+    }
 }
 

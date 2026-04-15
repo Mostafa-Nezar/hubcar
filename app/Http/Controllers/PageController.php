@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Car;
 use App\Models\FinanceEntity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PageController extends Controller
 {
@@ -13,11 +14,25 @@ class PageController extends Controller
 
     public function home()
     {
-        $featuredCars = Car::where('is_featured', '=', true)->get();
-        $latestCars = Car::latest()->take(8)->get();
-        $brands = Brand::all();
-        $banks = FinanceEntity::all();
-        $about = \App\Models\AboutPage::first();
+        $featuredCars = Cache::remember('home_featured_cars', 3600, function() {
+            return Car::with(['brand', 'offer'])->where('is_featured', '=', true)->get();
+        });
+
+        $latestCars = Cache::remember('home_latest_cars', 3600, function() {
+            return Car::with(['brand', 'offer'])->latest()->take(8)->get();
+        });
+
+        $brands = Cache::remember('all_brands', 86400, function() {
+            return Brand::all();
+        });
+
+        $banks = Cache::remember('all_banks', 86400, function() {
+            return FinanceEntity::all();
+        });
+
+        $about = Cache::remember('about_page_first', 86400, function() {
+            return \App\Models\AboutPage::first();
+        });
         
         return view('home', compact('featuredCars', 'latestCars', 'brands', 'banks', 'about'));
     }
@@ -36,27 +51,33 @@ class PageController extends Controller
 
     public function faq()
     {
-        $faqs = \App\Models\Faq::where('is_active', true)
-            ->orderBy('sort_order', 'asc')
-            ->get();
+        $faqs = Cache::remember('all_faqs', 86400, function() {
+            return \App\Models\Faq::where('is_active', true)
+                ->orderBy('sort_order', 'asc')
+                ->get();
+        });
             
         return view('faq', compact('faqs'));
     }
 
     public function terms()
     {
-        $terms = \App\Models\Term::where('is_active', true)
-            ->orderBy('sort_order', 'asc')
-            ->get();
+        $terms = Cache::remember('all_terms', 86400, function() {
+            return \App\Models\Term::where('is_active', true)
+                ->orderBy('sort_order', 'asc')
+                ->get();
+        });
             
         return view('terms', compact('terms'));
     }
 
     public function privacy()
     {
-        $privacies = \App\Models\Privacy::where('is_active', true)
-            ->orderBy('sort_order', 'asc')
-            ->get();
+        $privacies = Cache::remember('all_privacies', 86400, function() {
+            return \App\Models\Privacy::where('is_active', true)
+                ->orderBy('sort_order', 'asc')
+                ->get();
+        });
             
         return view('privacy', compact('privacies'));
     }
@@ -84,6 +105,12 @@ class PageController extends Controller
                 return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من الكابتشا.'])->withInput();
             }
         }
+
+        // Sanitize inputs
+        $sanitized = array_map(function($value) {
+            return is_string($value) ? trim(strip_tags($value)) : $value;
+        }, $request->all());
+        $request->merge($sanitized);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',

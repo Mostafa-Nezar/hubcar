@@ -8,23 +8,53 @@
         .animate-fadeIn { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* تحسين شكل الجدول */
+        /* تحسين شكل الجدول ليكون Responsive */
         .comparison-table { border-collapse: separate; border-spacing: 0; }
         .comparison-table th, .comparison-table td { border-bottom: 1px solid #f3f4f6; }
+        
+        /* العمود الأول الثابت */
         .comparison-table th:first-child, .comparison-table td:first-child { 
             position: sticky; 
             right: 0; 
             z-index: 20; 
             background: #f9fafb !important;
-            width: 250px;
+            width: 140px; /* أصغر للموبايل */
             border-left: 2px solid #eee;
+            font-size: 0.875rem;
+        }
+
+        @media (min-width: 768px) {
+            .comparison-table th:first-child, .comparison-table td:first-child { 
+                width: 250px; 
+                font-size: 1rem;
+            }
         }
         
-        .ts-control { border-radius: 1.25rem !important; padding: 14px 20px !important; border: 2px solid #f3f4f6 !important; font-weight: 700; }
+        .ts-control { border-radius: 1.25rem !important; padding: 12px 16px !important; border: 2px solid #f3f4f6 !important; font-weight: 700; font-size: 0.875rem; }
+        @media (min-width: 768px) {
+            .ts-control { padding: 14px 20px !important; font-size: 1rem; }
+        }
+
         .ts-control:focus { border-color: #c19b76 !important; box-shadow: 0 0 0 4px rgba(193, 155, 118, 0.1) !important; }
         
         .car-card-header { transition: all 0.3s ease; }
         .car-card-header:hover { transform: translateY(-5px); }
+
+        /* تصحيح هوامش الجداول في الموبايل */
+        @media (max-width: 767px) {
+            .comparison-table th, .comparison-table td { padding: 1rem !important; }
+            .car-card-header h4 { font-size: 1rem !important; }
+            .car-card-header .text-2xl { font-size: 1.25rem !important; }
+            .car-card-header a { padding: 0.5rem !important; font-size: 10px !important; }
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 @endpush
 
@@ -45,8 +75,8 @@
         <div class="container mx-auto px-4 lg:px-8">
             
             <!-- Selection Area -->
-            <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-100 mb-12 relative z-30">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="bg-white p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-xl border border-gray-100 mb-8 md:mb-12 relative z-30">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
                     @for ($i = 1; $i <= 3; $i++)
                         <div class="relative">
                             <label class="block text-xs font-black text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
@@ -66,8 +96,8 @@
 
             <!-- Comparison Table Container -->
             <div id="comparisonContainer" class="hidden">
-                <div class="overflow-x-auto pb-10">
-                    <table class="w-full bg-white rounded-[2.5rem] shadow-2xl overflow-hidden comparison-table table-fixed min-w-[900px]">
+                <div class="overflow-x-auto pb-10 scrollbar-hide">
+                    <table class="w-full bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-2xl overflow-hidden comparison-table table-fixed min-w-[750px] md:min-w-[900px]">
                         <thead>
                             <tr class="bg-white">
                                 <th class="p-8 text-right align-middle">
@@ -221,8 +251,8 @@
                 // Fill placeholders for empty columns
                 for (let i = cars.length + 1; i <= 3; i++) {
                     document.getElementById(`header-col-${i}`).innerHTML = `
-                        <div class="h-full rounded-3xl border-2 border-dashed border-gray-100 flex items-center justify-center opacity-30 p-10">
-                            <i class="ti-plus text-3xl"></i>
+                        <div class="h-full rounded-2xl md:rounded-3xl border-2 border-dashed border-gray-100 flex items-center justify-center opacity-30 p-4 md:p-10">
+                            <i class="ti-plus text-xl md:text-3xl"></i>
                         </div>
                     `;
                 }

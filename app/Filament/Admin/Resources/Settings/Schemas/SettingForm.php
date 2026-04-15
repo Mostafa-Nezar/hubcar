@@ -70,19 +70,19 @@ class SettingForm
                     ->schema([
                         TextInput::make('twitter')
                             ->label('تويتر (X)')
-                            ->url()
+                            // ->url()
                             ->default(null),
                         TextInput::make('instagram')
                             ->label('انستقرام')
-                            ->url()
+                            // ->url()
                             ->default(null),
                         TextInput::make('snapchat')
                             ->label('سناب شات')
-                            ->url()
+                            // ->url()
                             ->default(null),
                         TextInput::make('facebook')
                             ->label('فيسبوك')
-                            ->url()
+                            // ->url()
                             ->default(null),
                     ]),
                 \Filament\Schemas\Components\Section::make('التذييل (Footer)')

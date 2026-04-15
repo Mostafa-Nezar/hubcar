@@ -22,7 +22,10 @@ Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
-Route::post('/contact', [PageController::class, 'storeContact'])->name('contact.store');
+Route::post('/contact', [PageController::class, 'storeContact'])->name('contact.store')->middleware('throttle:3,1');
+
+// Offers Routes
+Route::get('/offers', [App\Http\Controllers\OfferController::class, 'index'])->name('offers.index');
 
 // Blog Routes
 Route::get('/blog', [PageController::class, 'blogs'])->name('blog.index');
@@ -32,9 +35,9 @@ Route::get('/blog/{slug}', [PageController::class, 'blogDetail'])->name('blog.sh
 Route::get('/cars', [CarController::class, 'index'])->name('cars.index');
 Route::get('/cars/{car}', [CarController::class, 'show'])->name('cars.show');
 Route::get('/booking/{car}', [CarController::class, 'booking'])->name('cars.booking');
-Route::post('/booking/{car}', [CarController::class, 'storeBooking'])->name('cars.booking.store');
+Route::post('/booking/{car}', [CarController::class, 'storeBooking'])->name('cars.booking.store')->middleware('throttle:3,1');
 Route::get('/quick-booking', [CarController::class, 'quickBooking'])->name('cars.quick-booking');
-Route::post('/quick-booking-store', [CarController::class, 'storeQuickBooking'])->name('cars.quick-booking.store');
+Route::post('/quick-booking-store', [CarController::class, 'storeQuickBooking'])->name('cars.quick-booking.store')->middleware('throttle:3,1');
 Route::get('/compare', [CarController::class, 'compare'])->name('cars.compare');
 Route::get('/api/cars/compare', [CarController::class, 'apiCompare'])->name('api.cars.compare');
 
@@ -43,7 +46,7 @@ Route::get('/api/cars/compare', [CarController::class, 'apiCompare'])->name('api
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest:customer');
 Route::post('/login', [AuthController::class, 'login'])->middleware('guest:customer');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register')->middleware('guest:customer');
-Route::post('/register', [AuthController::class, 'register'])->middleware('guest:customer');
+Route::post('/register', [AuthController::class, 'register'])->middleware(['guest:customer', 'throttle:3,1']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:customer');
 
 // Customer Dashboard Routes
@@ -55,6 +58,7 @@ Route::middleware('auth:customer')->prefix('dashboard')->name('customer.')->grou
     Route::put('/password', [CustomerController::class, 'updatePassword'])->name('password.update');
     Route::get('/bookings', [CustomerController::class, 'bookings'])->name('bookings');
     Route::get('/bookings/{id}', [CustomerController::class, 'bookingDetail'])->name('booking-detail');
+    Route::get('/wishlist', [CustomerController::class, 'wishlist'])->name('wishlist');
 });
 
 // Redirect for convenience

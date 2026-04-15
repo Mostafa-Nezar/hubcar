@@ -101,6 +101,12 @@ class CarForm
                                             })
                                             ->helperText('اتركه فارغاً إذا لا يوجد عرض'),
                                     ]),
+                                Select::make('offer_id')
+                                    ->label('العرض الترويجي')
+                                    ->relationship('offer', 'name', fn ($query) => $query->where('is_active', true))
+                                    ->placeholder('اختر عرضاً (اختياري)')
+                                    ->searchable()
+                                    ->preload(),
                             ]),
                     ]),
 
