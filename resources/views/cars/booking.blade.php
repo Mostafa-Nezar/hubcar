@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'طلب حجز - ' . $selectedCar->name)
+@section('title', __('طلب حجز') . ' - ' . $selectedCar->name)
 
 @section('content')
     <!-- Page Header -->
@@ -18,16 +18,15 @@
         </div>
         <div class="container mx-auto px-4 lg:px-8 relative z-10 text-center">
             <span
-                class="inline-block px-4 py-1 bg-primary/20 backdrop-blur-md rounded-full text-primary font-bold text-xs tracking-widest uppercase mb-4">خطوة
-                واحدة لامتلاك سيارتك</span>
+                class="inline-block px-4 py-1 bg-primary/20 backdrop-blur-md rounded-full text-primary font-bold text-xs tracking-widest uppercase mb-4">{{ __('خطوة واحدة لامتلاك سيارتك') }}</span>
             <h1 class="text-4xl lg:text-6xl font-black text-white mb-4">
-                {{ $type == 'finance' ? 'طلب تمويل سيارة' : 'حجز سيارة نقدياً (كاش)' }}
+                {{ $type == 'finance' ? __('طلب تمويل سيارة') : __('حجز سيارة نقدياً (كاش)') }}
             </h1>
             <nav class="flex justify-center text-gray-400 text-sm">
                 <a href="{{ route('cars.show', $selectedCar->slug) }}"
                     class="hover:text-primary transition font-bold">{{ $selectedCar->name }}</a>
                 <span class="mx-2">/</span>
-                <span class="text-primary">نموذج الطلب</span>
+                <span class="text-primary">{{ __('نموذج الطلب') }}</span>
             </nav>
         </div>
     </section>
@@ -42,19 +41,17 @@
                     <div
                         class="lg:w-1/3 bg-secondary p-12 text-white flex flex-col justify-between relative overflow-hidden">
                         <div class="relative z-10">
-                            <h3 class="text-2xl font-black mb-6">تفاصيل السيارة</h3>
+                            <h3 class="text-2xl font-black mb-6">{{ __('تفاصيل السيارة') }}</h3>
                             <div class="space-y-6">
                                 <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
                                     <span
-                                        class="text-[10px] text-gray-400 font-bold uppercase tracking-widest block mb-1">الماركة
-                                        والنوع</span>
+                                        class="text-[10px] text-gray-400 font-bold uppercase tracking-widest block mb-1">{{ __('الماركة والنوع') }}</span>
                                     <span class="text-lg font-bold block">{{ $selectedCar->brand->name }} -
                                         {{ $selectedCar->type }}</span>
                                 </div>
                                 <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
                                     <span
-                                        class="text-[10px] text-gray-400 font-bold uppercase tracking-widest block mb-1">الفئة
-                                        والموديل</span>
+                                        class="text-[10px] text-gray-400 font-bold uppercase tracking-widest block mb-1">{{ __('الفئة والموديل') }}</span>
                                     <span class="text-lg font-bold block">{{ $selectedCar->category ?? 'Luxury' }}
                                         ({{ $selectedCar->model_year }})</span>
                                 </div>
@@ -62,7 +59,7 @@
                                 <div class="bg-primary/10 rounded-[2rem] border border-primary/20 overflow-hidden">
                                      <!-- Main Price -->
                                      <div class="p-6 bg-primary/20 border-b border-primary/10">
-                                         <span class="text-[10px] text-primary font-bold uppercase tracking-widest block mb-1">السعر نقدأً</span>
+                                         <span class="text-[10px] text-primary font-bold uppercase tracking-widest block mb-1">{{ __('السعر نقداً') }}</span>
                                          <span class="text-3xl font-black block text-white">{{ number_format($selectedCar->price) }} <span class="icon-saudi_riyal text-2xl"></span></span>
                                      </div>
 
@@ -70,22 +67,22 @@
                                      <!-- Finance Details -->
                                      <div class="p-6 space-y-4">
                                          <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
-                                             <span class="text-[10px] text-gray-400 font-bold uppercase">القسط الشهري</span>
-                                             <span class="text-xl font-black text-primary">{{ number_format($financeData['installment']) }} <small class="text-[10px]">ريال</small></span>
+                                             <span class="text-[10px] text-gray-400 font-bold uppercase">{{ __('القسط الشهري') }}</span>
+                                             <span class="text-xl font-black text-primary">{{ number_format($financeData['installment']) }} <small class="text-[10px]">{{ __('ريال') }}</small></span>
                                          </div>
                                          <div class="grid grid-cols-2 gap-3">
                                              <div class="bg-white/5 p-3 rounded-xl">
-                                                 <span class="text-[10px] text-gray-400 font-bold uppercase block mb-1">الدفعة</span>
+                                                 <span class="text-[10px] text-gray-400 font-bold uppercase block mb-1">{{ __('الدفعة') }}</span>
                                                  <span class="text-sm font-bold text-white">{{ number_format($financeData['down_payment']) }}</span>
                                              </div>
                                              <div class="bg-white/5 p-3 rounded-xl">
-                                                 <span class="text-[10px] text-gray-400 font-bold uppercase block mb-1">المدة</span>
-                                                 <span class="text-sm font-bold text-white">{{ $financeData['period'] }} شهر</span>
+                                                 <span class="text-[10px] text-gray-400 font-bold uppercase block mb-1">{{ __('المدة') }}</span>
+                                                 <span class="text-sm font-bold text-white">{{ $financeData['period'] }} {{ __('شهر') }}</span>
                                              </div>
                                          </div>
                                          @if($financeData['bank'])
                                          <div class="pt-2 border-t border-white/5">
-                                             <span class="text-[10px] text-gray-400 font-bold uppercase block mb-1">الجهة المختارة</span>
+                                             <span class="text-[10px] text-gray-400 font-bold uppercase block mb-1">{{ __('الجهة المختارة') }}</span>
                                              <span class="text-sm font-bold text-primary">{{ $financeData['bank'] }}</span>
                                          </div>
                                          @endif
@@ -98,7 +95,7 @@
                         <div
                             class="relative z-10 mt-12 bg-white/5 p-6 rounded-3xl border border-white/10 text-sm text-gray-400 leading-relaxed italic">
                             <i class="ti-info-alt text-primary mb-2 block text-xl"></i>
-                            تأكد من إدخال بيانات صحيحة ليتمكن مستشار المبيعات من خدمتك بشكل أسرع وأدق.
+                            {{ __('تأكد من إدخال بيانات صحيحة ليتمكن مستشار المبيعات من خدمتك بشكل أسرع وأدق.') }}
                         </div>
 
                         <!-- Decoration -->
@@ -127,25 +124,22 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <!-- Pre-filled Disabled Fields (Visual only) -->
                                 <div class="space-y-2 opacity-60">
-                                    <label class="block text-xs font-black text-gray-400 uppercase tracking-widest">اسم
-                                        السيارة (تلقائي)</label>
+                                    <label class="block text-xs font-black text-gray-400 uppercase tracking-widest">{{ __('اسم السيارة (تلقائي)') }}</label>
                                     <input type="text" value="{{ $selectedCar->name }}" disabled
                                         class="w-full bg-gray-100 border-none rounded-2xl px-6 py-4 text-gray-500 font-bold cursor-not-allowed">
                                 </div>
 
                                 <div class="space-y-2 opacity-60">
-                                    <label class="block text-xs font-black text-gray-400 uppercase tracking-widest">الموديل
-                                        (تلقائي)</label>
+                                    <label class="block text-xs font-black text-gray-400 uppercase tracking-widest">{{ __('الموديل (تلقائي)') }}</label>
                                     <input type="text" value="{{ $selectedCar->model_year }}" disabled
                                         class="w-full bg-gray-100 border-none rounded-2xl px-6 py-4 text-gray-500 font-bold cursor-not-allowed">
                                 </div>
 
                                 <!-- Full Name -->
                                 <div class="space-y-2">
-                                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">الاسم
-                                        الكامل <span class="text-primary">*</span></label>
+                                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">{{ __('الاسم الكامل') }} <span class="text-primary">*</span></label>
                                     <input type="text" name="client_name" value="{{ old('client_name') }}"
-                                        placeholder="الاسم كما هو في الهوية"
+                                        placeholder="{{ __('الاسم كما هو في الهوية') }}"
                                         class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none"
                                         required>
                                     @error('client_name')
@@ -155,8 +149,7 @@
 
                                 <!-- Phone -->
                                 <div class="space-y-2">
-                                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">رقم
-                                        الجوال <span class="text-primary">*</span></label>
+                                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">{{ __('رقم الجوال') }} <span class="text-primary">*</span></label>
                                     <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="05xxxxxxxx"
                                         class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold text-left transition-all outline-none"
                                         required>
@@ -167,12 +160,11 @@
 
                                 <!-- Email -->
                                 <div class="space-y-2">
-                                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">البريد
-                                        الإلكتروني</label>
+                                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">{{ __('البريد الإلكتروني') }}</label>
                                     @if($user)
                                         <input type="email" value="{{ $user->email }}" disabled
                                             class="w-full bg-gray-100 border-2 border-gray-200 rounded-2xl px-6 py-4 text-secondary font-bold cursor-not-allowed opacity-75">
-                                        <p class="text-xs text-gray-500">من حسابك المسجل</p>
+                                        <p class="text-xs text-gray-500">{{ __('من حسابك المسجل') }}</p>
                                     @else
                                         <input type="email" name="email" value="{{ old('email') }}"
                                             placeholder="example@email.com"
@@ -185,12 +177,12 @@
 
                                 <!-- City -->
                                 <div class="space-y-2">
-                                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">المدينة
+                                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">{{ __('المدينة') }}
                                         <span class="text-primary">*</span></label>
                                     <select name="city" id="city-select"
                                         class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none appearance-none"
                                         required>
-                                        <option value="">اختر مدينة الإقامة</option>
+                                        <option value="">{{ __('اختر مدينة الإقامة') }}</option>
                                         @php
                                             $saudiCities = config('saudi-cities', []);
                                             sort($saudiCities);
@@ -208,12 +200,11 @@
                                 @if ($type == 'finance')
                                     <!-- Bank Name -->
                                     <div class="space-y-2">
-                                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">اختر
-                                            الجهة التمويلية (البنك) <span class="text-primary">*</span></label>
+                                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">{{ __('اختر الجهة التمويلية (البنك)') }} <span class="text-primary">*</span></label>
                                         <select name="bank_name"
                                             class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none appearance-none"
                                             required>
-                                            <option value="">اختر البنك أو شركة التمويل</option>
+                                            <option value="">{{ __('اختر البنك أو شركة التمويل') }}</option>
                                             @foreach ($financeEntities as $entity)
                                                 <option value="{{ $entity->name }}" 
                                                     {{ (old('bank_name') == $entity->name || (isset($financeData['bank']) && $financeData['bank'] == $entity->name)) ? 'selected' : '' }}>
@@ -228,19 +219,18 @@
 
                                     <!-- Work Sector -->
                                     <div class="space-y-2">
-                                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">قطاع
-                                            العمل <span class="text-primary">*</span></label>
+                                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">{{ __('قطاع العمل') }} <span class="text-primary">*</span></label>
                                         <select name="work_sector"
                                             class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none appearance-none"
                                             required>
-                                            <option value="">اختر القطاع</option>
-                                            <option value="govt" {{ old('work_sector') == 'govt' ? 'selected' : '' }}>حكومي
+                                            <option value="">{{ __('اختر القطاع') }}</option>
+                                            <option value="govt" {{ old('work_sector') == 'govt' ? 'selected' : '' }}>{{ __('حكومي') }}
                                             </option>
-                                            <option value="private" {{ old('work_sector') == 'private' ? 'selected' : '' }}>خاص
+                                            <option value="private" {{ old('work_sector') == 'private' ? 'selected' : '' }}>{{ __('خاص') }}
                                             </option>
                                             <option value="military" {{ old('work_sector') == 'military' ? 'selected' : '' }}>
-                                                عسكري</option>
-                                            <option value="retired" {{ old('work_sector') == 'retired' ? 'selected' : '' }}>متقاعد
+                                                {{ __('عسكري') }}</option>
+                                            <option value="retired" {{ old('work_sector') == 'retired' ? 'selected' : '' }}>{{ __('متقاعد') }}
                                             </option>
                                         </select>
                                         @error('work_sector')
@@ -249,8 +239,7 @@
                                     </div>
 
                                     <div class="space-y-2">
-                                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">الراتب
-                                            الشهري <span class="text-primary">*</span></label>
+                                        <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">{{ __('الراتب الشهري') }} <span class="text-primary">*</span></label>
                                         <input type="number" name="monthly_salary" value="{{ old('monthly_salary') }}"
                                             placeholder="مثال: 12000"
                                             class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-2xl px-6 py-4 text-secondary font-bold transition-all outline-none"
@@ -273,15 +262,14 @@
                                     </div>
                                     @if ($errors->has('g-recaptcha-response'))
                                         <div class="md:col-span-2 text-red-500 text-sm font-bold text-center italic mt-2">
-                                            يجب تأكيد أنك لست برنامج روبوت.</div>
+                                            {{ __('يجب تأكيد أنك لست برنامج روبوت.') }}</div>
                                     @endif
                                 @endif
 
                                 <div class="md:col-span-2 space-y-2">
-                                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">ملاحظات
-                                        إضافية</label>
+                                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest">{{ __('ملاحظات إضافية') }}</label>
                                     <textarea name="client_notes" rows="4"
-                                        placeholder="هل لديك استفسارات أو تفاصيل إضافية تود إضافتها؟"
+                                        placeholder="{{ __('هل لديك استفسارات أو تفاصيل إضافية تود إضافتها؟') }}"
                                         class="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white rounded-3xl px-6 py-4 text-secondary font-bold transition-all outline-none"></textarea>
                                 </div>
                             </div>
@@ -289,7 +277,7 @@
                             <div class="mt-12">
                                 <button type="submit" id="submit-btn"
                                     class="w-full bg-primary text-white text-xl font-black py-5 rounded-2xl hover:bg-opacity-90 transition-all shadow-2xl transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-4 group">
-                                    <span id="btn-text">إرسال الطلب الآن</span>
+                                    <span id="btn-text">{{ __('إرسال الطلب الآن') }}</span>
                                     <div id="btn-loader"
                                         class="hidden animate-spin h-6 w-6 border-4 border-white border-t-transparent rounded-full">
                                     </div>
@@ -297,7 +285,7 @@
                                         class="ti-arrow-left group-hover:-translate-x-2 transition-transform"></i>
                                 </button>
                                 <p class="text-center mt-6 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-                                    <i class="ti-lock text-primary ml-1"></i> بياناتك محمية ومشفرة وفق أعلى معايير الخصوصية
+                                    <i class="ti-lock text-primary ml-1"></i> {{ __('بياناتك محمية ومشفرة وفق أعلى معايير الخصوصية') }}
                                 </p>
                             </div>
                         </form>
@@ -315,7 +303,7 @@
             const loader = document.getElementById('btn-loader');
             const icon = document.getElementById('btn-icon');
             if (form.checkValidity()) {
-                text.innerText = 'جاري الإرسال...';
+                text.innerText = '{{ __('جاري الإرسال...') }}';
                 loader.classList.remove('hidden');
                 icon.classList.add('hidden');
                 btn.classList.add('opacity-80', 'pointer-events-none');
@@ -335,11 +323,11 @@
                     field: "text",
                     direction: "asc"
                 },
-                placeholder: "ابحث عن مدينتك...",
-                noResultsText: "لم يتم العثور على نتائج",
+                placeholder: "{{ __('ابحث عن مدينتك...') }}",
+                noResultsText: "{{ __('لم يتم العثور على نتائج') }}",
                 render: {
                     no_results: function (data, escape) {
-                        return '<div class="no-results">لم يتم العثور على مدينة بهذا الاسم</div>';
+                        return '<div class="no-results">' + "{{ __('لم يتم العثور على مدينة بهذا الاسم') }}" + '</div>';
                     }
                 }
             });
