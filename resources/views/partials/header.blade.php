@@ -8,7 +8,7 @@
                         <img src="{{ asset('storage/' . $settings->logo) }}" alt="{{ $settings->site_name }}"
                             class="h-12 w-auto">
                     @else
-                        <span class="text-2xl text-primary">{{ $settings?->site_name ?? 'RENAX' }}</span>
+                        <span class="text-2xl font-bold text-primary">{{ $settings?->site_name ?? 'RENAX' }}</span>
                     @endif
                 </a>
             </div>
@@ -16,18 +16,18 @@
             <!-- Main Menu (Desktop) -->
             <nav class="hidden lg:flex items-center gap-8">
                 <a href="{{ route('home') }}"
-                    class="{{ request()->routeIs('home') ? 'text-primary' : 'text-gray-600' }} hover:text-primary transition-colors">الرئيسية</a>
+                    class="{{ request()->routeIs('home') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">الرئيسية</a>
                 <a href="{{ route('cars.index') }}"
-                    class="{{ request()->routeIs('cars.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary transition-colors">السيارات</a>
+                    class="{{ request()->routeIs('cars.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">السيارات</a>
                 <a href="{{ route('offers.index') }}"
-                    class="{{ request()->routeIs('offers.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary transition-colors">العروض</a>
+                    class="{{ request()->routeIs('offers.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">العروض</a>
                 <a href="{{ route('blog.index') }}"
-                    class="{{ request()->routeIs('blog.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary transition-colors">المدونة</a>
+                    class="{{ request()->routeIs('blog.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">المدونة</a>
                 
                 <!-- More Dropdown -->
                 <div class="relative" x-data="{ open: false }">
                     <button @mouseenter="open = true" @mouseleave="open = false" @click="open = !open"
-                        class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors">
+                        class="flex items-center gap-2 text-gray-600 hover:text-primary font-medium transition-colors">
                         المزيد
                         <i class="ti-angle-down text-[10px] transition-transform" :class="{ 'rotate-180': open }"></i>
                     </button>
@@ -50,7 +50,7 @@
                 <!-- Search Component -->
                 <div class="relative flex items-center">
                     <button @click="openSearch = !openSearch; if(openSearch) $nextTick(() => $refs.searchInput.focus())"
-                        class="p-2 text-gray-500 hover:text-primary transition-colors focus:outline-none">
+                        class="p-2 text-gray-500 hover:text-primary font-medium transition-colors focus:outline-none">
                         <i class="ti-search text-xl" x-show="!openSearch"></i>
                         <i class="ti-close text-xl" x-show="openSearch" style="display: none;"></i>
                     </button>
@@ -140,7 +140,7 @@
 
                 <!-- Mobile Menu Button -->
                 <button @click="mobileMenu = true"
-                    class="md:hidden p-2 text-gray-600 hover:text-primary transition-colors">
+                    class="md:hidden p-2 text-gray-600 hover:text-primary font-medium transition-colors">
                     <i class="fa-solid fa-bars text-2xl"></i>
                 </button>
             </div>

@@ -1,0 +1,11 @@
+{
+    "name": "Name",
+    "email": "Email Address",
+    "password": "Password",
+    "validation.regex": "The field format is invalid.",
+    "validation.required": "This field is required.",
+    "validation.email": "The email must be a valid email address.",
+    "validation.min.string": "The :attribute must be at least :min characters.",
+    "validation.max": "The field must not exceed :max characters.",
+    "validation.confirmed": "The password confirmation does not match."
+}

@@ -1,4 +1,4 @@
-<div class="{{ $style === 'large' ? '' : 'absolute top-4 right-4 z-20' }}">
+<div class="{{ $style === 'large' ? '' : 'absolute top-4 z-30' }}" style="{{ $style === 'large' ? '' : 'left: 1rem !important; right: auto !important;' }}">
     @if($style === 'large')
         <button wire:click="toggleFavorite"
             class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 {{ $isFavorite ? 'bg-red-50 border-red-200 text-red-500' : 'bg-white border-gray-100 text-gray-400 hover:border-red-200 hover:text-red-500' }} transition-all duration-300 font-bold group">

@@ -405,13 +405,8 @@
                             <!-- Highlighting badge -->
                             <div
                                 class="absolute top-0 right-0 py-2 px-8 bg-primary rounded-bl-[1.5rem] text-white text-[10px] font-black uppercase tracking-widest">
-                                Best Deal
+                                أفضل صفقة
                             </div>
-
-                            <div class="mb-4 flex justify-end">
-                                @livewire('car-favorite-button', ['carId' => $car->id, 'style' => 'large'])
-                            </div>
-
                             <div class="mb-10 mt-4">
                                 <h4 class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-4">هل أنت جاهز
                                     للقيادة؟</h4>
@@ -443,6 +438,7 @@
                                         <i class="ti-layers-alt text-xl ml-3"></i>
                                         <span>مقارنة هذه السيارة</span>
                                     </a>
+                                    @livewire('car-favorite-button', ['carId' => $car->id, 'style' => 'large'])
                                 </div>
                             </div>
 

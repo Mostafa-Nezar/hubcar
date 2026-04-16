@@ -5,6 +5,9 @@
         class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 relative">
         <!-- Overlay Link for entire card -->
         <a href="{{ route('cars.show', array_merge(['car' => $car->slug], request()->query())) }}" class="absolute inset-0 z-10" aria-label="عرض التفاصيل"></a>
+        
+        <!-- Comparison/Favorite Button Positioned Relative to Card -->
+        @livewire('car-favorite-button', ['carId' => $car->id], key('fav-grid-'.$car->id))
 
         <div class="relative overflow-hidden aspect-[16/10]">
             @php
@@ -17,7 +20,7 @@
             <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy" decoding="async"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             
-            @livewire('car-favorite-button', ['carId' => $car->id], key('fav-grid-'.$car->id))
+
 
             @if($car->offer && $car->offer->is_active)
                 <div class="absolute top-4 right-16 z-20 flex flex-col gap-2 items-end">
@@ -36,7 +39,7 @@
                 </div>
             @endif
 
-            <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full z-20">
+            <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full z-20">
                 {{ $car->category }}
             </div>
         </div>
@@ -63,7 +66,6 @@
                             <span class="icon-saudi_riyal text-gray-400 text-xl"></span>
                         </span>
                     @endif
-                    <span class="text-[10px] text-gray-400 font-bold mt-1">أو قسط يبدأ من <span class="text-secondary">{{ number_format($car->starting_installment) }} ريال</span></span>
                 </div>
             </div>
 
@@ -100,7 +102,8 @@
     <div
         class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 relative flex flex-col md:flex-row items-center gap-6 p-4">
         <!-- Overlay Link for entire card -->
-        <a href="{{ route('cars.show', array_merge(['car' => $car->slug], request()->query())) }}" class="absolute inset-0 z-10" aria-label="عرض التفاصيل"></a>
+        <!-- Comparison/Favorite Button Positioned Relative to Card -->
+        @livewire('car-favorite-button', ['carId' => $car->id], key('fav-list-'.$car->id))
 
         <div class="relative overflow-hidden w-full md:w-1/3 aspect-[16/10] rounded-xl flex-shrink-0">
             @php
@@ -113,10 +116,9 @@
             <img src="{{ $cardImageUrl }}" alt="{{ $car->name }}" loading="lazy" decoding="async"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             
-            @livewire('car-favorite-button', ['carId' => $car->id], key('fav-list-'.$car->id))
 
             <div
-                class="absolute top-2 left-2 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full z-20">
+                class="absolute top-2 right-2 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full z-20">
                 {{ $car->category }}
             </div>
         </div>

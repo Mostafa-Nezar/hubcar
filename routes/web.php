@@ -15,6 +15,14 @@ use App\Http\Controllers\CustomerController;
 // Homepage
 Route::get('/', [PageController::class, 'home'])->name('home');
 
+// Language Switcher
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['ar', 'en'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('lang.switch');
+
 // Static Pages
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/banks', [PageController::class, 'banks'])->name('banks');
