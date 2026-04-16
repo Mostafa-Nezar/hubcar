@@ -261,21 +261,21 @@
                         <div class="grid grid-cols-1 gap-2">
                             <a href="{{ route('customer.dashboard') }}"
                                 class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
-                                <i class="ti-dashboard text-primary"></i> لوحة التحكم
+                                <i class="ti-dashboard text-primary"></i> {{ __('Dashboard') }}
                             </a>
                             <a href="{{ route('customer.profile') }}"
                                 class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
-                                <i class="ti-id-badge text-primary"></i> الملف الشخصي
+                                <i class="ti-id-badge text-primary"></i> {{ __('Profile') }}
                             </a>
                             <a href="{{ route('customer.bookings') }}"
                                 class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
-                                <i class="ti-package text-primary"></i> طلباتي الحالية
+                                <i class="ti-package text-primary"></i> {{ __('My Bookings') }}
                             </a>
                             <form method="POST" action="{{ route('logout') }}" class="mt-2 pt-2 border-t border-gray-50">
                                 @csrf
                                 <button type="submit"
                                     class="flex items-center gap-2 text-sm text-red-500 hover:text-red-600 font-medium">
-                                    <i class="ti-power-off"></i> تسجيل الخروج
+                                    <i class="ti-power-off"></i> {{ __('Logout') }}
                                 </button>
                             </form>
                         </div>

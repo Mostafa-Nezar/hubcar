@@ -152,7 +152,7 @@
                         <i class="ti-check"></i>
                     </div>
                     <div>
-                        <h4 class="text-secondary font-black text-lg mb-1">تم الإرسال بنجاح!</h4>
+                        <h4 class="text-secondary font-black text-lg mb-1">{{ __('تم الإرسال بنجاح!') }}</h4>
                         <p class="text-gray-500 text-sm leading-relaxed">{{ session('success') }}</p>
                     </div>
                     <button onclick="closeNotification()" class="text-gray-300 hover:text-gray-500 transition-colors">
@@ -206,7 +206,7 @@
             <i class="fa-brands fa-whatsapp text-4xl drop-shadow-md z-10"></i>
             <span
                 class="absolute right-full mr-4 bg-gray-900/90 backdrop-blur text-white text-sm font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap shadow-xl pointer-events-none transform translate-x-2 group-hover:translate-x-0">
-                تواصل معنا
+                {{ __('تواصل معنا') }}
                 <span
                     class="absolute top-1/2 -right-1 -translate-y-1/2 border-4 border-transparent border-l-gray-900/90"></span>
             </span>
@@ -232,7 +232,7 @@
                     const distance = end - now;
 
                     if (distance < 0) {
-                        this.time = "منتهي";
+                        this.time = "{{ __('منتهي') }}";
                         return;
                     }
 

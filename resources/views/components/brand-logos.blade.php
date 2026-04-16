@@ -3,9 +3,9 @@
 <section class="partners-section py-20 bg-white overflow-hidden">
     <!-- Header -->
     <div class="container mx-auto px-4 lg:px-8 text-center mb-12">
-        <h6 class="text-primary font-bold tracking-widest uppercase text-sm mb-2">أفضل الماركات</h6>
+        <h6 class="text-primary font-bold tracking-widest uppercase text-sm mb-2">{{ __('أفضل الماركات') }}</h6>
         <h2 class="text-4xl md:text-5xl font-black text-secondary tracking-tighter uppercase italic">
-            اختر حسب <span class="text-primary">العلامة التجارية</span>
+            {{ __('اختر حسب') }} <span class="text-primary">{{ __('العلامة التجارية') }}</span>
         </h2>
         <div class="h-1.5 w-24 bg-primary mx-auto rounded-full mt-4"></div>
     </div>

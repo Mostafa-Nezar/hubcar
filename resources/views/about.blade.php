@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'من نحن')
+@section('title', __('من نحن'))
 
 @section('content')
     <!-- Page Header -->
@@ -9,11 +9,11 @@
             <img src="{{ asset('img/about.jpg') }}" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover">
         </div>
         <div class="container mx-auto px-4 lg:px-8 relative z-10 text-center">
-            <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">من نحن</h1>
+            <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">{{ __('من نحن') }}</h1>
             <nav class="flex justify-center text-gray-400 text-sm italic">
-                <a href="{{ route('home') }}" class="hover:text-primary transition">الرئيسية</a>
+                <a href="{{ route('home') }}" class="hover:text-primary transition">{{ __('الرئيسية') }}</a>
                 <span class="mx-2">/</span>
-                <span class="text-primary">قصتنا</span>
+                <span class="text-primary">{{ __('قصتنا') }}</span>
             </nav>
         </div>
     </section>
@@ -25,7 +25,7 @@
                 <div class="lg:w-1/2">
                     <h2 class="text-4xl font-black text-secondary mb-8 leading-tight">
                         @php
-                            $title = $about?->title ?? 'تاريخ حافل بالثقة والتميز';
+                            $title = $about?->title ?? __('تاريخ حافل بالثقة والتميز');
                             // Optional: highlight last word
                             $words = explode(' ', $title);
                             $lastWord = array_pop($words);
@@ -41,13 +41,13 @@
                             <span
                                 class="text-4xl font-black text-primary block mb-1">{{ $about?->exp_value ?? '15+' }}</span>
                             <span
-                                class="text-gray-400 text-sm font-bold uppercase tracking-widest">{{ $about?->exp_label ?? 'عاماً من الخبرة' }}</span>
+                                class="text-gray-400 text-sm font-bold uppercase tracking-widest">{{ $about?->exp_label ?? __('عاماً من الخبرة') }}</span>
                         </div>
                         <div>
                             <span
                                 class="text-4xl font-black text-primary block mb-1">{{ $about?->clients_value ?? '5000+' }}</span>
                             <span
-                                class="text-gray-400 text-sm font-bold uppercase tracking-widest">{{ $about?->clients_label ?? 'عميل سعيد' }}</span>
+                                class="text-gray-400 text-sm font-bold uppercase tracking-widest">{{ $about?->clients_label ?? __('عميل سعيد') }}</span>
                         </div>
                     </div>
                 </div>
