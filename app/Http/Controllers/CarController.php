@@ -119,8 +119,8 @@ class CarController extends Controller
             'finance_period' => 'nullable|integer|min:1',
             'client_notes' => 'nullable|string',
         ], [
-            'client_name.regex' => 'الرجاء إدخال الاسم كما هو مكتوب في بطاقة الهوية.',
-            'phone.regex' => 'الرجاء إدخال رقم جوال صحيح بالصيغة السعودية.',
+            'client_name.regex' => __('الرجاء إدخال الاسم كما هو مكتوب في بطاقة الهوية.'),
+            'phone.regex' => __('الرجاء إدخال رقم جوال صحيح بالصيغة السعودية.'),
         ]);
 
         $booking = BookingRequest::create([
@@ -147,7 +147,7 @@ class CarController extends Controller
             'status' => 'New',
         ]);
 
-        return redirect()->route('home')->with('success', 'تم استلام طلبك بنجاح! سنقوم بالتواصل معك قريباً.');
+        return redirect()->route('home')->with('success', __('تم استلام طلبك بنجاح! سنقوم بالتواصل معك قريباً.'));
     }
 
     public function storeQuickBooking(Request $request)
@@ -168,8 +168,8 @@ class CarController extends Controller
             'email' => 'nullable|email|max:255',
             'city' => 'required|string|max:100',
         ], [
-            'client_name.regex' => 'الرجاء إدخال الاسم كما هو مكتوب في بطاقة الهوية.',
-            'phone.regex' => 'الرجاء إدخال رقم جوال صحيح بالصيغة السعودية.',
+            'client_name.regex' => __('الرجاء إدخال الاسم كما هو مكتوب في بطاقة الهوية.'),
+            'phone.regex' => __('الرجاء إدخال رقم جوال صحيح بالصيغة السعودية.'),
         ]);
 
         $car = Car::findOrFail($validated['car_id']);
@@ -195,12 +195,12 @@ class CarController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
                 'success' => true,
-                'message' => 'تم إرسال طلبك بنجاح! سنقوم بالتواصل معك في أقرب وقت.',
+                'message' => __('تم إرسال طلبك بنجاح! سنقوم بالتواصل معك في أقرب وقت.'),
                 'booking_id' => $booking->id
             ]);
         }
 
-        return redirect()->route('home')->with('success', 'تم إرسال طلبك بنجاح! سنقوم بالتواصل معك في أقرب وقت.');
+        return redirect()->route('home')->with('success', __('تم إرسال طلبك بنجاح! سنقوم بالتواصل معك في أقرب وقت.'));
     }
 
     public function compare()

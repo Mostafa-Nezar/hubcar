@@ -238,5 +238,20 @@
     "مواصفات تقنية إضافية": "Additional Technical Specifications",
     "اختر سيارة للمقارنة...": "Choose a car to compare...",
     "احجز هذه السيارة": "Book This Car",
-    "عدد الركاب": "Seats"
+    "عدد الركاب": "Seats",
+    "الرجاء إدخال الاسم كما هو مكتوب في بطاقة الهوية.": "Please enter the name as written in the ID card.",
+    "الرجاء إدخال رقم جوال صحيح بالصيغة السعودية.": "Please enter a valid mobile number in the Saudi format.",
+    "تم استلام طلبك بنجاح! سنقوم بالتواصل معك قريباً.": "Your request has been received successfully! We will contact you soon.",
+    "تم إرسال طلبك بنجاح! سنقوم بالتواصل معك في أقرب وقت.": "Your request has been sent successfully! We will contact you as soon as possible.",
+    "الكابتشا مفعلة لكن مفاتيحها غير مُعدة. يرجى إضافة Site Key و Secret Key من الإعدادات.": "reCAPTCHA is enabled but keys are not configured. Please add Site Key and Secret Key from settings.",
+    "فشل التحقق من الكابتشا.": "reCAPTCHA verification failed.",
+    "شكراً لتواصلك! تم حفظ رسالتك في نظامنا وسنرد عليك قريباً جداً.": "Thank you for contacting us! Your message has been saved in our system and we will respond very soon.",
+    "مرحباً بك! تم تسجيل الدخول بنجاح.": "Welcome! You have been logged in successfully.",
+    "بيانات الدخول غير صحيحة.": "Invalid login credentials.",
+    "تسجيل عميل جديد": "New Customer Registration",
+    "تم إنشاء حسابك بنجاح! مرحباً بك.": "Your account has been created successfully! Welcome.",
+    "تم تسجيل الخروج بنجاح.": "Logged out successfully.",
+    "تم تحديث ملفك الشخصي بنجاح!": "Your profile has been updated successfully!",
+    "كلمة المرور الحالية غير صحيحة.": "Current password is incorrect.",
+    "تم تحديث كلمة المرور بنجاح!": "Password has been updated successfully!"
 }

@@ -54,7 +54,7 @@ class CustomerController extends Controller
         $customer->update($validated);
 
         return redirect()->route('customer.profile')
-            ->with('success', 'تم تحديث ملفك الشخصي بنجاح!');
+            ->with('success', __('تم تحديث ملفك الشخصي بنجاح!'));
     }
 
     public function changePassword()
@@ -73,7 +73,7 @@ class CustomerController extends Controller
         ]);
 
         if (!Hash::check($validated['current_password'], $customer->password)) {
-            return back()->withErrors(['current_password' => 'كلمة المرور الحالية غير صحيحة.']);
+            return back()->withErrors(['current_password' => __('كلمة المرور الحالية غير صحيحة.')]);
         }
 
         $customer->update([
@@ -81,7 +81,7 @@ class CustomerController extends Controller
         ]);
 
         return redirect()->route('customer.profile')
-            ->with('success', 'تم تحديث كلمة المرور بنجاح!');
+            ->with('success', __('تم تحديث كلمة المرور بنجاح!'));
     }
 
     public function bookings()

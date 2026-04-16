@@ -45,11 +45,11 @@ class AuthController extends Controller
 
         if (Auth::guard('customer')->attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended(route('home'))->with('success', 'مرحباً بك! تم تسجيل الدخول بنجاح.');
+            return redirect()->intended(route('home'))->with('success', __('مرحباً بك! تم تسجيل الدخول بنجاح.'));
         }
 
         return back()->withErrors([
-            'email' => 'بيانات الدخول غير صحيحة.',
+            'email' => __('بيانات الدخول غير صحيحة.'),
         ])->onlyInput('email');
     }
 
@@ -105,7 +105,7 @@ class AuthController extends Controller
             // Notify Admins in Filament UI
             foreach ($admins as $admin) {
                 FilamentNotification::make()
-                    ->title('تسجيل عميل جديد')
+                    ->title(__('تسجيل عميل جديد'))
                     ->body("الاسم: {$customer->name}")
                     ->icon('heroicon-o-user')
                     ->iconColor('info')
@@ -117,7 +117,7 @@ class AuthController extends Controller
 
         Auth::guard('customer')->login($customer);
 
-        return redirect()->route('home')->with('success', 'تم إنشاء حسابك بنجاح! مرحباً بك.');
+        return redirect()->route('home')->with('success', __('تم إنشاء حسابك بنجاح! مرحباً بك.'));
     }
 
     public function logout(Request $request)
@@ -126,6 +126,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('home')->with('success', 'تم تسجيل الخروج بنجاح.');
+        return redirect()->route('home')->with('success', __('تم تسجيل الخروج بنجاح.'));
     }
 }

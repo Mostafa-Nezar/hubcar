@@ -97,12 +97,12 @@ class PageController extends Controller
         if ($shouldValidate) {
             if (! $siteKey || ! $secretKey) {
                 return back()->withErrors([
-                    'g-recaptcha-response' => 'الكابتشا مفعلة لكن مفاتيحها غير مُعدة. يرجى إضافة Site Key و Secret Key من الإعدادات.',
+                    'g-recaptcha-response' => __('الكابتشا مفعلة لكن مفاتيحها غير مُعدة. يرجى إضافة Site Key و Secret Key من الإعدادات.'),
                 ])->withInput();
             }
 
             if (!$this->validateRecaptcha($request->input('g-recaptcha-response'), true)) {
-                return back()->withErrors(['g-recaptcha-response' => 'فشل التحقق من الكابتشا.'])->withInput();
+                return back()->withErrors(['g-recaptcha-response' => __('فشل التحقق من الكابتشا.')])->withInput();
             }
         }
 
@@ -121,7 +121,7 @@ class PageController extends Controller
 
         \App\Models\ContactMessage::create($validated);
 
-        return back()->with('success', 'شكراً لتواصلك! تم حفظ رسالتك في نظامنا وسنرد عليك قريباً جداً.');
+        return back()->with('success', __('شكراً لتواصلك! تم حفظ رسالتك في نظامنا وسنرد عليك قريباً جداً.'));
     }
     public function blogs()
     {
