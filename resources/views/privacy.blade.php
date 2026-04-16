@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'سياسة الخصوصية')
+@section('title', __('سياسة الخصوصية'))
 
 @section('content')
     <section class="bg-secondary py-20 text-center">
-        <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">سياسة الخصوصية</h1>
+        <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">{{ __('سياسة الخصوصية') }}</h1>
     </section>
 
     <section class="py-24 bg-white italic font-medium leading-loose text-gray-500">

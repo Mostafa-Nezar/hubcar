@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'الأسئلة الشائعة')
+@section('title', __('الأسئلة الشائعة'))
 
 @section('content')
     <section class="bg-secondary py-20 text-center">
-        <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">الأسئلة الشائعة</h1>
-        <p class="text-gray-400 italic">كل ما تحتاجه من معلومات في مكان واحد</p>
+        <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">{{ __('الأسئلة الشائعة') }}</h1>
+        <p class="text-gray-400 italic">{{ __('كل ما تحتاجه من معلومات في مكان واحد') }}</p>
     </section>
 
     <section class="py-24 bg-white">

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'قائمة السيارات')
+@section('title', __('قائمة السيارات'))
 
 @section('content')
     <!-- Page Header -->
@@ -9,11 +9,11 @@
             <img src="{{ asset('img/slider/2.jpg') }}" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover">
         </div>
         <div class="container mx-auto px-4 lg:px-8 relative z-10 text-center">
-            <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">جميع السيارات</h1>
+            <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">{{ __('جميع السيارات') }}</h1>
             <nav class="flex justify-center text-gray-400 text-sm">
-                <a href="{{ route('home') }}" class="hover:text-primary transition">الرئيسية</a>
+                <a href="{{ route('home') }}" class="hover:text-primary transition">{{ __('الرئيسية') }}</a>
                 <span class="mx-2">/</span>
-                <span class="text-primary">قائمة السيارات</span>
+                <span class="text-primary">{{ __('قائمة السيارات') }}</span>
             </nav>
         </div>
     </section>

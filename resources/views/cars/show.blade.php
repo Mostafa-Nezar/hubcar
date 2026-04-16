@@ -8,7 +8,7 @@
 @if($car->seo_keywords)
 {{ is_array($car->seo_keywords) ? implode(', ', $car->seo_keywords) : $car->seo_keywords }}
 @else
-سيارة {{ $car->name }}, {{ $car->brand->name }}, {{ $car->model_year }}, {{ $car->type }}, سيارات للبيع
+سيارة {{ $car->name }}, {{ $car->brand->name }}, {{ $car->model_year }}, {{ $car->type }}, {{ __('سيارات للبيع') }}
 @endif
 @endsection
 
@@ -48,7 +48,7 @@
                     <h1 class="text-4xl lg:text-6xl font-black text-secondary leading-tight">{{ $car->name }}</h1>
                 </div>
                 <div class="flex flex-col md:items-end">
-                    <span class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">{{ __('السعر نقدأً') }}</span>
+                    <span class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">{{ __('السعر نقداً') }}</span>
                     <div class="flex flex-col md:items-end gap-1">
                         @if ($car->discount_price)
                             <div class="flex items-center gap-2 mb-[-10px]">
@@ -124,7 +124,7 @@
                                              <div class="w-6 h-6 bg-white/10 rounded-lg flex items-center justify-center">
                                                  <i class="ti-timer"></i>
                                              </div>
-                                             <span>ينتهي العرض خلال: <span x-text="time"></span></span>
+                                             <span>{{ __('ينتهي العرض خلال:') }} <span x-text="time"></span></span>
                                         </div>
                                     @endif
                                 </div>
@@ -373,7 +373,7 @@
                                                  <span id="monthly_payment_result" class="text-6xl md:text-7xl font-black text-primary">0</span>
                                                  <span class="text-xl font-bold opacity-70">{{ __('ريال / شهر') }}</span>
                                              </div>
-                                             <p class="text-[10px] opacity-50 leading-relaxed">* السعر يشمل ضريبة القيمة المضافة. القسط تقريبي وقد يتغير بناءً على تقييم الائتمان وسجل العميل.</p>
+                                             <p class="text-[10px] opacity-50 leading-relaxed">{{ __('* السعر يشمل ضريبة القيمة المضافة. القسط تقريبي وقد يتغير بناءً على تقييم الائتمان وسجل العميل.') }}</p>
                                          </div>
 
                                          <div class="mt-12 space-y-4 pt-10 border-t border-white/10">
@@ -416,7 +416,7 @@
                                             <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
                                                 <i class="ti-wallet text-xl"></i>
                                             </div>
-                                            {{ __('احجز نقدأً (كاش)') }}
+                                            {{ __('احجز نقداً (كاش)') }}
                                         </span>
                                         <i
                                             class="ti-arrow-left opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all"></i>

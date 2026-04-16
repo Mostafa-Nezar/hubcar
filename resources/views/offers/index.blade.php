@@ -10,7 +10,7 @@
         <div class="absolute inset-0 bg-[url('/img/bg-pattern.png')] bg-repeat opacity-5"></div>
         <div class="container mx-auto px-4 lg:px-8 relative z-10">
             <div class="max-w-3xl">
-                <span class="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-6">Limited Time Deals</span>
+                <span class="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-6">{{ __('عروض لفترة محدودة') }}</span>
                 <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">{{ __('عروض حصرية لا تفوتك! 🔥') }}</h1>
                 <p class="text-gray-400 text-lg md:text-xl leading-relaxed mb-8">{{ __('نقدم لك في هب كار أفضل الصفقات على الإطلاق. سيارات فارهة، دفع رباعي، وسيارات عائلية بأسعار استثنائية وعروض تمويلية ميسرة.') }}</p>
                 <div class="flex flex-wrap gap-4">

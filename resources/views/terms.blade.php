@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'الشروط والأحكام')
+@section('title', __('الشروط والأحكام'))
 
 @section('content')
     <section class="bg-secondary py-20 text-center">
-        <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">الشروط والأحكام</h1>
+        <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">{{ __('الشروط والأحكام') }}</h1>
     </section>
 
     <section class="py-24 bg-white italic">
