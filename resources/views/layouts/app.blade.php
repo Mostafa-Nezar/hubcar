@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        @if(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }} 
-        @elseif(View::hasSection('title')) @yield('title') 
-        @else {{ $settings?->meta_title ?? 'معرض هب كار' }} @endif 
+        @if(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }}
+        @elseif(View::hasSection('title')) @yield('title')
+        @else {{ $settings?->meta_title ?? 'معرض هب كار' }} @endif
         - {{ $settings?->site_name ?? 'هب كار' }}
     </title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="@if(View::hasSection('meta_description')) @yield('meta_description') @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @else {{ $settings?->meta_description ?? 'أفضل معرض سيارات هب كار' }} @endif">
-    <meta name="keywords" content="@if(View::hasSection('meta_keywords')) @yield('meta_keywords') @elseif(isset($seoPage) && $seoPage->meta_keywords) {{ is_array($seoPage->meta_keywords) ? implode(', ', $seoPage->meta_keywords) : $seoPage->meta_keywords }} @else {{ $settings?->meta_keywords ?? 'سيارات, هب كار' }} @endif">
+    <meta name="description"
+        content="@if(View::hasSection('meta_description')) @yield('meta_description') @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @else {{ $settings?->meta_description ?? 'أفضل معرض سيارات هب كار' }} @endif">
+    <meta name="keywords"
+        content="@if(View::hasSection('meta_keywords')) @yield('meta_keywords') @elseif(isset($seoPage) && $seoPage->meta_keywords) {{ is_array($seoPage->meta_keywords) ? implode(', ', $seoPage->meta_keywords) : $seoPage->meta_keywords }} @else {{ $settings?->meta_keywords ?? 'سيارات, هب كار' }} @endif">
     <meta name="author" content="{{ $settings?->site_name ?? 'هب كار' }}">
     <meta name="robots" content="{{ $seoPage?->seo_robots ?? ($settings?->seo_robots ?? 'index, follow') }}">
     <link rel="canonical" href="{{ url()->current() }}">
@@ -21,27 +23,36 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{{ $seoPage?->og_type ?? ($settings?->og_type ?? 'website') }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@if(isset($seoPage) && $seoPage->og_title) {{ $seoPage->og_title }} @elseif(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }} @elseif(View::hasSection('title')) @yield('title') @else {{ $settings?->og_title ?? ($settings?->meta_title ?? 'معرض هب كار') }} @endif">
-    <meta property="og:description" content="@if(isset($seoPage) && $seoPage->og_description) {{ $seoPage->og_description }} @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @elseif(View::hasSection('meta_description')) @yield('meta_description') @else {{ $settings?->og_description ?? ($settings?->meta_description ?? 'أفضل معرض سيارات هب كار') }} @endif">
-    <meta property="og:image" content="@if(isset($seoPage) && $seoPage->og_image) {{ asset('storage/' . $seoPage->og_image) }} @else {{ $settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg') }} @endif">
+    <meta property="og:title"
+        content="@if(isset($seoPage) && $seoPage->og_title) {{ $seoPage->og_title }} @elseif(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }} @elseif(View::hasSection('title')) @yield('title') @else {{ $settings?->og_title ?? ($settings?->meta_title ?? 'معرض هب كار') }} @endif">
+    <meta property="og:description"
+        content="@if(isset($seoPage) && $seoPage->og_description) {{ $seoPage->og_description }} @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @elseif(View::hasSection('meta_description')) @yield('meta_description') @else {{ $settings?->og_description ?? ($settings?->meta_description ?? 'أفضل معرض سيارات هب كار') }} @endif">
+    <meta property="og:image"
+        content="@if(isset($seoPage) && $seoPage->og_image) {{ asset('storage/' . $seoPage->og_image) }} @else {{ $settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg') }} @endif">
     @if($settings?->facebook_app_id)
-    <meta property="fb:app_id" content="{{ $settings->facebook_app_id }}">
+        <meta property="fb:app_id" content="{{ $settings->facebook_app_id }}">
     @endif
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="{{ $seoPage?->twitter_card ?? ($settings?->twitter_card ?? 'summary_large_image') }}">
+    <meta property="twitter:card"
+        content="{{ $seoPage?->twitter_card ?? ($settings?->twitter_card ?? 'summary_large_image') }}">
     <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="@if(isset($seoPage) && $seoPage->twitter_title) {{ $seoPage->twitter_title }} @elseif(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }} @elseif(View::hasSection('title')) @yield('title') @else {{ $settings?->twitter_title ?? ($settings?->meta_title ?? 'معرض هب كار') }} @endif">
-    <meta property="twitter:description" content="@if(isset($seoPage) && $seoPage->twitter_description) {{ $seoPage->twitter_description }} @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @elseif(View::hasSection('meta_description')) @yield('meta_description') @else {{ $settings?->twitter_description ?? ($settings?->meta_description ?? 'أفضل معرض سيارات هب كار') }} @endif">
-    <meta property="twitter:image" content="@if(isset($seoPage) && $seoPage->twitter_image) {{ asset('storage/' . $seoPage->twitter_image) }} @elseif(isset($seoPage) && $seoPage->og_image) {{ asset('storage/' . $seoPage->og_image) }} @else {{ $settings?->twitter_image ? asset('storage/' . $settings->twitter_image) : ($settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg')) }} @endif">
+    <meta property="twitter:title"
+        content="@if(isset($seoPage) && $seoPage->twitter_title) {{ $seoPage->twitter_title }} @elseif(isset($seoPage) && $seoPage->meta_title) {{ $seoPage->meta_title }} @elseif(View::hasSection('title')) @yield('title') @else {{ $settings?->twitter_title ?? ($settings?->meta_title ?? 'معرض هب كار') }} @endif">
+    <meta property="twitter:description"
+        content="@if(isset($seoPage) && $seoPage->twitter_description) {{ $seoPage->twitter_description }} @elseif(isset($seoPage) && $seoPage->meta_description) {{ $seoPage->meta_description }} @elseif(View::hasSection('meta_description')) @yield('meta_description') @else {{ $settings?->twitter_description ?? ($settings?->meta_description ?? 'أفضل معرض سيارات هب كار') }} @endif">
+    <meta property="twitter:image"
+        content="@if(isset($seoPage) && $seoPage->twitter_image) {{ asset('storage/' . $seoPage->twitter_image) }} @elseif(isset($seoPage) && $seoPage->og_image) {{ asset('storage/' . $seoPage->og_image) }} @else {{ $settings?->twitter_image ? asset('storage/' . $settings->twitter_image) : ($settings?->og_image ? asset('storage/' . $settings->og_image) : asset('img/og-default.jpg')) }} @endif">
 
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Tajawal:wght@200..900&family=Almarai:wght@300..800&family=IBM+Plex+Sans+Arabic:wght@100..700&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Tajawal:wght@200..900&family=Almarai:wght@300..800&family=IBM+Plex+Sans+Arabic:wght@100..700&display=swap"
+        rel="stylesheet">
 
     <!-- Styles & Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -119,13 +130,13 @@
     @php
         $isGuest = !auth()->guard('customer')->check();
         if ($isGuest) {
-            echo \Illuminate\Support\Facades\Cache::remember('header_guest_html', 86400, function() {
+            echo \Illuminate\Support\Facades\Cache::remember('header_guest_html_' . app()->getLocale(), 86400, function () {
                 return view('partials.header')->render();
             });
         } else {
-            @endphp
-            @include('partials.header')
-            @php
+    @endphp
+    @include('partials.header')
+    @php
         }
     @endphp
 
@@ -150,7 +161,7 @@
                 </div>
             </div>
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function () {
                     const notification = document.getElementById('success-notification');
                     if (notification) {
                         setTimeout(() => {
@@ -177,22 +188,27 @@
 
     <!-- Footer -->
     @php
-        echo \Illuminate\Support\Facades\Cache::remember('footer_html', 86400, function() {
+        echo \Illuminate\Support\Facades\Cache::remember('footer_html_' . app()->getLocale(), 86400, function () {
             return view('partials.footer')->render();
         });
     @endphp
 
     <!-- WhatsApp Floating Button -->
     <div class="fixed bottom-8 right-8 z-50 group">
-        <a href="https://wa.me/{{ $settings?->whatsapp ? preg_replace('/[^0-9]/', '', $settings->whatsapp) : '966532533580' }}" target="_blank" 
-           class="relative flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-full shadow-lg shadow-green-500/40 transition-all duration-300 hover:scale-110" 
-           aria-label="Chat on WhatsApp">
-            <span class="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-20 animate-ping duration-[1.5s]"></span>
-            <span class="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-10 animate-ping duration-[2s] delay-150"></span>
+        <a href="https://wa.me/{{ $settings?->whatsapp ? preg_replace('/[^0-9]/', '', $settings->whatsapp) : '966532533580' }}"
+            target="_blank"
+            class="relative flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-full shadow-lg shadow-green-500/40 transition-all duration-300 hover:scale-110"
+            aria-label="Chat on WhatsApp">
+            <span
+                class="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-20 animate-ping duration-[1.5s]"></span>
+            <span
+                class="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-10 animate-ping duration-[2s] delay-150"></span>
             <i class="fa-brands fa-whatsapp text-4xl drop-shadow-md z-10"></i>
-            <span class="absolute right-full mr-4 bg-gray-900/90 backdrop-blur text-white text-sm font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap shadow-xl pointer-events-none transform translate-x-2 group-hover:translate-x-0">
+            <span
+                class="absolute right-full mr-4 bg-gray-900/90 backdrop-blur text-white text-sm font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap shadow-xl pointer-events-none transform translate-x-2 group-hover:translate-x-0">
                 تواصل معنا
-                <span class="absolute top-1/2 -right-1 -translate-y-1/2 border-4 border-transparent border-l-gray-900/90"></span>
+                <span
+                    class="absolute top-1/2 -right-1 -translate-y-1/2 border-4 border-transparent border-l-gray-900/90"></span>
             </span>
         </a>
     </div>
@@ -200,7 +216,7 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?hl=ar" async defer></script>
-    
+
     <script>
         window.countdown = (expiresAt) => {
             return {

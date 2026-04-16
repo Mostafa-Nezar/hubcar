@@ -5,7 +5,7 @@
             <div>
                 <h4 class="text-white text-xl font-bold mb-6 italic">{{ $settings?->site_name ?? 'RENAX' }}</h4>
                 <p class="mb-6 leading-relaxed">
-                    {{ $settings?->footer_description ?? 'نحن معرض سيارات رائد في المملكة العربية السعودية، نقدم أفضل السيارات الجديدة والمستعملة بأفضل الأسعار وأعلى معايير الجودة.' }}
+                    {{ $settings?->footer_description ?? __('نحن معرض سيارات رائد في المملكة العربية السعودية، نقدم أفضل السيارات الجديدة والمستعملة بأفضل الأسعار وأعلى معايير الجودة.') }}
                 </p>
                 <div class="flex gap-4">
                     @if ($settings?->facebook)
@@ -47,34 +47,34 @@
 
             <!-- Quick Links -->
             <div>
-                <h4 class="text-white text-lg font-bold mb-6">روابط سريعة</h4>
+                <h4 class="text-white text-lg font-bold mb-6">{{ __('روابط سريعة') }}</h4>
                 <ul class="space-y-4">
-                    <li><a href="{{ route('about') }}" class="hover:text-primary transition">من نحن</a></li>
-                    <li><a href="{{ route('cars.index') }}" class="hover:text-primary transition">سياراتنا</a></li>
-                    <li><a href="{{ route('banks') }}" class="hover:text-primary transition">جهات التمويل</a></li>
-                    <li><a href="{{ route('faq') }}" class="hover:text-primary transition">الأسئلة الشائعة</a></li>
+                    <li><a href="{{ route('about') }}" class="hover:text-primary transition">{{ __('من نحن') }}</a></li>
+                    <li><a href="{{ route('cars.index') }}" class="hover:text-primary transition">{{ __('سياراتنا') }}</a></li>
+                    <li><a href="{{ route('banks') }}" class="hover:text-primary transition">{{ __('جهات التمويل') }}</a></li>
+                    <li><a href="{{ route('faq') }}" class="hover:text-primary transition">{{ __('الأسئلة الشائعة') }}</a></li>
                 </ul>
             </div>
 
             <!-- More Links -->
             <div>
-                <h4 class="text-white text-lg font-bold mb-6">روابط قانونية</h4>
+                <h4 class="text-white text-lg font-bold mb-6">{{ __('روابط قانونية') }}</h4>
                 <ul class="space-y-4">
-                    <li><a href="{{ route('terms') }}" class="hover:text-primary transition">الشروط والأحكام</a></li>
-                    <li><a href="{{ route('privacy') }}" class="hover:text-primary transition">سياسة الخصوصية</a></li>
-                    <li><a href="{{ route('contact') }}" class="hover:text-primary transition">تواصل معنا</a></li>
+                    <li><a href="{{ route('terms') }}" class="hover:text-primary transition">{{ __('الشروط والأحكام') }}</a></li>
+                    <li><a href="{{ route('privacy') }}" class="hover:text-primary transition">{{ __('سياسة الخصوصية') }}</a></li>
+                    <li><a href="{{ route('contact') }}" class="hover:text-primary transition">{{ __('اتصل بنا') }}</a></li>
                 </ul>
             </div>
 
             <!-- Newsletter -->
             <div>
-                <h4 class="text-white text-lg font-bold mb-6">النشرة الإخبارية</h4>
-                <p class="mb-6">اشترك معنا ليصلك أحدث العروض والسيارات.</p>
+                <h4 class="text-white text-lg font-bold mb-6">{{ __('النشرة الإخبارية') }}</h4>
+                <p class="mb-6">{{ __('اشترك معنا ليصلك أحدث العروض والسيارات.') }}</p>
                 <form class="flex">
-                    <input type="email" placeholder="البريد الإلكتروني"
-                        class="bg-gray-800 text-white px-4 py-2 rounded-r-lg w-full focus:outline-none focus:ring-1 focus:ring-primary border-none">
-                    <button class="bg-primary text-white px-4 py-2 rounded-l-lg hover:bg-opacity-90 transition">
-                        <i class="ti-arrow-left"></i>
+                    <input type="email" placeholder="{{ __('البريد الإلكتروني') }}"
+                        class="bg-gray-800 text-white px-4 py-2 {{ app()->getLocale() == 'ar' ? 'rounded-r-lg' : 'rounded-l-lg' }} w-full focus:outline-none focus:ring-1 focus:ring-primary border-none">
+                    <button class="bg-primary text-white px-4 py-2 {{ app()->getLocale() == 'ar' ? 'rounded-l-lg' : 'rounded-r-lg' }} hover:bg-opacity-90 transition">
+                        <i class="{{ app()->getLocale() == 'ar' ? 'ti-arrow-left' : 'ti-arrow-right' }}"></i>
                     </button>
                 </form>
             </div>
@@ -82,9 +82,9 @@
 
         <div
             class="border-t border-gray-800 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm">
-            <p>&copy; {{ date('Y') }} جميع الحقوق محفوظة لـ {{ $settings?->site_name ?? 'RENAX' }}</p>
+            <p>&copy; {{ date('Y') }} {{ __('جميع الحقوق محفوظة لـ') }} {{ $settings?->site_name ?? 'RENAX' }}</p>
             <div class="flex items-center gap-4 group">
-                <span class="text-gray-500">تصميم وتطوير بواسطة:</span>
+                <span class="text-gray-500">{{ __('تصميم وتطوير بواسطة:') }}</span>
                 <a href="https://highsolve.com/" target="_blank" rel="noopener noreferrer"
                     class="transition-opacity hover:opacity-100">
                     <img src="{{ asset('img/developer-logo.png') }}" alt="High Solve Logo" loading="lazy"

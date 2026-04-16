@@ -16,19 +16,19 @@
             <!-- Main Menu (Desktop) -->
             <nav class="hidden lg:flex items-center gap-8">
                 <a href="{{ route('home') }}"
-                    class="{{ request()->routeIs('home') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">الرئيسية</a>
+                    class="{{ request()->routeIs('home') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">{{ __('Home') }}</a>
                 <a href="{{ route('cars.index') }}"
-                    class="{{ request()->routeIs('cars.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">السيارات</a>
+                    class="{{ request()->routeIs('cars.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">{{ __('Cars') }}</a>
                 <a href="{{ route('offers.index') }}"
-                    class="{{ request()->routeIs('offers.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">العروض</a>
+                    class="{{ request()->routeIs('offers.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">{{ __('Offers') }}</a>
                 <a href="{{ route('blog.index') }}"
-                    class="{{ request()->routeIs('blog.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">المدونة</a>
-                
+                    class="{{ request()->routeIs('blog.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-medium transition-colors">{{ __('Blog') }}</a>
+
                 <!-- More Dropdown -->
                 <div class="relative" x-data="{ open: false }">
                     <button @mouseenter="open = true" @mouseleave="open = false" @click="open = !open"
                         class="flex items-center gap-2 text-gray-600 hover:text-primary font-medium transition-colors">
-                        المزيد
+                        {{ __('More') }}
                         <i class="ti-angle-down text-[10px] transition-transform" :class="{ 'rotate-180': open }"></i>
                     </button>
                     <!-- Dropdown Content -->
@@ -37,16 +37,21 @@
                         x-transition:enter-start="opacity-0 translate-y-2 scale-95"
                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
                         class="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 z-50">
-                        <a href="{{ route('banks') }}" class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">جهات التمويل</a>
-                        <a href="{{ route('faq') }}" class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">الأسئلة الشائعة</a>
-                        <a href="{{ route('about') }}" class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">من نحن</a>
-                        <a href="{{ route('contact') }}" class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">اتصل بنا</a>
+                        <a href="{{ route('banks') }}"
+                            class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">{{ __('Banks') }}</a>
+                        <a href="{{ route('faq') }}"
+                            class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">{{ __('FAQ') }}</a>
+                        <a href="{{ route('about') }}"
+                            class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">{{ __('About Us') }}</a>
+                        <a href="{{ route('contact') }}"
+                            class="block px-6 py-2 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition">{{ __('Contact Us') }}</a>
                     </div>
                 </div>
             </nav>
 
             <!-- Quick Order & Search -->
-            <div class="flex-1 flex items-center justify-end space-x-reverse space-x-4">
+            <div
+                class="flex-1 flex items-center justify-end {{ app()->getLocale() == 'ar' ? 'space-x-reverse' : '' }} space-x-4">
                 <!-- Search Component -->
                 <div class="relative flex items-center">
                     <button @click="openSearch = !openSearch; if(openSearch) $nextTick(() => $refs.searchInput.focus())"
@@ -54,6 +59,29 @@
                         <i class="ti-search text-xl" x-show="!openSearch"></i>
                         <i class="ti-close text-xl" x-show="openSearch" style="display: none;"></i>
                     </button>
+
+                    <!-- Language Switcher (Desktop) -->
+                    <div class="hidden lg:block relative ml-4" x-data="{ langOpen: false }">
+                        <button @click="langOpen = !langOpen"
+                            class="flex items-center gap-2 p-2 text-gray-500 hover:text-primary transition-all duration-300">
+                            <i class="ti-world text-xl"></i>
+                            <span class="text-sm font-semibold uppercase">{{ app()->getLocale() }}</span>
+                        </button>
+                        <div x-show="langOpen" @click.away="langOpen = false" x-cloak
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+                            x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                            class="absolute top-full {{ app()->getLocale() == 'ar' ? 'right-0' : 'left-0' }} mt-2 w-32 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
+                            <a href="{{ route('lang.switch', 'ar') }}"
+                                class="flex items-center gap-3 px-4 py-2 text-sm {{ app()->getLocale() == 'ar' ? 'bg-primary/5 text-primary' : 'text-gray-600' }} hover:bg-gray-50 transition">
+                                <span class="w-6 text-center">🇸🇦</span> {{ __('Arabic') }}
+                            </a>
+                            <a href="{{ route('lang.switch', 'en') }}"
+                                class="flex items-center gap-3 px-4 py-2 text-sm {{ app()->getLocale() == 'en' ? 'bg-primary/5 text-primary' : 'text-gray-600' }} hover:bg-gray-50 transition">
+                                <span class="w-6 text-center">🇺🇸</span> {{ __('English') }}
+                            </a>
+                        </div>
+                    </div>
 
                     <!-- Search Input Overlay -->
                     <div x-show="openSearch" @click.away="openSearch = false"
@@ -64,7 +92,7 @@
                         <form action="{{ route('cars.index') }}" method="GET"
                             class="flex items-center bg-white rounded-2xl overflow-hidden shadow-2xl border border-gray-100 p-1">
                             <input type="text" name="search" x-ref="searchInput"
-                                placeholder="ابحث عن سيارة (مثلاً: كامري)..."
+                                placeholder="{{ __('Search for a car...') }}"
                                 class="bg-transparent border-none px-4 py-3 w-full focus:ring-0 text-sm italic"
                                 value="{{ request('search') }}">
                             <button type="submit"
@@ -81,7 +109,7 @@
                         <!-- Dashboard Button -->
                         <a href="{{ route('customer.dashboard') }}"
                             class="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all"
-                            title="لوحة التحكم">
+                            title="{{ __('Dashboard') }}">
                             <i class="ti-dashboard text-xl"></i>
                         </a>
                         <!-- Dropdown Menu -->
@@ -95,30 +123,28 @@
                             <!-- Dropdown Items -->
                             <div @show="open" @click.away="open = false"
                                 class="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-lg border border-gray-100 z-50"
-                                x-show="open"
-                                x-transition:enter="transition ease-out duration-200"
-                                x-transition:enter-start="opacity-0 scale-95"
-                                x-transition:enter-end="opacity-100 scale-100"
+                                x-show="open" x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
                                 x-transition:leave="transition ease-in duration-150"
                                 x-transition:leave-start="opacity-100 scale-100"
                                 x-transition:leave-end="opacity-0 scale-95">
                                 <a href="{{ route('customer.dashboard') }}"
                                     class="block px-6 py-3 text-secondary hover:bg-gray-50 font-medium border-b border-gray-100 flex items-center gap-2">
-                                    <i class="ti-dashboard"></i> لوحة التحكم
+                                    <i class="ti-dashboard"></i> {{ __('Dashboard') }}
                                 </a>
                                 <a href="{{ route('customer.profile') }}"
                                     class="block px-6 py-3 text-secondary hover:bg-gray-50 font-medium border-b border-gray-100 flex items-center gap-2">
-                                    <i class="ti-user"></i> الملف الشخصي
+                                    <i class="ti-user"></i> {{ __('Profile') }}
                                 </a>
                                 <a href="{{ route('customer.bookings') }}"
                                     class="block px-6 py-3 text-secondary hover:bg-gray-50 font-medium border-b border-gray-100 flex items-center gap-2">
-                                    <i class="ti-clipboard"></i> الحجزات
+                                    <i class="ti-clipboard"></i> {{ __('My Bookings') }}
                                 </a>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit"
                                         class="w-full text-left px-6 py-3 text-red-600 hover:bg-red-50 font-medium flex items-center gap-2">
-                                        <i class="ti-logout"></i> تسجيل الخروج
+                                        <i class="ti-logout"></i> {{ __('Logout') }}
                                     </button>
                                 </form>
                             </div>
@@ -128,14 +154,14 @@
                     <a href="{{ route('login') }}"
                         class="hidden lg:flex items-center bg-secondary text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition">
                         <i class="ti-user ml-2"></i>
-                        <span>تسجيل الدخول</span>
+                        <span>{{ __('Login') }}</span>
                     </a>
                 @endauth('customer')
 
                 <a href="{{ route('cars.quick-booking') }}"
                     class="hidden lg:flex items-center bg-primary text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition">
                     <i class="ti-bolt ml-2"></i>
-                    <span>طلب سريع</span>
+                    <span>{{ __('Quick Order') }}</span>
                 </a>
 
                 <!-- Mobile Menu Button -->
@@ -181,42 +207,42 @@
                 <a href="{{ route('home') }}"
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('home') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-home text-lg"></i>
-                    <span>الرئيسية</span>
+                    <span>{{ __('Home') }}</span>
                 </a>
                 <a href="{{ route('cars.index') }}"
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('cars.index') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-car text-lg"></i>
-                    <span>السيارات</span>
+                    <span>{{ __('Cars') }}</span>
                 </a>
                 <a href="{{ route('offers.index') }}"
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('offers.index') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-gift text-lg"></i>
-                    <span>العروض</span>
+                    <span>{{ __('Offers') }}</span>
                 </a>
                 <a href="{{ route('blog.index') }}"
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('blog.index') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-layout-grid2 text-lg"></i>
-                    <span>المدونة</span>
+                    <span>{{ __('Blog') }}</span>
                 </a>
                 <a href="{{ route('banks') }}"
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('banks') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-wallet text-lg"></i>
-                    <span>جهات التمويل</span>
+                    <span>{{ __('Banks') }}</span>
                 </a>
                 <a href="{{ route('faq') }}"
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('faq') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-help-alt text-lg"></i>
-                    <span>الأسئلة الشائعة</span>
+                    <span>{{ __('FAQ') }}</span>
                 </a>
                 <a href="{{ route('about') }}"
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('about') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-info-alt text-lg"></i>
-                    <span>من نحن</span>
+                    <span>{{ __('About Us') }}</span>
                 </a>
                 <a href="{{ route('contact') }}"
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('contact') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-headphone-alt text-lg"></i>
-                    <span>اتصل بنا</span>
+                    <span>{{ __('Contact Us') }}</span>
                 </a>
             </nav>
 
@@ -228,23 +254,27 @@
                                 <i class="ti-user text-xl"></i>
                             </div>
                             <div>
-                                <h4 class= text-secondary text-sm">{{ Auth::guard('customer')->user()->name }}</h4>
-                                <p class="text-xs text-gray-500">مرحباً بك مجدداً</p>
+                                <h4 class="text-secondary text-sm">{{ Auth::guard('customer')->user()->name }}</h4>
+                                <p class="text-xs text-gray-500">{{ __('Welcome back') }}</p>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 gap-2">
-                            <a href="{{ route('customer.dashboard') }}" class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
+                            <a href="{{ route('customer.dashboard') }}"
+                                class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
                                 <i class="ti-dashboard text-primary"></i> لوحة التحكم
                             </a>
-                            <a href="{{ route('customer.profile') }}" class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
+                            <a href="{{ route('customer.profile') }}"
+                                class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
                                 <i class="ti-id-badge text-primary"></i> الملف الشخصي
                             </a>
-                            <a href="{{ route('customer.bookings') }}" class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
+                            <a href="{{ route('customer.bookings') }}"
+                                class="flex items-center gap-2 text-sm text-gray-600 hover:text-primary py-1">
                                 <i class="ti-package text-primary"></i> طلباتي الحالية
                             </a>
                             <form method="POST" action="{{ route('logout') }}" class="mt-2 pt-2 border-t border-gray-50">
                                 @csrf
-                                <button type="submit" class="flex items-center gap-2 text-sm text-red-500 hover:text-red-600 font-medium">
+                                <button type="submit"
+                                    class="flex items-center gap-2 text-sm text-red-500 hover:text-red-600 font-medium">
                                     <i class="ti-power-off"></i> تسجيل الخروج
                                 </button>
                             </form>
@@ -254,14 +284,14 @@
                     <a href="{{ route('login') }}"
                         class="flex items-center justify-center gap-3 w-full bg-secondary text-white py-4 rounded-2xl shadow-lg shadow-secondary/20 hover:bg-gray-800 transition-all">
                         <i class="ti-user text-lg"></i>
-                        <span>تسجيل الدخول</span>
+                        <span>{{ __('Login') }}</span>
                     </a>
                 @endauth('customer')
 
                 <a href="{{ route('cars.quick-booking') }}"
                     class="flex items-center justify-center gap-3 w-full bg-primary text-white py-4 rounded-2xl shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all">
                     <i class="ti-bolt-alt text-lg"></i>
-                    <span>طلب حجز سريع</span>
+                    <span>{{ __('Quick Order') }}</span>
                 </a>
             </div>
         </div>
