@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'العروض الحصرية والقوية - ' . config('app.name'))
+@section('title', __('العروض الحصرية والقوية - ') . config('app.name'))
 
-@section('description', 'استكشف أقوى العروض والخصومات الحصرية على مجموعة واسعة من السيارات. عروض لفترة محدودة بأسعار تنافسية.')
+@section('description', __('استكشف أقوى العروض والخصومات الحصرية على مجموعة واسعة من السيارات. عروض لفترة محدودة بأسعار تنافسية.'))
 
 @section('content')
     <!-- Hero Section -->
@@ -11,11 +11,11 @@
         <div class="container mx-auto px-4 lg:px-8 relative z-10">
             <div class="max-w-3xl">
                 <span class="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-6">Limited Time Deals</span>
-                <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">عروض <span class="text-primary italic">حصرية</span> لا تفوتك! 🔥</h1>
-                <p class="text-gray-400 text-lg md:text-xl leading-relaxed mb-8">نقدم لك في هب كار أفضل الصفقات على الإطلاق. سيارات فارهة، دفع رباعي، وسيارات عائلية بأسعار استثنائية وعروض تمويلية ميسرة.</p>
+                <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">{{ __('عروض حصرية لا تفوتك! 🔥') }}</h1>
+                <p class="text-gray-400 text-lg md:text-xl leading-relaxed mb-8">{{ __('نقدم لك في هب كار أفضل الصفقات على الإطلاق. سيارات فارهة، دفع رباعي، وسيارات عائلية بأسعار استثنائية وعروض تمويلية ميسرة.') }}</p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="#offers-list" class="bg-primary text-white px-8 py-4 rounded-2xl font-black hover:bg-opacity-90 transition shadow-xl shadow-primary/20">استكشف العروض الآن</a>
-                    <a href="{{ route('contact') }}" class="bg-white/5 border border-white/10 text-white px-8 py-4 rounded-2xl font-black hover:bg-white/10 transition">طلب تواصل خاص</a>
+                    <a href="#offers-list" class="bg-primary text-white px-8 py-4 rounded-2xl font-black hover:bg-opacity-90 transition shadow-xl shadow-primary/20">{{ __('استكشف العروض الآن') }}</a>
+                    <a href="{{ route('contact') }}" class="bg-white/5 border border-white/10 text-white px-8 py-4 rounded-2xl font-black hover:bg-white/10 transition">{{ __('طلب تواصل خاص') }}</a>
                 </div>
             </div>
         </div>
@@ -26,12 +26,12 @@
         <div class="container mx-auto px-4 lg:px-8">
             <div class="flex items-center justify-between mb-12">
                 <div>
-                    <h2 class="text-3xl font-black text-secondary">أحدث عروضنا</h2>
-                    <p class="text-gray-500 italic mt-2">نحدث هذه القائمة باستمرار لضمان حصولك على الأفضل</p>
+                    <h2 class="text-3xl font-black text-secondary">{{ __('أحدث عروضنا') }}</h2>
+                    <p class="text-gray-500 italic mt-2">{{ __('نحدث هذه القائمة باستمرار لضمان حصولك على الأفضل') }}</p>
                 </div>
                 <div class="flex items-center gap-2 text-primary font-bold">
                     <span class="w-8 h-[2px] bg-primary"></span>
-                    <span>{{ $cars->total() }} عرض متاح</span>
+                    <span>{{ $cars->total() }} {{ __('عرض متاح') }}</span>
                 </div>
             </div>
 
@@ -50,11 +50,11 @@
                     <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-8 text-gray-300">
                         <i class="ti-gift text-5xl"></i>
                     </div>
-                    <h2 class="text-2xl font-black text-secondary mb-4">لا توجد عروض حالياً</h2>
-                    <p class="text-gray-500 max-w-sm mx-auto mb-10 leading-relaxed">ترقبونا قريباً! نحن نجهز قائمة من العروض القوية التي ستنال إعجابكم بالتأكيد.</p>
+                    <h2 class="text-2xl font-black text-secondary mb-4">{{ __('لا توجد عروض حالياً') }}</h2>
+                    <p class="text-gray-500 max-w-sm mx-auto mb-10 leading-relaxed">{{ __('ترقبونا قريباً! نحن نجهز قائمة من العروض القوية التي ستنال إعجابكم بالتأكيد.') }}</p>
                     <a href="{{ route('cars.index') }}"
                         class="inline-flex items-center gap-3 bg-secondary text-white font-black px-8 py-4 rounded-2xl hover:bg-gray-800 transition shadow-xl shadow-secondary/20">
-                         تصفح السيارات المتاحة
+                         {{ __('تصفح السيارات المتاحة') }}
                     </a>
                 </div>
             @endif
@@ -70,8 +70,8 @@
                         <i class="ti-check-box"></i>
                     </div>
                     <div>
-                        <h4 class="text-xl font-bold text-secondary mb-2">فحص دقيق</h4>
-                        <p class="text-gray-500 text-sm leading-relaxed">جميع سيارات العروض تخضع لفحص شامل لضمان أعلى مستويات الجودة والأمان.</p>
+                        <h4 class="text-xl font-bold text-secondary mb-2">{{ __('فحص دقيق') }}</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">{{ __('جميع سيارات العروض تخضع لفحص شامل لضمان أعلى مستويات الجودة والأمان.') }}</p>
                     </div>
                 </div>
                 <div class="flex gap-6">
@@ -79,8 +79,8 @@
                         <i class="ti-money"></i>
                     </div>
                     <div>
-                        <h4 class="text-xl font-bold text-secondary mb-2">أفضل سعر</h4>
-                        <p class="text-gray-500 text-sm leading-relaxed">نضمن لك الحصول على أفضل سعر في السوق مع عروضنا الحصرية وخصوماتنا الحقيقية.</p>
+                        <h4 class="text-xl font-bold text-secondary mb-2">{{ __('أفضل سعر') }}</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">{{ __('نضمن لك الحصول على أفضل سعر في السوق مع عروضنا الحصرية وخصوماتنا الحقيقية.') }}</p>
                     </div>
                 </div>
                 <div class="flex gap-6">
@@ -88,8 +88,8 @@
                         <i class="ti-headphone-alt"></i>
                     </div>
                     <div>
-                        <h4 class="text-xl font-bold text-secondary mb-2">دعم مستمر</h4>
-                        <p class="text-gray-500 text-sm leading-relaxed">فريقنا متواجد دائماً لمساعدتك في إنهاء إجراءات الشراء والتمويل بكل سهولة.</p>
+                        <h4 class="text-xl font-bold text-secondary mb-2">{{ __('دعم مستمر') }}</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">{{ __('فريقنا متواجد دائماً لمساعدتك في إنهاء إجراءات الشراء والتمويل بكل سهولة.') }}</p>
                     </div>
                 </div>
             </div>

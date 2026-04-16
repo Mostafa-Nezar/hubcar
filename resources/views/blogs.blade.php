@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'مدونة هب كار')
-@section('meta_description', 'تابع آخر أخبار سوق السيارات، نصائح الصيانة، وأحدث الموديلات في مدونة هب كار.')
+@section('title', __('مدونة هب كار'))
+@section('meta_description', __('تابع آخر أخبار سوق السيارات، نصائح الصيانة، وأحدث الموديلات في مدونة هب كار.'))
 
 @section('content')
     <!-- Page Header -->
@@ -10,11 +10,11 @@
             <img src="{{ asset('img/slider/1.jpg') }}" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover">
         </div>
         <div class="container mx-auto px-4 lg:px-8 relative z-10 text-center">
-            <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">المدونة</h1>
+            <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">{{ __('المدونة') }}</h1>
             <nav class="flex justify-center text-gray-400 text-sm">
-                <a href="{{ route('home') }}" class="hover:text-primary transition">الرئيسية</a>
+                <a href="{{ route('home') }}" class="hover:text-primary transition">{{ __('الرئيسية') }}</a>
                 <span class="mx-2">/</span>
-                <span class="text-primary">أخبار ونصائح السيارات</span>
+                <span class="text-primary">{{ __('أخبار ونصائح السيارات') }}</span>
             </nav>
         </div>
     </section>
@@ -53,10 +53,10 @@
                                     <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">
                                         <i class="ti-user text-xs"></i>
                                     </div>
-                                    <span class="text-xs text-gray-500">{{ $post->user?->name ?? 'هب كار' }}</span>
+                                    <span class="text-xs text-gray-500">{{ $post->user?->name ?? __('هب كار') }}</span>
                                 </div>
                                 <a href="{{ route('blog.show', $post->slug) }}" class="text-primary font-bold text-sm flex items-center gap-2 group/link">
-                                    اقرأ المزيد
+                                    {{ __('اقرأ المزيد') }}
                                     <i class="ti-arrow-left transition-transform group-hover/link:-translate-x-1"></i>
                                 </a>
                             </div>
@@ -67,8 +67,8 @@
                         <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-300">
                             <i class="ti-pencil-alt text-4xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-400">لا توجد مقالات حالياً</h3>
-                        <p class="text-gray-400 mt-2">انتظرونا قريباً في مدونة هب كار</p>
+                        <h3 class="text-2xl font-bold text-gray-400">{{ __('لا توجد مقالات حالياً') }}</h3>
+                        <p class="text-gray-400 mt-2">{{ __('انتظرونا قريباً في مدونة هب كار') }}</p>
                     </div>
                 @endforelse
             </div>

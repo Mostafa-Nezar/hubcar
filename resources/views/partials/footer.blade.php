@@ -62,7 +62,7 @@
                 <ul class="space-y-4">
                     <li><a href="{{ route('terms') }}" class="hover:text-primary transition">{{ __('الشروط والأحكام') }}</a></li>
                     <li><a href="{{ route('privacy') }}" class="hover:text-primary transition">{{ __('سياسة الخصوصية') }}</a></li>
-                    <li><a href="{{ route('contact') }}" class="hover:text-primary transition">{{ __('اتصل بنا') }}</a></li>
+                    <li><a href="{{ route('contact') }}" class="hover:text-primary transition">{{ __('تواصل معنا') }}</a></li>
                 </ul>
             </div>
 

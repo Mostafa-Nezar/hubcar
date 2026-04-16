@@ -80,7 +80,7 @@
                                 <a href="{{ route('cars.show', $car->slug) }}"
                                     class="group relative inline-flex items-center justify-center px-8 md:px-12 py-3 md:py-4 bg-white text-secondary rounded-full font-bold overflow-hidden transition-all duration-500 hover:bg-primary hover:text-white hover:scale-105 active:scale-95 shadow-2xl">
                                     <span class="relative z-10 flex items-center gap-2 text-sm md:text-base">
-                                        اكتشف الفخامة
+                                        {{ __('اكتشف الفخامة') }}
                                         <i
                                             class="ti-arrow-left mt-1 transform group-hover:-translate-x-1 transition-transform"></i>
                                     </span>

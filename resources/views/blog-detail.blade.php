@@ -13,9 +13,9 @@
         <div class="container mx-auto px-4 lg:px-8 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
                 <nav class="flex flex-wrap justify-center text-gray-400 text-sm mb-6">
-                    <a href="{{ route('home') }}" class="hover:text-primary transition">الرئيسية</a>
+                    <a href="{{ route('home') }}" class="hover:text-primary transition">{{ __('الرئيسية') }}</a>
                     <span class="mx-2">/</span>
-                    <a href="{{ route('blog.index') }}" class="hover:text-primary transition">المدونة</a>
+                    <a href="{{ route('blog.index') }}" class="hover:text-primary transition">{{ __('المدونة') }}</a>
                     <span class="mx-2">/</span>
                     <span class="text-primary line-clamp-1 italic">{{ $post->title }}</span>
                 </nav>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <i class="ti-user text-primary"></i>
-                        <span>{{ $post->user?->name ?? 'هب كار' }}</span>
+                        <span>{{ $post->user?->name ?? __('هب كار') }}</span>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
 
                 <!-- Share Section -->
                 <div class="mt-16 pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-start">
-                    <h4 class="font-bold text-gray-900">مشاركة المقال:</h4>
+                    <h4 class="font-bold text-gray-900">{{ __('مشاركة المقال:') }}</h4>
                     <div class="flex items-center gap-4">
                         <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}&text={{ $post->title }}" target="_blank" class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 hover:bg-black hover:text-white transition-all">
                             <i class="ti-twitter-alt text-xl"></i>
@@ -73,7 +73,7 @@
                 @if($relatedPosts->count() > 0)
                     <div class="mt-16 lg:mt-24">
                         <h3 class="text-xl sm:text-2xl font-black text-gray-900 mb-8 sm:mb-10 text-center">
-                            مقالات قد تهمك
+                            {{ __('مقالات قد تهمك') }}
                         </h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
                             @foreach($relatedPosts as $related)

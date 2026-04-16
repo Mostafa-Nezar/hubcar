@@ -4,7 +4,7 @@
     <div
         class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 relative">
         <!-- Overlay Link for entire card -->
-        <a href="{{ route('cars.show', array_merge(['car' => $car->slug], request()->query())) }}" class="absolute inset-0 z-10" aria-label="عرض التفاصيل"></a>
+        <a href="{{ route('cars.show', array_merge(['car' => $car->slug], request()->query())) }}" class="absolute inset-0 z-10" aria-label="{{ __('عرض التفاصيل') }}"></a>
         
         <!-- Comparison/Favorite Button Positioned Relative to Card -->
         @livewire('car-favorite-button', ['carId' => $car->id], key('fav-grid-'.$car->id))
@@ -72,12 +72,12 @@
             <div class="grid grid-cols-3 gap-4 py-4 border-t border-b border-gray-50 mb-6 relative z-20">
                 <div class="text-center">
                     <i class="ti-user text-primary mb-1 block"></i>
-                    <span class="text-xs text-gray-500 font-bold">{{ $car->seats }} مقاعد</span>
+                    <span class="text-xs text-gray-500 font-bold">{{ $car->seats }} {{ __('مقاعد') }}</span>
                 </div>
                 <div class="text-center">
                     <i class="ti-settings text-primary mb-1 block"></i>
                     <span
-                        class="text-xs text-gray-500 font-bold">{{ $car->transmission == 'automatic' ? 'أتوماتيك' : 'يدوي' }}</span>
+                        class="text-xs text-gray-500 font-bold">{{ $car->transmission == 'automatic' ? __('أتوماتيك') : __('يدوي') }}</span>
                 </div>
                 <div class="text-center">
                     <i class="ti-calendar text-primary mb-1 block"></i>
@@ -88,11 +88,11 @@
             <div class="flex space-x-reverse gap-3 space-x-3 relative z-20">
                 <a href="{{ route('cars.show', array_merge(['car' => $car->slug], request()->query())) }}"
                     class="flex-1 bg-gray-100 text-secondary text-center py-2.5 rounded-xl font-bold hover:bg-gray-200 transition text-sm">
-                    التفاصيل
+                    {{ __('التفاصيل') }}
                 </a>
                 <a href="{{ route('cars.booking', $car->slug) }}"
                     class="flex-1 bg-primary text-white text-center py-2.5 rounded-xl font-bold hover:bg-opacity-90 transition text-sm">
-                    احجز الآن
+                    {{ __('احجز الآن') }}
                 </a>
             </div>
         </div>
@@ -145,8 +145,8 @@
                         </span>
                     @endif
                     <div class="flex flex-col md:items-end mt-1">
-                        <span class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">السعر النقدي</span>
-                        <span class="text-xs text-secondary font-bold">أو قسط شهري يبدأ من {{ number_format($car->starting_installment) }} ريال</span>
+                        <span class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">{{ __('السعر النقدي') }}</span>
+                        <span class="text-xs text-secondary font-bold">{{ __('أو قسط شهري يبدأ من') }} {{ number_format($car->starting_installment) }} {{ __('ريال') }}</span>
                     </div>
                 </div>
             </div>
@@ -156,37 +156,37 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                         <i class="ti-user text-xs"></i>
                     </div>
-                    <span class="text-xs font-bold text-gray-600">{{ $car->seats }} مقاعد</span>
+                    <span class="text-xs font-bold text-gray-600">{{ $car->seats }} {{ __('مقاعد') }}</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                         <i class="ti-settings text-xs"></i>
                     </div>
                     <span
-                        class="text-xs font-bold text-gray-600">{{ $car->transmission == 'automatic' ? 'أتوماتيك' : 'يدوي' }}</span>
+                        class="text-xs font-bold text-gray-600">{{ $car->transmission == 'automatic' ? __('أتوماتيك') : __('يدوي') }}</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                         <i class="ti-calendar text-xs"></i>
                     </div>
-                    <span class="text-xs font-bold text-gray-600">موديل {{ $car->model_year }}</span>
+                    <span class="text-xs font-bold text-gray-600">{{ __('موديل') }} {{ $car->model_year }}</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                         <i class="ti-shine text-xs"></i>
                     </div>
-                    <span class="text-xs font-bold text-gray-600">{{ $car->fuel_type ?? 'بنزين' }}</span>
+                    <span class="text-xs font-bold text-gray-600">{{ __($car->fuel_type ?? 'بنزين') }}</span>
                 </div>
             </div>
 
             <div class="flex gap-4 relative z-20">
                 <a href="{{ route('cars.show', array_merge(['car' => $car->slug], request()->query())) }}"
                     class="flex-1 md:flex-none md:px-8 bg-gray-100 text-secondary text-center py-3 rounded-xl font-bold hover:bg-gray-200 transition text-sm">
-                    التفاصيل
+                    {{ __('التفاصيل') }}
                 </a>
                 <a href="{{ route('cars.booking', $car->slug) }}"
                     class="flex-1 md:flex-none md:px-8 bg-primary text-white text-center py-3 rounded-xl font-bold hover:bg-opacity-90 transition text-sm">
-                    احجز الآن
+                    {{ __('احجز الآن') }}
                 </a>
             </div>
         </div>

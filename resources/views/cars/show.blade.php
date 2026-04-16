@@ -33,9 +33,9 @@
         <div class="container mx-auto px-4 lg:px-8">
             <nav class="flex text-sm text-gray-400 mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-reverse space-x-2">
-                    <li><a href="{{ route('home') }}" class="hover:text-primary transition-colors">الرئيسية</a></li>
+                    <li><a href="{{ route('home') }}" class="hover:text-primary transition-colors">{{ __('الرئيسية') }}</a></li>
                     <li><i class="ti-angle-left text-[10px] mx-2"></i></li>
-                    <li><a href="{{ route('cars.index', request()->query()) }}" class="hover:text-primary transition-colors">السيارات</a></li>
+                    <li><a href="{{ route('cars.index', request()->query()) }}" class="hover:text-primary transition-colors">{{ __('السيارات') }}</a></li>
                     <li><i class="ti-angle-left text-[10px] mx-2"></i></li>
                     <li class="text-secondary font-bold">{{ $car->name }}</li>
                 </ol>
@@ -48,13 +48,13 @@
                     <h1 class="text-4xl lg:text-6xl font-black text-secondary leading-tight">{{ $car->name }}</h1>
                 </div>
                 <div class="flex flex-col md:items-end">
-                    <span class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">السعر نقدأً</span>
+                    <span class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">{{ __('السعر نقدأً') }}</span>
                     <div class="flex flex-col md:items-end gap-1">
                         @if ($car->discount_price)
                             <div class="flex items-center gap-2 mb-[-10px]">
                                 <span
                                     class="text-xl font-bold text-gray-400 line-through">{{ number_format($car->price) }}</span>
-                                <span class="text-sm text-red-500 font-bold bg-red-50 px-2 py-0.5 rounded">عرض خاص</span>
+                                <span class="text-sm text-red-500 font-bold bg-red-50 px-2 py-0.5 rounded">{{ __('عرض خاص') }}</span>
                             </div>
                             <div class="flex items-center gap-3">
                                 <span
@@ -67,7 +67,7 @@
                                 <span class="icon-saudi_riyal text-5xl text-primary font-bold"></span>
                             </div>
                         @endif
-                        <span class="text-sm text-gray-500 font-bold mt-2">أو قسط شهري يبدأ من <span class="text-primary">{{ number_format($car->starting_installment) }} ريال</span></span>
+                        <span class="text-sm text-gray-500 font-bold mt-2">{{ __('أو قسط شهري يبدأ من') }} <span class="text-primary">{{ number_format($car->starting_installment) }} {{ __('ريال') }}</span></span>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                             <div class="absolute top-6 left-6 z-20">
                                 <span
                                     class="px-6 py-2 rounded-full text-sm font-black shadow-lg {{ $car->availability_status == 'available' ? 'bg-green-500 text-white' : 'bg-red-500 text-white' }}">
-                                    {{ $car->availability_status == 'available' ? 'متوفرة الآن' : 'مباعة' }}
+                                    {{ $car->availability_status == 'available' ? __('متوفرة الآن') : __('مباعة') }}
                                 </span>
                             </div>
 
@@ -161,7 +161,7 @@
                                 class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-4 text-xl">
                                 <i class="ti-user"></i>
                             </div>
-                            <span class="text-xs text-gray-400 font-bold mb-1">المقاعد</span>
+                            <span class="text-xs text-gray-400 font-bold mb-1">{{ __('المقاعد') }}</span>
                             <span class="text-lg font-black text-secondary">{{ $car->seats ?? '5' }}</span>
                         </div>
                         <div
@@ -170,9 +170,9 @@
                                 class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-4 text-xl">
                                 <i class="ti-settings"></i>
                             </div>
-                            <span class="text-xs text-gray-400 font-bold mb-1">ناقل الحركة</span>
+                            <span class="text-xs text-gray-400 font-bold mb-1">{{ __('ناقل الحركة') }}</span>
                             <span
-                                class="text-lg font-black text-secondary">{{ $car->transmission == 'automatic' ? 'أتوماتيك' : 'يدوي' }}</span>
+                                class="text-lg font-black text-secondary">{{ $car->transmission == 'automatic' ? __('أتوماتيك') : __('يدوي') }}</span>
                         </div>
                         <div
                             class="bg-gray-50 p-6 rounded-3xl border border-gray-100 flex flex-col items-center text-center">
@@ -180,8 +180,8 @@
                                 class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-4 text-xl">
                                 <i class="ti-shine"></i>
                             </div>
-                            <span class="text-xs text-gray-400 font-bold mb-1">الوقود</span>
-                            <span class="text-lg font-black text-secondary">{{ $car->fuel_type ?? 'بنزين' }}</span>
+                            <span class="text-xs text-gray-400 font-bold mb-1">{{ __('الوقود') }}</span>
+                            <span class="text-lg font-black text-secondary">{{ $car->fuel_type ?? __('بنزين') }}</span>
                         </div>
                         <div
                             class="bg-gray-50 p-6 rounded-3xl border border-gray-100 flex flex-col items-center text-center">
@@ -189,7 +189,7 @@
                                 class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-4 text-xl">
                                 <i class="ti-calendar"></i>
                             </div>
-                            <span class="text-xs text-gray-400 font-bold mb-1">الموديل</span>
+                            <span class="text-xs text-gray-400 font-bold mb-1">{{ __('الموديل') }}</span>
                             <span class="text-lg font-black text-secondary">{{ $car->model_year }}</span>
                         </div>
                     </div>
@@ -200,7 +200,7 @@
                         <div>
                             <div class="flex items-center gap-4 mb-8">
                                 <div class="h-8 w-2 bg-primary rounded-full"></div>
-                                <h2 class="text-3xl font-black text-secondary">نظرة عامة</h2>
+                                <h2 class="text-3xl font-black text-secondary">{{ __('نظرة عامة') }}</h2>
                             </div>
                             <div
                                 class="bg-gray-50/50 p-8 rounded-[2.5rem] border border-gray-100 italic text-xl leading-relaxed text-gray-600">
@@ -212,25 +212,25 @@
                         <div>
                             <div class="flex items-center gap-4 mb-8">
                                 <div class="h-8 w-2 bg-primary rounded-full"></div>
-                                <h2 class="text-3xl font-black text-secondary">المواصفات الفنية</h2>
+                                <h2 class="text-3xl font-black text-secondary">{{ __('المواصفات الفنية') }}</h2>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div
                                     class="flex items-center justify-between p-5 rounded-2xl border border-gray-100 hover:bg-gray-50 transition-colors">
-                                    <span class="text-gray-400 font-bold">النوع</span>
+                                    <span class="text-gray-400 font-bold">{{ __('النوع') }}</span>
                                     <span class="text-secondary font-black">{{ $car->type }}</span>
                                 </div>
                                 <div
                                     class="flex items-center justify-between p-5 rounded-2xl border border-gray-100 hover:bg-gray-50 transition-colors">
-                                    <span class="text-gray-400 font-bold">الفئة</span>
-                                    <span class="text-secondary font-black">{{ $car->category ?? 'غير محددة' }}</span>
+                                    <span class="text-gray-400 font-bold">{{ __('الفئة') }}</span>
+                                    <span class="text-secondary font-black">{{ $car->category ?? __('غير محددة') }}</span>
                                 </div>
                                 <div
                                     class="flex items-center justify-between p-5 rounded-2xl border border-gray-100 hover:bg-gray-50 transition-colors">
-                                    <span class="text-gray-400 font-bold">الحالة</span>
+                                    <span class="text-gray-400 font-bold">{{ __('الحالة') }}</span>
                                     <span
                                         class="px-4 py-1 rounded-full text-xs font-black {{ $car->condition == 'new' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700' }}">
-                                        {{ $car->condition == 'new' ? 'جديدة' : 'مستعملة' }}
+                                        {{ $car->condition == 'new' ? __('جديدة') : __('مستعملة') }}
                                     </span>
                                 </div>
                                 @if ($car->specs)
@@ -250,7 +250,7 @@
                             <div>
                                 <div class="flex items-center gap-4 mb-8">
                                     <div class="h-8 w-2 bg-primary rounded-full"></div>
-                                    <h2 class="text-3xl font-black text-secondary">المعدات والميزات</h2>
+                                    <h2 class="text-3xl font-black text-secondary">{{ __('المعدات والميزات') }}</h2>
                                 </div>
                                 <div
                                     class="bg-secondary text-white p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group">
@@ -301,7 +301,7 @@
                         <div class="mt-24 pt-12 border-t border-gray-100">
                             <div class="flex items-center gap-4 mb-10">
                                 <div class="h-10 w-2 bg-primary rounded-full"></div>
-                                <h2 class="text-4xl font-black text-secondary">حاسبة التمويل</h2>
+                                <h2 class="text-4xl font-black text-secondary">{{ __('حاسبة التمويل') }}</h2>
                             </div>
 
                             <div class="bg-gradient-to-br from-white to-gray-50 rounded-[3rem] p-8 md:p-12 border border-gray-100 shadow-2xl overflow-hidden relative">
@@ -311,13 +311,13 @@
                                     <!-- Inputs -->
                                     <div class="space-y-8">
                                         <div>
-                                            <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">سعر السيارة (ريال)</label>
+                                            <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">{{ __('سعر السيارة (ريال)') }}</label>
                                             <input type="number" id="calc_car_price" value="{{ $car->discount_price ?? $car->price }}" class="w-full bg-white border-2 border-gray-100 rounded-2xl p-5 text-2xl font-black text-secondary focus:border-primary focus:outline-none transition-all" readonly>
                                         </div>
 
                                         <div>
                                             <label class="flex justify-between text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
-                                                <span>الدفعة الأولى (ريال)</span>
+                                                <span>{{ __('الدفعة الأولى (ريال)') }}</span>
                                                 <span id="down_payment_percent_label" class="text-primary">10%</span>
                                             </label>
                                             <div class="space-y-6">
@@ -328,8 +328,8 @@
 
                                         <div>
                                             <label class="flex justify-between text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
-                                                <span>مدة التمويل (أشهر)</span>
-                                                <span id="period_label" class="text-primary">60 شهر</span>
+                                                <span>{{ __('مدة التمويل (أشهر)') }}</span>
+                                                <span id="period_label" class="text-primary">60 {{ __('شهر') }}</span>
                                             </label>
                                             <div class="space-y-4">
                                                 <input type="range" id="period_range" min="12" max="60" step="12" value="60" class="w-full calc-range cursor-pointer">
@@ -344,7 +344,7 @@
                                         </div>
                                         
                                         <div>
-                                            <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">جهة التمويل</label>
+                                            <label class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">{{ __('جهة التمويل') }}</label>
                                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                                 @foreach($financeEntities as $entity)
                                                 <div class="finance-entity-card border-2 {{ $loop->first ? 'border-primary bg-primary/5 active' : 'border-gray-100 bg-white' }} rounded-2xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-primary transition-all group" 
@@ -368,26 +368,26 @@
                                          <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
                                          
                                          <div>
-                                             <h3 class="text-xl font-bold mb-10 opacity-70">القسط الشهري المتوقع</h3>
+                                             <h3 class="text-xl font-bold mb-10 opacity-70">{{ __('القسط الشهري المتوقع') }}</h3>
                                              <div class="flex items-baseline gap-4 mb-2">
                                                  <span id="monthly_payment_result" class="text-6xl md:text-7xl font-black text-primary">0</span>
-                                                 <span class="text-xl font-bold opacity-70">ريال / شهر</span>
+                                                 <span class="text-xl font-bold opacity-70">{{ __('ريال / شهر') }}</span>
                                              </div>
                                              <p class="text-[10px] opacity-50 leading-relaxed">* السعر يشمل ضريبة القيمة المضافة. القسط تقريبي وقد يتغير بناءً على تقييم الائتمان وسجل العميل.</p>
                                          </div>
 
                                          <div class="mt-12 space-y-4 pt-10 border-t border-white/10">
                                              <div class="flex justify-between items-center">
-                                                 <span class="opacity-70 font-bold">إجمالي الفوائد</span>
-                                                 <span id="total_interest_result" class="font-black text-lg text-primary">0 ريال</span>
+                                                 <span class="opacity-70 font-bold">{{ __('إجمالي الفوائد') }}</span>
+                                                 <span id="total_interest_result" class="font-black text-lg text-primary">0 {{ __('ريال') }}</span>
                                              </div>
                                              <div class="flex justify-between items-center">
-                                                 <span class="opacity-70 font-bold">إجمالي المبلغ</span>
-                                                 <span id="total_amount_result" class="font-black text-lg">0 ريال</span>
+                                                 <span class="opacity-70 font-bold">{{ __('إجمالي المبلغ') }}</span>
+                                                 <span id="total_amount_result" class="font-black text-lg">0 {{ __('ريال') }}</span>
                                              </div>
                                              
                                              <a href="{{ route('cars.booking', [$car->slug, 'type' => 'finance']) }}" class="block w-full bg-primary text-white text-center py-6 rounded-2xl font-black text-xl hover:bg-opacity-90 transition-all mt-8 shadow-lg shadow-primary/20">
-                                                 اطلب تمويل بهذا القسط
+                                                 {{ __('اطلب تمويل بهذا القسط') }}
                                              </a>
                                          </div>
                                     </div>
@@ -405,11 +405,10 @@
                             <!-- Highlighting badge -->
                             <div
                                 class="absolute top-0 right-0 py-2 px-8 bg-primary rounded-bl-[1.5rem] text-white text-[10px] font-black uppercase tracking-widest">
-                                أفضل صفقة
+                                {{ __('أفضل صفقة') }}
                             </div>
                             <div class="mb-10 mt-4">
-                                <h4 class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-4">هل أنت جاهز
-                                    للقيادة؟</h4>
+                                <h4 class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-4">{{ __('هل أنت جاهز للقيادة؟') }}</h4>
                                 <div class="space-y-4">
                                     <a href="{{ route('cars.booking', [$car->slug, 'type' => 'cash']) }}"
                                         class="flex items-center justify-between w-full p-6 bg-secondary text-white rounded-2xl font-black hover:bg-black transition-all group">
@@ -417,7 +416,7 @@
                                             <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
                                                 <i class="ti-wallet text-xl"></i>
                                             </div>
-                                            احجز نقدأً (كاش)
+                                            {{ __('احجز نقدأً (كاش)') }}
                                         </span>
                                         <i
                                             class="ti-arrow-left opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all"></i>
@@ -429,31 +428,31 @@
                                             <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
                                                 <i class="ti-medall text-xl"></i>
                                             </div>
-                                            اطلب تمويل الآن
+                                            {{ __('اطلب تمويل الآن') }}
                                         </span>
                                     </a>
                                     
                                     <a href="{{ route('cars.compare', ['car_id' => $car->id]) }}"
                                         class="flex items-center justify-center w-full p-6 border-2 border-gray-100 text-gray-400 rounded-2xl font-black hover:border-primary hover:text-primary transition-all group">
                                         <i class="ti-layers-alt text-xl ml-3"></i>
-                                        <span>مقارنة هذه السيارة</span>
+                                        <span>{{ __('مقارنة هذه السيارة') }}</span>
                                     </a>
                                     @livewire('car-favorite-button', ['carId' => $car->id, 'style' => 'large'])
                                 </div>
                             </div>
 
                             <div class="space-y-4 pt-10 border-t border-gray-100">
-                                <p class="text-sm text-gray-500 text-center italic">تواصل معنا عبر القنوات السريعة:</p>
+                                <p class="text-sm text-gray-500 text-center italic">{{ __('تواصل معنا عبر القنوات السريعة:') }}</p>
                                 <div class="flex gap-4">
                                     <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings?->whatsapp ?? '966500000000') }}"
                                         class="flex-1 flex items-center justify-center gap-3 py-4 rounded-xl border-2 border-green-500/20 text-[#25D366] font-bold hover:bg-green-500 hover:text-white transition-all">
                                         <i class="fa-brands fa-whatsapp text-xl"></i>
-                                        واتساب
+                                        {{ __('واتساب') }}
                                     </a>
                                     <a href="tel:{{ $settings?->phone ?? '+966500000000' }}"
                                         class="flex-1 flex items-center justify-center gap-3 py-4 rounded-xl border-2 border-blue-500/20 text-blue-500 font-bold hover:bg-blue-500 hover:text-white transition-all">
                                         <i class="ti-mobile text-xl"></i>
-                                        اتصال
+                                        {{ __('اتصال') }}
                                     </a>
                                 </div>
                             </div>
@@ -466,7 +465,7 @@
                                 <i class="ti-shield"></i>
                             </div>
                             <div>
-                                <h6 class="text-secondary font-black text-sm">ضمان الجودة والثقة</h6>
+                                <h6 class="text-secondary font-black text-sm">{{ __('ضمان الجودة والثقة') }}</h6>
                                 <p class="text-xs text-gray-400">جميع سياراتنا تخضع لفحص شامل بأدق المعايير العالمية.</p>
                             </div>
                         </div>
