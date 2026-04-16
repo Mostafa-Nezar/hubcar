@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'الحجزات')
+@section('title', __('حجوزاتي'))
 
 @section('content')
     <section class="py-12 md:py-24 bg-gray-50 min-h-screen">
@@ -9,11 +9,11 @@
                 <!-- Header -->
                 <div class="mb-8 md:mb-12">
                     <a href="{{ route('customer.dashboard') }}"
-                        class="text-primary font-bold mb-4 flex items-center gap-2 w-fit hover:translate-x-1 transition-transform text-sm">
-                        <i class="ti-arrow-right"></i> العودة للوحة التحكم
+                        class="text-primary font-black uppercase tracking-widest mb-6 flex items-center gap-3 w-fit hover:-translate-x-2 transition-transform text-[10px]">
+                        <i class="ti-arrow-right"></i> {{ __('العودة للوحة التحكم') }}
                     </a>
-                    <h1 class="text-3xl md:text-4xl font-black text-secondary mb-2">حجوزاتي</h1>
-                    <p class="text-gray-500 text-base">تتبع حالة طلبات الحجز الخاصة بك</p>
+                    <h1 class="text-3xl md:text-5xl font-black text-secondary mb-3">{{ __('حجوزاتي') }}</h1>
+                    <p class="text-gray-400 text-base md:text-lg italic">{{ __('تتبع حالة طلبات الحجز الخاصة بك') }}</p>
                 </div>
 
                 <!-- Bookings List -->
@@ -32,47 +32,47 @@
                                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
                                     <!-- Car Info -->
                                     <div class="flex items-start gap-4 flex-1">
-                                        <div class="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-primary text-2xl group-hover:bg-primary/10 transition-colors shrink-0">
+                                        <div class="w-16 h-16 bg-gray-50 rounded-[1.25rem] flex items-center justify-center text-primary text-2xl group-hover:bg-primary/10 transition-colors shrink-0 shadow-inner">
                                             <i class="ti-car"></i>
                                         </div>
                                         <div>
-                                            <p class="text-[10px] text-gray-400 font-bold uppercase mb-1 tracking-widest">تفاصيل السيارة</p>
-                                            <h3 class="text-lg md:text-xl font-black text-secondary">{{ $booking->brand_name }} {{ $booking->car_name_manual }}</h3>
-                                            <p class="text-gray-500 text-xs mt-1">رقم الطلب: #{{ $booking->id }}</p>
+                                            <p class="text-[10px] text-gray-400 font-black uppercase mb-1 tracking-widest">{{ __('تفاصيل السيارة') }}</p>
+                                            <h3 class="text-lg md:text-2xl font-black text-secondary group-hover:text-primary transition-colors leading-tight">{{ $booking->brand_name }} {{ $booking->car_name_manual }}</h3>
+                                            <p class="text-gray-400 text-xs mt-1 font-bold">{{ __('رقم الطلب') }}: #{{ $booking->id }}</p>
                                         </div>
                                     </div>
 
                                     <!-- Date & Details -->
-                                    <div class="flex flex-row md:flex-col justify-between md:text-center px-4 py-3 md:py-0 bg-gray-50 md:bg-transparent rounded-2xl border border-gray-100 md:border-0">
+                                    <div class="flex flex-row md:flex-col justify-between md:text-center px-6 py-4 md:py-0 bg-gray-50 md:bg-transparent rounded-2xl border border-gray-100 md:border-0">
                                         <div>
-                                            <p class="text-[10px] text-gray-400 font-bold uppercase mb-0 md:mb-1">تاريخ الطلب</p>
-                                            <p class="text-sm font-bold text-secondary">{{ $booking->request_date->format('d M, Y') }}</p>
+                                            <p class="text-[10px] text-gray-400 font-black uppercase mb-1 tracking-widest">{{ __('تاريخ الطلب') }}</p>
+                                            <p class="text-sm md:text-base font-black text-secondary">{{ $booking->request_date->format('d M, Y') }}</p>
                                         </div>
-                                        <div class="md:mt-2">
-                                            <p class="text-[10px] text-gray-400 font-bold uppercase mb-0 md:mb-1">التوقيت</p>
-                                            <p class="text-xs font-medium text-gray-600">{{ $booking->request_date->format('H:i A') }}</p>
+                                        <div class="md:mt-3">
+                                            <p class="text-[10px] text-gray-400 font-black uppercase mb-1 tracking-widest">{{ __('التوقيت') }}</p>
+                                            <p class="text-xs font-bold text-gray-500">{{ $booking->request_date->format('H:i A') }}</p>
                                         </div>
                                     </div>
 
                                     <!-- Status -->
                                     <div class="md:w-32">
-                                        <span class="w-full text-center px-4 py-2 rounded-xl text-[10px] font-black uppercase inline-block shadow-sm
+                                        <span class="w-full text-center px-5 py-2.5 rounded-xl text-[10px] font-black uppercase inline-block shadow-sm tracking-widest
                                             {{ $booking->status === 'New' ? 'bg-blue-50 text-blue-700' : '' }}
                                             {{ $booking->status === 'Contacted' ? 'bg-orange-50 text-orange-700' : '' }}
                                             {{ $booking->status === 'Interested' ? 'bg-green-50 text-green-700' : '' }}
                                             {{ $booking->status === 'Completed' ? 'bg-purple-50 text-purple-700' : '' }}
                                             {{ $booking->status === 'Not Interested' ? 'bg-red-50 text-red-700' : '' }}
                                         ">
-                                            {{ $booking->status }}
+                                            {{ __($booking->status) }}
                                         </span>
                                     </div>
 
                                     <!-- Action -->
                                     <div class="md:text-left">
                                         <a href="{{ route('customer.booking-detail', ['id' => $booking->id, 'type' => $booking->booking_type]) }}"
-                                            class="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-secondary text-white font-bold px-6 py-3 rounded-2xl hover:bg-gray-800 transition-all shadow-lg shadow-secondary/10 group-hover:shadow-secondary/20 active:scale-[0.98]">
-                                            <span>التفاصيل</span>
-                                            <i class="ti-arrow-left text-sm"></i>
+                                            class="w-full md:w-auto inline-flex items-center justify-center gap-3 bg-secondary text-white font-black px-8 py-4 rounded-2xl hover:bg-black transition-all shadow-xl shadow-secondary/10 group-hover:shadow-secondary/30 active:scale-[0.98] uppercase tracking-widest text-[10px]">
+                                            <span>{{ __('التفاصيل') }}</span>
+                                            <i class="ti-arrow-left text-xs"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -87,16 +87,19 @@
                         </div>
                     @endif
                 @else
-                    <div class="bg-white rounded-[2rem] p-12 shadow-sm border border-gray-100 text-center">
-                        <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-300">
-                             <i class="ti-package text-5xl"></i>
+                    <div class="bg-white rounded-[3rem] p-20 shadow-sm border border-gray-100 text-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-transparent pointer-events-none"></div>
+                        <div class="relative z-10">
+                            <div class="w-24 h-24 bg-white shadow-inner rounded-full flex items-center justify-center mx-auto mb-8 text-gray-200">
+                                 <i class="ti-package text-5xl"></i>
+                            </div>
+                            <h2 class="text-2xl md:text-3xl font-black text-secondary mb-3">{{ __('لا توجد حجوزات') }}</h2>
+                            <p class="text-gray-400 font-bold text-sm mb-10">{{ __('لم تقم بإجراء أي طلب لغاية الآن.') }}</p>
+                            <a href="{{ route('cars.index') }}"
+                                class="inline-flex items-center gap-4 bg-primary text-white font-black px-10 py-5 rounded-2xl hover:scale-105 transition-all shadow-2xl shadow-primary/25">
+                                <i class="ti-car text-xl"></i> {{ __('اذهب لاختيار سيارتك') }}
+                            </a>
                         </div>
-                        <h2 class="text-xl font-bold text-secondary mb-2">لا توجد حجوزات</h2>
-                        <p class="text-gray-500 text-sm mb-8">لم تقم بإجراء أي طلب لغاية الآن.</p>
-                        <a href="{{ route('cars.index') }}"
-                            class="inline-flex items-center gap-3 bg-primary text-white font-black px-8 py-4 rounded-2xl hover:scale-105 transition-all shadow-lg shadow-primary/20">
-                            🚗 اذهب لاختيار سيارتك
-                        </a>
                     </div>
                 @endif
             </div>

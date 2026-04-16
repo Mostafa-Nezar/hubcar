@@ -241,7 +241,7 @@
                     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    this.time = `${days}ي ${hours}س ${minutes}د ${seconds}ث`;
+                    this.time = `${days}{{ __('ي') }} ${hours}{{ __('س') }} ${minutes}{{ __('د') }} ${seconds}{{ __('ث') }}`;
                 }
             };
         };
