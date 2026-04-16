@@ -166,7 +166,7 @@
 
                 <!-- Mobile Menu Button -->
                 <button @click="mobileMenu = true"
-                    class="md:hidden p-2 text-gray-600 hover:text-primary font-medium transition-colors">
+                    class="lg:hidden p-2 text-gray-600 hover:text-primary font-medium transition-colors">
                     <i class="fa-solid fa-bars text-2xl"></i>
                 </button>
             </div>
@@ -203,7 +203,8 @@
                 </button>
             </div>
 
-            <nav class="flex-grow p-6 space-y-2 overflow-y-auto">
+            <div class="flex-grow overflow-y-auto">
+                <nav class="p-6 space-y-2">
                 <a href="{{ route('home') }}"
                     class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('home') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-home text-lg"></i>
@@ -245,6 +246,23 @@
                     <span>{{ __('Contact Us') }}</span>
                 </a>
             </nav>
+
+            <!-- Language Switcher (Mobile) -->
+            <div class="p-6 border-t border-gray-100">
+                <p class="text-xs font-semibold text-gray-400 uppercase mb-4 tracking-wider">{{ __('Language') }}</p>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('lang.switch', 'ar') }}"
+                        class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border {{ app()->getLocale() == 'ar' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 text-gray-600' }} transition-all">
+                        <span>🇸🇦</span>
+                        <span class="text-sm font-medium">{{ __('Arabic') }}</span>
+                    </a>
+                    <a href="{{ route('lang.switch', 'en') }}"
+                        class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border {{ app()->getLocale() == 'en' ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 text-gray-600' }} transition-all">
+                        <span>🇺🇸</span>
+                        <span class="text-sm font-medium">{{ __('English') }}</span>
+                    </a>
+                </div>
+            </div>
 
             <div class="p-6 border-t border-gray-100 space-y-4 bg-gray-50/50">
                 @auth('customer')
@@ -293,6 +311,7 @@
                     <i class="ti-bolt-alt text-lg"></i>
                     <span>{{ __('Quick Order') }}</span>
                 </a>
+                </div>
             </div>
         </div>
     </div>
