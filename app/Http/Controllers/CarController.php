@@ -106,7 +106,7 @@ class CarController extends Controller
 
         // Always require name and phone, regardless of login status
         $validated = $request->validate([
-            'client_name' => ['required', 'string', 'max:255', 'regex:/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u'],
+            'client_name' => ['required', 'string', 'max:255', 'regex:/^[\p{Arabic}a-zA-Z]+(?:\s+[\p{Arabic}a-zA-Z]+){2,5}$/u'],
             'phone' => ['required', 'string', 'max:20', 'regex:/^(?:\+?966|00966|0)?5[0-9]{8}$/'],
             'email' => 'nullable|email|max:255',
             'city' => 'required|string|max:100',
@@ -163,7 +163,7 @@ class CarController extends Controller
         // Always require name and phone, regardless of login status
         $validated = $request->validate([
             'car_id' => 'required|exists:cars,id',
-            'client_name' => ['required', 'string', 'max:255', 'regex:/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u'],
+            'client_name' => ['required', 'string', 'max:255', 'regex:/^[\p{Arabic}a-zA-Z]+(?:\s+[\p{Arabic}a-zA-Z]+){2,5}$/u'],
             'phone' => ['required', 'string', 'max:20', 'regex:/^(?:\+?966|00966|0)?5[0-9]{8}$/'],
             'email' => 'nullable|email|max:255',
             'city' => 'required|string|max:100',

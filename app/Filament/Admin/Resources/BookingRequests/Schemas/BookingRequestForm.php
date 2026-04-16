@@ -26,7 +26,7 @@ class BookingRequestForm
                                 TextInput::make('client_name')
                                     ->label('اسم العميل')
                                     // 3 to 6 Arabic name parts separated by spaces (Saudi ID style)
-                                    ->regex('/^\p{Arabic}+(?:\s+\p{Arabic}+){2,5}$/u')
+                                    ->regex('/^[\p{Arabic}a-zA-Z]+(?:\s+[\p{Arabic}a-zA-Z]+){2,5}$/u')
                                     ->helperText('مثال: أحمد محمد علي (٣ أسماء على الأقل) حتى ٦ أسماء')
                                     ->required(),
                                 TextInput::make('phone')
