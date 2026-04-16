@@ -165,30 +165,61 @@
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const STORAGE_KEY = 'hubcar_compare_ids';
             const selects = [];
             const urlParams = new URLSearchParams(window.location.search);
             const initialCarId = urlParams.get('car_id');
+            let isInitializing = true;
+
+            // Load saved IDs from LocalStorage
+            let savedIds = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            
+            // Clean up savedIds to ensure they are strings and valid
+            savedIds = savedIds.map(id => String(id)).filter(id => id && id !== 'null' && id !== 'undefined');
+
+            // If a car_id is provided in the URL, process it
+            if (initialCarId) {
+                const idStr = String(initialCarId);
+                // Move to beginning if exists, or add to beginning
+                const existingIndex = savedIds.indexOf(idStr);
+                if (existingIndex !== -1) {
+                    savedIds.splice(existingIndex, 1);
+                }
+                savedIds.unshift(idStr);
+                savedIds = savedIds.slice(0, 3);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(savedIds));
+                
+                // Clean URL without refresh
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
 
             // Initialize TomSelect for all 3 selectors
             for (let i = 1; i <= 3; i++) {
                 const ts = new TomSelect(`#car-select-${i}`, {
                     create: false,
-                    onChange: () => updateComparison()
+                    onChange: () => {
+                        if (!isInitializing) updateComparison();
+                    }
                 });
                 selects.push(ts);
             }
 
-            // Set initial car from URL if exists
-            if (initialCarId) {
-                setTimeout(() => {
-                    selects[0].setValue(initialCarId);
-                    updateComparison(); // Explicitly trigger
-                }, 100);
-            }
+            // Populate selectors with saved IDs
+            savedIds.forEach((id, index) => {
+                if (index < 3 && id) {
+                    selects[index].setValue(id);
+                }
+            });
+
+            isInitializing = false;
+            updateComparison();
 
             async function updateComparison() {
                 const ids = selects.map(s => s.getValue()).filter(v => v !== '');
                 
+                // Save current selection to LocalStorage
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+
                 const container = document.getElementById('comparisonContainer');
                 const emptyState = document.getElementById('emptyState');
                 const loading = document.getElementById('loadingOverlay');

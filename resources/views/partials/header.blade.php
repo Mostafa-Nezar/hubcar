@@ -8,7 +8,7 @@
                         <img src="{{ asset('storage/' . $settings->logo) }}" alt="{{ $settings->site_name }}"
                             class="h-12 w-auto">
                     @else
-                        <span class="text-2xl font-bold text-primary">{{ $settings?->site_name ?? 'RENAX' }}</span>
+                        <span class="text-2xl text-primary">{{ $settings?->site_name ?? 'RENAX' }}</span>
                     @endif
                 </a>
             </div>
@@ -16,18 +16,18 @@
             <!-- Main Menu (Desktop) -->
             <nav class="hidden lg:flex items-center gap-8">
                 <a href="{{ route('home') }}"
-                    class="{{ request()->routeIs('home') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-bold transition-colors">الرئيسية</a>
+                    class="{{ request()->routeIs('home') ? 'text-primary' : 'text-gray-600' }} hover:text-primary transition-colors">الرئيسية</a>
                 <a href="{{ route('cars.index') }}"
-                    class="{{ request()->routeIs('cars.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-bold transition-colors">السيارات</a>
+                    class="{{ request()->routeIs('cars.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary transition-colors">السيارات</a>
                 <a href="{{ route('offers.index') }}"
-                    class="{{ request()->routeIs('offers.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-bold transition-colors">العروض</a>
+                    class="{{ request()->routeIs('offers.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary transition-colors">العروض</a>
                 <a href="{{ route('blog.index') }}"
-                    class="{{ request()->routeIs('blog.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary font-bold transition-colors">المدونة</a>
+                    class="{{ request()->routeIs('blog.index') ? 'text-primary' : 'text-gray-600' }} hover:text-primary transition-colors">المدونة</a>
                 
                 <!-- More Dropdown -->
                 <div class="relative" x-data="{ open: false }">
                     <button @mouseenter="open = true" @mouseleave="open = false" @click="open = !open"
-                        class="flex items-center gap-2 text-gray-600 hover:text-primary font-bold transition-colors">
+                        class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors">
                         المزيد
                         <i class="ti-angle-down text-[10px] transition-transform" :class="{ 'rotate-180': open }"></i>
                     </button>
@@ -169,7 +169,7 @@
                         <img src="{{ asset('storage/' . $settings->logo) }}" alt="{{ $settings->site_name }}"
                             class="h-10 w-auto">
                     @else
-                        <span class="text-xl font-bold text-primary">{{ $settings?->site_name ?? 'RENAX' }}</span>
+                        <span class="text-xl text-primary">{{ $settings?->site_name ?? 'RENAX' }}</span>
                     @endif
                 </a>
                 <button @click="mobileMenu = false" class="p-2 text-gray-400 hover:text-secondary transition-colors">
@@ -179,42 +179,42 @@
 
             <nav class="flex-grow p-6 space-y-2 overflow-y-auto">
                 <a href="{{ route('home') }}"
-                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('home') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('home') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-home text-lg"></i>
                     <span>الرئيسية</span>
                 </a>
                 <a href="{{ route('cars.index') }}"
-                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('cars.index') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('cars.index') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-car text-lg"></i>
                     <span>السيارات</span>
                 </a>
                 <a href="{{ route('offers.index') }}"
-                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('offers.index') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('offers.index') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-gift text-lg"></i>
                     <span>العروض</span>
                 </a>
                 <a href="{{ route('blog.index') }}"
-                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('blog.index') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('blog.index') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-layout-grid2 text-lg"></i>
                     <span>المدونة</span>
                 </a>
                 <a href="{{ route('banks') }}"
-                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('banks') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('banks') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-wallet text-lg"></i>
                     <span>جهات التمويل</span>
                 </a>
                 <a href="{{ route('faq') }}"
-                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('faq') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('faq') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-help-alt text-lg"></i>
                     <span>الأسئلة الشائعة</span>
                 </a>
                 <a href="{{ route('about') }}"
-                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('about') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('about') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-info-alt text-lg"></i>
                     <span>من نحن</span>
                 </a>
                 <a href="{{ route('contact') }}"
-                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('contact') ? 'bg-primary text-white shadow-lg shadow-primary/20 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
+                    class="flex items-center gap-4 p-4 rounded-2xl transition-all {{ request()->routeIs('contact') ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-gray-600 hover:bg-gray-50 font-medium' }}">
                     <i class="ti-headphone-alt text-lg"></i>
                     <span>اتصل بنا</span>
                 </a>
@@ -228,7 +228,7 @@
                                 <i class="ti-user text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-secondary text-sm">{{ Auth::guard('customer')->user()->name }}</h4>
+                                <h4 class= text-secondary text-sm">{{ Auth::guard('customer')->user()->name }}</h4>
                                 <p class="text-xs text-gray-500">مرحباً بك مجدداً</p>
                             </div>
                         </div>
@@ -252,14 +252,14 @@
                     </div>
                 @else
                     <a href="{{ route('login') }}"
-                        class="flex items-center justify-center gap-3 w-full bg-secondary text-white py-4 rounded-2xl font-bold shadow-lg shadow-secondary/20 hover:bg-gray-800 transition-all">
+                        class="flex items-center justify-center gap-3 w-full bg-secondary text-white py-4 rounded-2xl shadow-lg shadow-secondary/20 hover:bg-gray-800 transition-all">
                         <i class="ti-user text-lg"></i>
                         <span>تسجيل الدخول</span>
                     </a>
                 @endauth('customer')
 
                 <a href="{{ route('cars.quick-booking') }}"
-                    class="flex items-center justify-center gap-3 w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all">
+                    class="flex items-center justify-center gap-3 w-full bg-primary text-white py-4 rounded-2xl shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all">
                     <i class="ti-bolt-alt text-lg"></i>
                     <span>طلب حجز سريع</span>
                 </a>
