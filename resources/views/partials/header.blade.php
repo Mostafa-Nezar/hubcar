@@ -166,7 +166,7 @@
 
                 <!-- Mobile Menu Button -->
                 <button @click="mobileMenu = true"
-                    class="lg:hidden p-2 text-gray-600 hover:text-primary font-medium transition-colors">
+                    class="md:hidden p-2 text-gray-600 hover:text-primary font-medium transition-colors">
                     <i class="fa-solid fa-bars text-2xl"></i>
                 </button>
             </div>
